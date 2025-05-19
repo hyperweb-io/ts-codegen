@@ -1,0 +1,52 @@
+name: Docs
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "docs/**"
+      - ".github/workflows/docs.yaml"
+
+env:
+  # Repository specific variables
+  REPO_NAME: ts-codegen
+  DOCS_DEST_PATH: pages/ts-codegen
+
+jobs:
+  docs-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          enable-global-cache: true
+
+      - name: Clone docs repository
+        run: git clone https://x-access-token:${{ secrets.GH_HYPERWEB_PAT }}@github.com/hyperweb-io/docs.hyperweb.io.git external-docs
+
+      - name: Sync the docs and build
+        run: |
+          rsync -av --delete ./docs/ ./external-docs/${{ env.DOCS_DEST_PATH }}/
+          cd external-docs
+          yarn install
+          yarn export
+
+      - name: Git push
+        run: |
+          cd external-docs
+          git config user.name 'GitHub Action'
+          git config user.email 'action@github.com'
+          git add .
+          if git diff --cached --quiet; then
+              echo "No changes to commit."
+          else
+              git commit -m "Automated: Update ${{ env.REPO_NAME }} documentation"
+              git push
+          fi
+
