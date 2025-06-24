@@ -3,7 +3,7 @@ import {
   ContractInfo,
   RenderContext,
   RenderContextBase,
-  RenderOptions
+  RenderOptions,
 } from '@cosmwasm/ts-codegen-ast';
 import { pascal } from 'case';
 
@@ -68,8 +68,8 @@ export class TypesPlugin extends BuilderPluginBase<RenderOptions> {
       {
         type: 'type',
         localname,
-        body
-      }
+        body,
+      },
     ];
   }
 }

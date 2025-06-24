@@ -8,13 +8,11 @@ it('options undefined', async () => {
   const outPath = OUTPUT_DIR + '/vectis/factory-opt';
   const schemaDir = FIXTURE_DIR + '/vectis/factory/';
   const builder = new TSBuilder({
-    contracts: [
-      schemaDir
-    ],
+    contracts: [schemaDir],
     outPath,
-    options: undefined
+    options: undefined,
   });
-    // @ts-ignore
+  // @ts-ignore
   delete builder.contracts;
   // @ts-ignore
   delete builder.outPath;
@@ -25,23 +23,21 @@ it('options tsClient.enabled', async () => {
   const outPath = OUTPUT_DIR + '/vectis/factory-opt';
   const schemaDir = FIXTURE_DIR + '/vectis/factory/';
   const builder = new TSBuilder({
-    contracts: [
-      schemaDir
-    ],
+    contracts: [schemaDir],
     outPath,
     options: {
       types: {
-        enabled: true
+        enabled: true,
       },
       client: {
-        enabled: true
+        enabled: true,
       },
       reactQuery: {
-        enabled: true
-      }
-    }
+        enabled: true,
+      },
+    },
   });
-    // @ts-ignore
+  // @ts-ignore
   delete builder.contracts;
   // @ts-ignore
   delete builder.outPath;
@@ -59,21 +55,21 @@ it('builder invoke', async () => {
       s('/daodao/cw-code-id-registry'),
       {
         name: 'CwSingle',
-        dir: s('/daodao/cw-proposal-single')
-      }
+        dir: s('/daodao/cw-proposal-single'),
+      },
     ],
     outPath,
     options: {
       types: {
-        enabled: true
+        enabled: true,
       },
       client: {
-        enabled: true
+        enabled: true,
       },
       reactQuery: {
-        enabled: true
-      }
-    }
+        enabled: true,
+      },
+    },
   });
   await builder.build();
 });
@@ -89,39 +85,39 @@ it('builder default', async () => {
       s('/daodao/cw-code-id-registry'),
       {
         name: 'CwSingle',
-        dir: s('/daodao/cw-proposal-single')
-      }
+        dir: s('/daodao/cw-proposal-single'),
+      },
     ],
     outPath,
     options: {
       bundle: {
         bundleFile: 'index.ts',
-        scope: 'smart.contracts'
+        scope: 'smart.contracts',
       },
       useShorthandCtor: false,
       types: {
-        enabled: true
+        enabled: true,
       },
       client: {
         enabled: true,
-        execExtendsQuery: true
+        execExtendsQuery: true,
       },
       reactQuery: {
-        enabled: true
+        enabled: true,
       },
       recoil: {
-        enabled: true
+        enabled: true,
       },
       messageComposer: {
-        enabled: true
+        enabled: true,
       },
       messageBuilder: {
-        enabled: true
+        enabled: true,
       },
       useContractsHook: {
         enabled: true,
-      }
-    }
+      },
+    },
   });
 });
 
@@ -136,35 +132,35 @@ it('builder no extends', async () => {
       s('/daodao/cw-code-id-registry'),
       {
         name: 'CwSingle',
-        dir: s('/daodao/cw-proposal-single')
-      }
+        dir: s('/daodao/cw-proposal-single'),
+      },
     ],
     outPath,
     options: {
       bundle: {
         bundleFile: 'index.ts',
-        scope: 'smart.contracts'
+        scope: 'smart.contracts',
       },
       types: {
-        enabled: true
+        enabled: true,
       },
       client: {
         enabled: true,
-        execExtendsQuery: false
+        execExtendsQuery: false,
       },
       reactQuery: {
-        enabled: true
+        enabled: true,
       },
       recoil: {
-        enabled: true
+        enabled: true,
       },
       messageComposer: {
-        enabled: true
+        enabled: true,
       },
       messageBuilder: {
-        enabled: true
-      }
-    }
+        enabled: true,
+      },
+    },
   });
 });
 
@@ -180,36 +176,35 @@ it('builder set bundler path', async () => {
       s('/daodao/cw-code-id-registry'),
       {
         name: 'CwSingle',
-        dir: s('/daodao/cw-proposal-single')
-      }
+        dir: s('/daodao/cw-proposal-single'),
+      },
     ],
     outPath,
     options: {
       bundle: {
         bundlePath: bundlerPath,
         bundleFile: 'index.ts',
-        scope: 'smart.contracts'
+        scope: 'smart.contracts',
       },
       types: {
-        enabled: true
+        enabled: true,
       },
       client: {
         enabled: true,
-        execExtendsQuery: false
+        execExtendsQuery: false,
       },
       reactQuery: {
-        enabled: true
+        enabled: true,
       },
       recoil: {
-        enabled: true
+        enabled: true,
       },
       messageComposer: {
-        enabled: true
+        enabled: true,
       },
       useContractsHook: {
         enabled: true,
-      }
-    }
+      },
+    },
   });
 });
-

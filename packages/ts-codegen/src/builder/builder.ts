@@ -1,6 +1,11 @@
 import generate from '@babel/generator';
 import * as t from '@babel/types';
-import { BuilderContext,ContractInfo, defaultOptions, RenderOptions } from '@cosmwasm/ts-codegen-ast';
+import {
+  BuilderContext,
+  ContractInfo,
+  defaultOptions,
+  RenderOptions,
+} from '@cosmwasm/ts-codegen-ast';
 import { pascal } from 'case';
 import deepmerge from 'deepmerge';
 import { writeFileSync } from 'fs';
@@ -27,49 +32,56 @@ const defaultOpts: TSBuilderOptions = {
   bundle: {
     enabled: true,
     scope: 'contracts',
-    bundleFile: 'bundle.ts'
+    bundleFile: 'bundle.ts',
   },
-  useShorthandCtor: true
+  useShorthandCtor: true,
 };
 
 export interface TSBuilderInput {
-    contracts: Array<ContractFile | string>;
-    outPath: string;
-    options?: TSBuilderOptions;
-    plugins?: IBuilderPlugin[];
-};
+  contracts: Array<ContractFile | string>;
+  outPath: string;
+  options?: TSBuilderOptions;
+  plugins?: IBuilderPlugin[];
+}
 
 export interface BundleOptions {
-    enabled?: boolean;
-    scope?: string;
-    bundleFile?: string;
-    bundlePath?: string;
-};
+  enabled?: boolean;
+  scope?: string;
+  bundleFile?: string;
+  bundlePath?: string;
+}
 
 export type TSBuilderOptions = {
-    bundle?: BundleOptions;
-    /**
-     * Enable using shorthand constructor.
-     * Default: true
-     */
-    useShorthandCtor?: boolean;
+  bundle?: BundleOptions;
+  /**
+   * Enable using shorthand constructor.
+   * Default: true
+   */
+  useShorthandCtor?: boolean;
 } & RenderOptions;
 
-export type BuilderFileType = 'type' | 'client' | 'recoil' | 'react-query' | 'message-composer' | 'message-builder' | 'plugin';
+export type BuilderFileType =
+  | 'type'
+  | 'client'
+  | 'recoil'
+  | 'react-query'
+  | 'message-composer'
+  | 'message-builder'
+  | 'plugin';
 
 export interface BuilderFile {
-    type: BuilderFileType;
-    pluginType?: string;
-    contract: string;
-    //filename only: Factory.client.ts
-    localname: string;
-    //full path: contracts/Factory.client.ts
-    filename: string;
-};
+  type: BuilderFileType;
+  pluginType?: string;
+  contract: string;
+  //filename only: Factory.client.ts
+  localname: string;
+  //full path: contracts/Factory.client.ts
+  filename: string;
+}
 
 export interface ContractFile {
-    name: string;
-    dir: string;
+  name: string;
+  dir: string;
 }
 
 function getContract(contractOpt: ContractFile | string): ContractFile {
@@ -78,12 +90,12 @@ function getContract(contractOpt: ContractFile | string): ContractFile {
     const contractName = pascal(name);
     return {
       name: contractName,
-      dir: contractOpt
+      dir: contractOpt,
     };
   }
   return {
     name: pascal(contractOpt.name),
-    dir: contractOpt.dir
+    dir: contractOpt.dir,
   };
 }
 
@@ -113,10 +125,7 @@ export class TSBuilder {
     this.contracts = contracts;
     this.outPath = outPath;
     this.options = deepmerge(
-      deepmerge(
-        defaultOptions,
-        defaultOpts
-      ),
+      deepmerge(defaultOptions, defaultOpts),
       options ?? {}
     );
 
@@ -126,7 +135,7 @@ export class TSBuilder {
       this.plugins.push(...plugins);
     }
 
-    this.plugins.forEach(plugin => plugin.setBuilder(this));
+    this.plugins.forEach((plugin) => plugin.setBuilder(this));
   }
 
   async build() {
@@ -140,7 +149,7 @@ export class TSBuilder {
       const contract = getContract(contractOpt);
       //resolve contract schema.
       const contractInfo = await readSchemas({
-        schemaDir: contract.dir
+        schemaDir: contract.dir,
       });
 
       //lifecycle and plugins.
@@ -154,9 +163,7 @@ export class TSBuilder {
     contractInfo?: ContractInfo
   ) {
     const plugins = lifecycle
-      ? this.plugins.filter((p) =>
-        p.lifecycle === lifecycle
-      )
+      ? this.plugins.filter((p) => p.lifecycle === lifecycle)
       : this.plugins;
 
     for (const plugin of plugins) {
@@ -174,12 +181,15 @@ export class TSBuilder {
   private async after() {
     await this.render('after');
 
-    const helpers = createHelpers({
-      outPath: this.outPath,
-      contracts: this.contracts,
-      options: this.options,
-      plugins: this.plugins,
-    }, this.builderContext);
+    const helpers = createHelpers(
+      {
+        outPath: this.outPath,
+        contracts: this.contracts,
+        options: this.options,
+        plugins: this.plugins,
+      },
+      this.builderContext
+    );
 
     if (helpers && helpers.length) {
       this.files.push(...helpers);
@@ -199,9 +209,13 @@ export class TSBuilder {
       bundleFile
     );
     const bundleVariables = {};
-    const importPaths: (t.ImportDeclaration | t.ImportDefaultSpecifier | t.ImportNamespaceSpecifier)[] = [];
+    const importPaths: (
+      | t.ImportDeclaration
+      | t.ImportDefaultSpecifier
+      | t.ImportNamespaceSpecifier
+    )[] = [];
 
-    allFiles.forEach(file => {
+    allFiles.forEach((file) => {
       createFileBundle(
         `${this.options.bundle.scope}.${file.contract}`,
         file.filename,
@@ -209,19 +223,17 @@ export class TSBuilder {
         importPaths,
         bundleVariables
       );
-
     });
 
     const ast = recursiveModuleBundle(bundleVariables);
-    const nodes = [
-      ...importPaths,
-      ...ast
-    ];
+    const nodes = [...importPaths, ...ast];
     // @ts-ignore
-    let code = generate(t.program(
-      // @ts-ignore
-      nodes
-    )).code;
+    let code = generate(
+      t.program(
+        // @ts-ignore
+        nodes
+      )
+    ).code;
 
     if (this.options?.bundle?.bundlePath) {
       mkdirp(this.options?.bundle?.bundlePath);
@@ -232,6 +244,5 @@ export class TSBuilder {
     if (code.trim() === '') code = 'export {};';
 
     writeFileSync(bundlePath, header + code);
-
   }
 }

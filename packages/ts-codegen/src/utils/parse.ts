@@ -2,29 +2,24 @@ import { parse, ParserPlugin } from '@babel/parser';
 import babelTraverse from '@babel/traverse';
 
 export const parser = (codes: string[]) => {
-
   const hash: Record<string, any> = {};
-  codes.forEach(code => {
-
-    const plugins: ParserPlugin[] = [
-      'typescript',
-    ];
+  codes.forEach((code) => {
+    const plugins: ParserPlugin[] = ['typescript'];
 
     const ast = parse(code, {
       sourceType: 'module',
-      plugins
+      plugins,
     });
 
     const visitor = visitorFn({
       addType(key: string, node: any) {
         hash[key] = node;
-      }
+      },
     });
     babelTraverse(ast as any, visitor);
   });
 
   return hash;
-
 };
 
 const visitorFn = (parser: any) => ({
@@ -40,6 +35,5 @@ const visitorFn = (parser: any) => ({
   },
   TSInterfaceDeclaration(path: any) {
     parser.addType(path.node.id.name, path.parentPath.node);
-  }
+  },
 });
-

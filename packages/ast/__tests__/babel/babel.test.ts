@@ -7,7 +7,7 @@ import {
   classDeclaration,
   classProperty,
   promiseTypeAnnotation,
-  typedIdentifier
+  typedIdentifier,
 } from '../../src/utils/babel';
 import { expectCode } from '../../test-utils';
 
@@ -54,12 +54,12 @@ it('interfaces', async () => {
                       'limit',
                       t.tsTypeAnnotation(t.tsStringKeyword()),
                       true
-                    )
+                    ),
                   ],
                   promiseTypeAnnotation('TokensResponse')
                 )
               )
-            )
+            ),
           ])
         )
       ),
@@ -73,7 +73,7 @@ it('interfaces', async () => {
           [
             t.tSExpressionWithTypeArguments(
               t.identifier('SG721ReadOnlyInstance')
-            )
+            ),
           ],
           t.tSInterfaceBody([
             // contract address
@@ -101,15 +101,15 @@ it('interfaces', async () => {
                     typedIdentifier(
                       'prop3',
                       t.tsTypeAnnotation(t.tsStringKeyword())
-                    )
+                    ),
                   ],
                   promiseTypeAnnotation('ExecuteResult')
                 )
               )
-            )
+            ),
           ])
         )
-      )
+      ),
     ])
   );
 });
@@ -149,7 +149,7 @@ it('readonly classes', async () => {
                 typedIdentifier(
                   'contractAddress',
                   t.tsTypeAnnotation(t.tsStringKeyword())
-                )
+                ),
               ],
               t.blockStatement([
                 // client/contract set
@@ -178,7 +178,7 @@ it('readonly classes', async () => {
                 bindMethod('approval'),
                 bindMethod('otherProp'),
                 bindMethod('hello'),
-                bindMethod('mintme')
+                bindMethod('mintme'),
               ])
             ),
 
@@ -196,7 +196,7 @@ it('readonly classes', async () => {
                   typedIdentifier(
                     'spender',
                     t.tsTypeAnnotation(t.tsStringKeyword())
-                  )
+                  ),
                 ],
                 t.blockStatement([
                   t.returnStatement(
@@ -227,31 +227,31 @@ it('readonly classes', async () => {
                             t.identifier('spender'),
                             false,
                             true
-                          )
-                        ])
+                          ),
+                        ]),
                       ]
                     )
-                  )
+                  ),
                 ]),
                 t.tsTypeAnnotation(
                   t.tsTypeReference(
                     t.identifier('Promise'),
                     t.tsTypeParameterInstantiation([
-                      t.tSTypeReference(t.identifier('ApprovalResponse'))
+                      t.tSTypeReference(t.identifier('ApprovalResponse')),
                     ])
                   )
                 ),
                 true
               )
-            )
+            ),
           ],
           [
             t.tSExpressionWithTypeArguments(
               t.identifier('SG721ReadOnlyInstance')
-            )
+            ),
           ]
         )
-      )
+      ),
     ])
   );
 });
@@ -291,14 +291,14 @@ it('mutation classes', async () => {
                 typedIdentifier(
                   'contractAddress',
                   t.tsTypeAnnotation(t.tsStringKeyword())
-                )
+                ),
               ],
               t.blockStatement([
                 // super()
                 t.expressionStatement(
                   t.callExpression(t.super(), [
                     t.identifier('client'),
-                    t.identifier('contractAddress')
+                    t.identifier('contractAddress'),
                   ])
                 ),
 
@@ -328,7 +328,7 @@ it('mutation classes', async () => {
                 bindMethod('approval'),
                 bindMethod('otherProp'),
                 bindMethod('hello'),
-                bindMethod('mintme')
+                bindMethod('mintme'),
               ])
             ),
 
@@ -353,7 +353,7 @@ it('mutation classes', async () => {
                   typedIdentifier(
                     'token_uri',
                     t.tsTypeAnnotation(t.tsStringKeyword())
-                  )
+                  ),
                 ],
                 t.blockStatement([
                   t.returnStatement(
@@ -391,37 +391,37 @@ it('mutation classes', async () => {
                                 t.objectProperty(
                                   t.identifier('expression'),
                                   t.objectExpression([])
-                                )
+                                ),
                               ])
-                            )
+                            ),
                           ]),
-                          t.stringLiteral('auto')
+                          t.stringLiteral('auto'),
                         ]
                       )
                     )
-                  )
+                  ),
                 ]),
                 // return type
                 t.tsTypeAnnotation(
                   t.tsTypeReference(
                     t.identifier('Promise'),
                     t.tsTypeParameterInstantiation([
-                      t.tSTypeReference(t.identifier('ExecuteResult'))
+                      t.tSTypeReference(t.identifier('ExecuteResult')),
                     ])
                   )
                 ),
                 true
               )
-            )
+            ),
           ],
           [
             t.tSExpressionWithTypeArguments(
               t.identifier('SG721ReadOnlyInstance')
-            )
+            ),
           ],
           t.identifier('SG721QueryClient')
         )
-      )
+      ),
     ])
   );
 });
@@ -439,7 +439,7 @@ it('object parms', () => {
       t.identifier('tokenId'),
       false,
       true
-    )
+    ),
   ]);
   obj.typeAnnotation = t.tsTypeAnnotation(
     t.tsTypeLiteral([
@@ -450,7 +450,7 @@ it('object parms', () => {
       t.tsPropertySignature(
         t.identifier('tokenId'),
         t.tsTypeAnnotation(t.tsStringKeyword())
-      )
+      ),
     ])
   );
   expectCode(
@@ -471,13 +471,13 @@ it('object parms', () => {
               t.tsTypeReference(
                 t.identifier('Promise'),
                 t.tsTypeParameterInstantiation([
-                  t.tsTypeReference(t.identifier('OwnerOfResponse'))
+                  t.tsTypeReference(t.identifier('OwnerOfResponse')),
                 ])
               )
             )
           )
         )
-      )
+      ),
     ])
   );
 });

@@ -13,19 +13,16 @@ import {
   identifier,
   OPTIONAL_FUNDS_PARAM,
   tsObjectPattern,
-  tsPropertySignature
+  tsPropertySignature,
 } from '../utils';
 import {
   omitTypeReference,
   optionalConditionalExpression,
   propertySignature,
-  shorthandProperty
+  shorthandProperty,
 } from '../utils/babel';
 import { OPTIONAL_FEE_PARAM, OPTIONAL_MEMO_PARAM } from '../utils/constants';
-import {
-  getPropertyType,
-  getResponseType
-} from '../utils/types';
+import { getPropertyType, getResponseType } from '../utils/types';
 
 interface ReactQueryHookQuery {
   context: RenderContext;
@@ -60,7 +57,7 @@ export const createReactQueryHooks = ({
   context,
   queryMsg,
   contractName,
-  QueryClient
+  QueryClient,
 }: ReactQueryHooks) => {
   const options = context.options.reactQuery;
 
@@ -78,7 +75,7 @@ export const createReactQueryHooks = ({
         context,
         queryKeysName,
         camelContractName: camel(contractName),
-        underscoreNames
+        underscoreNames,
       })
     );
   }
@@ -108,7 +105,7 @@ export const createReactQueryHooks = ({
         hookName,
         responseType,
         getterKey,
-        jsonschema
+        jsonschema,
       };
     }
   );
@@ -120,7 +117,7 @@ export const createReactQueryHooks = ({
         context,
         queryFactoryName,
         queryKeysName,
-        queryMsgs
+        queryMsgs,
       })
     );
   }
@@ -129,7 +126,7 @@ export const createReactQueryHooks = ({
     createReactQueryHookGenericInterface({
       context,
       QueryClient,
-      genericQueryInterfaceName
+      genericQueryInterfaceName,
     })
   );
 
@@ -143,7 +140,7 @@ export const createReactQueryHooks = ({
           hookName,
           responseType,
           getterKey,
-          jsonschema
+          jsonschema,
         }
       ) => {
         return [
@@ -153,7 +150,7 @@ export const createReactQueryHooks = ({
             responseType,
             queryInterfaceName: genericQueryInterfaceName,
             QueryClient,
-            jsonschema
+            jsonschema,
           }),
           createReactQueryHook({
             context,
@@ -163,9 +160,9 @@ export const createReactQueryHooks = ({
             queryKeysName,
             responseType,
             hookKeyName: getterKey,
-            jsonschema
+            jsonschema,
           }),
-          ...m
+          ...m,
         ];
       },
       []
@@ -190,8 +187,8 @@ function buildQueryFn(
             t.identifier(camel(prop)),
             t.memberExpression(t.identifier('args'), t.identifier(camel(prop)))
           );
-        })
-      ])
+        }),
+      ]),
     ];
   }
 
@@ -199,8 +196,8 @@ function buildQueryFn(
     t.memberExpression(t.identifier('Promise'), t.identifier('reject')),
     [
       t.newExpression(t.identifier('Error'), [
-        t.stringLiteral('Invalid client')
-      ])
+        t.stringLiteral('Invalid client'),
+      ]),
     ]
   );
 
@@ -245,36 +242,36 @@ const ENABLED_QUERY_OPTION = t.objectProperty(
 function buildQueryOptions(options: ReactQueryOptions) {
   return options.optionalClient
     ? t.objectExpression([
-      t.spreadElement(t.identifier('options')),
-      t.objectProperty(
-        t.identifier('enabled'),
-        t.logicalExpression(
-          '&&',
-          t.unaryExpression(
-            '!',
-            t.unaryExpression('!', t.identifier('client'))
-          ),
-          t.conditionalExpression(
-            // explicitly check for undefined
-            t.binaryExpression(
-              '!=',
-              t.optionalMemberExpression(
-                t.identifier('options'),
-                t.identifier('enabled'),
-                false,
-                true
+        t.spreadElement(t.identifier('options')),
+        t.objectProperty(
+          t.identifier('enabled'),
+          t.logicalExpression(
+            '&&',
+            t.unaryExpression(
+              '!',
+              t.unaryExpression('!', t.identifier('client'))
+            ),
+            t.conditionalExpression(
+              // explicitly check for undefined
+              t.binaryExpression(
+                '!=',
+                t.optionalMemberExpression(
+                  t.identifier('options'),
+                  t.identifier('enabled'),
+                  false,
+                  true
+                ),
+                t.identifier('undefined')
               ),
-              t.identifier('undefined')
-            ),
-            t.memberExpression(
-              t.identifier('options'),
-              t.identifier('enabled')
-            ),
-            t.booleanLiteral(true)
+              t.memberExpression(
+                t.identifier('options'),
+                t.identifier('enabled')
+              ),
+              t.booleanLiteral(true)
+            )
           )
-        )
-      )
-    ])
+        ),
+      ])
     : t.identifier('options');
 }
 
@@ -286,7 +283,7 @@ export const createReactQueryHook = ({
   hookKeyName,
   queryKeysName,
   methodName,
-  jsonschema
+  jsonschema,
 }: ReactQueryHookQuery) => {
   context.addUtil('useQuery');
   context.addUtil('UseQueryOptions');
@@ -313,17 +310,17 @@ export const createReactQueryHook = ({
               false,
               true
             );
-          })
+          }),
         ],
         t.tsTypeAnnotation(
           t.tsTypeReference(
             t.identifier(hookParamsTypeName),
             t.tsTypeParameterInstantiation([
-              t.tsTypeReference(t.identifier(selectResponseGenericTypeName))
+              t.tsTypeReference(t.identifier(selectResponseGenericTypeName)),
             ])
           )
         )
-      )
+      ),
     ],
     t.blockStatement([
       t.returnStatement(
@@ -335,18 +332,18 @@ export const createReactQueryHook = ({
               queryKeysName,
               methodName,
               props,
-              options
+              options,
             }),
             buildQueryFn(methodName, jsonschema, options),
-            buildQueryOptions(options)
+            buildQueryOptions(options),
           ],
           t.tsTypeParameterInstantiation([
             t.tsTypeReference(t.identifier(responseType)),
             t.tsTypeReference(t.identifier('Error')),
-            t.tsTypeReference(t.identifier(selectResponseGenericTypeName))
+            t.tsTypeReference(t.identifier(selectResponseGenericTypeName)),
           ])
         )
-      )
+      ),
     ])
   );
 
@@ -356,7 +353,7 @@ export const createReactQueryHook = ({
       undefined,
       t.tSTypeReference(t.identifier(responseType)),
       selectResponseGenericTypeName
-    )
+    ),
   ]);
 
   return t.exportNamedDeclaration(queryFunctionDeclaration);
@@ -392,7 +389,7 @@ export const createReactQueryMutationArgsInterface = ({
   ExecuteClient,
   mutationHookParamsTypeName,
   useMutationTypeParameter,
-  jsonschema
+  jsonschema,
 }: ReactQueryMutationHookInterface) => {
   const typedUseMutationOptions = t.tsTypeReference(
     t.identifier('UseMutationOptions'),
@@ -404,7 +401,7 @@ export const createReactQueryMutationArgsInterface = ({
       t.identifier('client'),
       t.tsTypeAnnotation(t.tsTypeReference(t.identifier(ExecuteClient))),
       false
-    )
+    ),
   ];
 
   const msgType = createTypedObjectParams(context, jsonschema)?.typeAnnotation;
@@ -427,9 +424,21 @@ export const createReactQueryMutationArgsInterface = ({
     t.tsTypeAnnotation(
       // @ts-ignore:next-line
       t.tsTypeLiteral([
-        propertySignature('fee', OPTIONAL_FEE_PARAM.typeAnnotation as t.TSTypeAnnotation, true),
-        propertySignature('memo', OPTIONAL_MEMO_PARAM.typeAnnotation as t.TSTypeAnnotation, true),
-        propertySignature('funds', OPTIONAL_FUNDS_PARAM.typeAnnotation as t.TSTypeAnnotation, true)
+        propertySignature(
+          'fee',
+          OPTIONAL_FEE_PARAM.typeAnnotation as t.TSTypeAnnotation,
+          true
+        ),
+        propertySignature(
+          'memo',
+          OPTIONAL_MEMO_PARAM.typeAnnotation as t.TSTypeAnnotation,
+          true
+        ),
+        propertySignature(
+          'funds',
+          OPTIONAL_FUNDS_PARAM.typeAnnotation as t.TSTypeAnnotation,
+          true
+        ),
       ])
     )
   );
@@ -459,7 +468,7 @@ export const createReactQueryMutationHooks = ({
   context,
   execMsg,
   contractName,
-  ExecuteClient
+  ExecuteClient,
 }: ReactQueryMutationHooks) => {
   // merge the user options with the defaults
   return getMessageProperties(execMsg).reduce((m, schema) => {
@@ -493,7 +502,7 @@ export const createReactQueryMutationHooks = ({
         mutationHookParamsTypeName,
         ExecuteClient,
         jsonschema,
-        useMutationTypeParameter
+        useMutationTypeParameter,
       }),
       createReactQueryMutationHook({
         context,
@@ -501,9 +510,9 @@ export const createReactQueryMutationHooks = ({
         mutationHookName,
         mutationHookParamsTypeName,
         hasMsg,
-        useMutationTypeParameter
+        useMutationTypeParameter,
       }),
-      ...m
+      ...m,
     ];
   }, []);
 };
@@ -523,7 +532,7 @@ const generateMutationTypeParameter = (
     // Error
     t.tsTypeReference(t.identifier('Error')),
     // Variables
-    t.tsTypeReference(t.identifier(mutationHookParamsTypeName))
+    t.tsTypeReference(t.identifier(mutationHookParamsTypeName)),
   ]);
 };
 
@@ -553,7 +562,7 @@ export const createReactQueryMutationHook = ({
   mutationHookParamsTypeName,
   execMethodName,
   useMutationTypeParameter,
-  hasMsg
+  hasMsg,
 }: ReactQueryMutationHook) => {
   context.addUtil('useMutation');
   context.addUtil('UseMutationOptions');
@@ -567,7 +576,7 @@ export const createReactQueryMutationHook = ({
         t.objectPattern([
           shorthandProperty('fee'),
           shorthandProperty('memo'),
-          shorthandProperty('funds')
+          shorthandProperty('funds'),
         ]),
         t.objectExpression([])
       )
@@ -590,7 +599,7 @@ export const createReactQueryMutationHook = ({
             )
           ),
           true
-        )
+        ),
       ],
       t.blockStatement([
         t.returnStatement(
@@ -607,16 +616,16 @@ export const createReactQueryMutationHook = ({
                   (hasMsg ? [t.identifier('msg')] : []).concat([
                     t.identifier('fee'),
                     t.identifier('memo'),
-                    t.identifier('funds')
+                    t.identifier('funds'),
                   ])
                 ),
                 false // not async
               ),
-              t.identifier('options')
+              t.identifier('options'),
             ],
             useMutationTypeParameter
           )
-        )
+        ),
       ])
     )
   );
@@ -626,7 +635,7 @@ function createReactQueryKeys({
   context,
   queryKeysName,
   camelContractName,
-  underscoreNames
+  underscoreNames,
 }: {
   context: RenderContext;
   queryKeysName: string;
@@ -655,8 +664,8 @@ function createReactQueryKeys({
                   t.objectProperty(
                     t.identifier('contract'),
                     t.stringLiteral(camelContractName)
-                  )
-                ])
+                  ),
+                ]),
               ]),
               t.tSTypeReference(t.identifier('const'))
             )
@@ -683,8 +692,8 @@ function createReactQueryKeys({
                     t.objectProperty(
                       t.identifier('address'),
                       t.identifier('contractAddress')
-                    )
-                  ])
+                    ),
+                  ]),
                 ]),
                 t.tSTypeReference(t.identifier('const'))
               )
@@ -706,12 +715,12 @@ function createReactQueryKeys({
                         t.identifier('Record'),
                         t.tsTypeParameterInstantiation([
                           t.tsStringKeyword(),
-                          t.tsUnknownKeyword()
+                          t.tsUnknownKeyword(),
                         ])
                       )
                     ),
                     true // optional
-                  )
+                  ),
                 ],
                 t.tSAsExpression(
                   t.arrayExpression([
@@ -736,16 +745,16 @@ function createReactQueryKeys({
                         t.stringLiteral(underscoreMethodName)
                       ),
                       // args
-                      shorthandProperty('args')
-                    ])
+                      shorthandProperty('args'),
+                    ]),
                   ]),
                   t.tSTypeReference(t.identifier('const'))
                 )
               )
             )
-          )
+          ),
         ])
-      )
+      ),
     ])
   );
 }
@@ -754,7 +763,7 @@ function createReactQueryFactory({
   context,
   queryFactoryName,
   queryKeysName,
-  queryMsgs
+  queryMsgs,
 }: {
   context: RenderContext;
   queryFactoryName: string;
@@ -779,7 +788,7 @@ function createReactQueryFactory({
                     [
                       shorthandProperty('client'),
                       ...(hasArgs ? [shorthandProperty('args')] : []),
-                      shorthandProperty('options')
+                      shorthandProperty('options'),
                     ],
                     t.tsTypeAnnotation(
                       t.tsTypeReference(
@@ -787,11 +796,11 @@ function createReactQueryFactory({
                         t.tsTypeParameterInstantiation([
                           t.tsTypeReference(
                             t.identifier(GENERIC_SELECT_RESPONSE_NAME)
-                          )
+                          ),
                         ])
                       )
                     )
-                  )
+                  ),
                 ],
                 t.objectExpression([
                   // 1: queryKey
@@ -809,7 +818,7 @@ function createReactQueryFactory({
                           false,
                           true
                         ),
-                        ...(hasArgs ? [t.identifier('args')] : [])
+                        ...(hasArgs ? [t.identifier('args')] : []),
                       ]
                     )
                   ),
@@ -821,7 +830,7 @@ function createReactQueryFactory({
                   // 3: spread options
                   t.spreadElement(t.identifier('options')),
                   // 4. enabled
-                  ENABLED_QUERY_OPTION
+                  ENABLED_QUERY_OPTION,
                 ])
               );
 
@@ -831,7 +840,7 @@ function createReactQueryFactory({
                     undefined,
                     t.tsTypeReference(t.identifier(responseType)),
                     GENERIC_SELECT_RESPONSE_NAME
-                  )
+                  ),
                 ]);
 
               methodQueryOptionsFn.returnType = t.tsTypeAnnotation(
@@ -842,7 +851,7 @@ function createReactQueryFactory({
                     t.tsTypeReference(t.identifier('Error')),
                     t.tsTypeReference(
                       t.identifier(GENERIC_SELECT_RESPONSE_NAME)
-                    )
+                    ),
                   ])
                 )
               );
@@ -853,9 +862,9 @@ function createReactQueryFactory({
                 methodQueryOptionsFn
               );
             }
-          )
+          ),
         ])
-      )
+      ),
     ])
   );
 }
@@ -871,7 +880,7 @@ const GENERIC_SELECT_RESPONSE_NAME = 'TData';
 function createReactQueryHookGenericInterface({
   context,
   QueryClient,
-  genericQueryInterfaceName
+  genericQueryInterfaceName,
 }: ReactQueryHookGenericInterface) {
   const options = context.options.reactQuery;
   const genericResponseTypeName = 'TResponse';
@@ -884,7 +893,7 @@ function createReactQueryHookGenericInterface({
     t.tsTypeParameterInstantiation([
       t.tsTypeReference(t.identifier(genericResponseTypeName)),
       t.tsTypeReference(t.identifier('Error')),
-      t.tsTypeReference(t.identifier(GENERIC_SELECT_RESPONSE_NAME))
+      t.tsTypeReference(t.identifier(GENERIC_SELECT_RESPONSE_NAME)),
     ])
   );
 
@@ -894,9 +903,9 @@ function createReactQueryHookGenericInterface({
       t.tsTypeAnnotation(
         options.optionalClient
           ? t.tsUnionType([
-            t.tsTypeReference(t.identifier(QueryClient)),
-            t.tsUndefinedKeyword()
-          ])
+              t.tsTypeReference(t.identifier(QueryClient)),
+              t.tsUndefinedKeyword(),
+            ])
           : t.tsTypeReference(t.identifier(QueryClient))
       ),
       false
@@ -906,21 +915,21 @@ function createReactQueryHookGenericInterface({
       t.tsTypeAnnotation(
         options.version === 'v4'
           ? t.tSIntersectionType([
-            omitTypeReference(
-              typedUseQueryOptions,
-              "'queryKey' | 'queryFn' | 'initialData'"
-            ),
-            t.tSTypeLiteral([
-              t.tsPropertySignature(
-                t.identifier('initialData?'),
-                t.tsTypeAnnotation(t.tsUndefinedKeyword())
-              )
+              omitTypeReference(
+                typedUseQueryOptions,
+                "'queryKey' | 'queryFn' | 'initialData'"
+              ),
+              t.tSTypeLiteral([
+                t.tsPropertySignature(
+                  t.identifier('initialData?'),
+                  t.tsTypeAnnotation(t.tsUndefinedKeyword())
+                ),
+              ]),
             ])
-          ])
           : typedUseQueryOptions
       ),
       true
-    )
+    ),
   ];
 
   return t.exportNamedDeclaration(
@@ -934,7 +943,7 @@ function createReactQueryHookGenericInterface({
           undefined,
           t.tSTypeReference(t.identifier(genericResponseTypeName)),
           GENERIC_SELECT_RESPONSE_NAME
-        )
+        ),
       ]),
       [],
       t.tSInterfaceBody(body)
@@ -957,7 +966,7 @@ export const createReactQueryHookInterface = ({
   hookParamsTypeName,
   queryInterfaceName,
   responseType,
-  jsonschema
+  jsonschema,
 }: ReactQueryHookQueryInterface) => {
   // merge the user options with the defaults
   const options = context.options.reactQuery;
@@ -981,7 +990,7 @@ export const createReactQueryHookInterface = ({
     t.tsInterfaceDeclaration(
       t.identifier(hookParamsTypeName),
       t.tsTypeParameterDeclaration([
-        t.tSTypeParameter(undefined, undefined, GENERIC_SELECT_RESPONSE_NAME)
+        t.tSTypeParameter(undefined, undefined, GENERIC_SELECT_RESPONSE_NAME),
       ]),
       [
         t.tSExpressionWithTypeArguments(
@@ -990,9 +999,9 @@ export const createReactQueryHookInterface = ({
             // 1: response
             t.tsTypeReference(t.identifier(responseType)),
             // 2: select generic
-            t.tSTypeReference(t.identifier(GENERIC_SELECT_RESPONSE_NAME))
+            t.tSTypeReference(t.identifier(GENERIC_SELECT_RESPONSE_NAME)),
           ])
-        )
+        ),
       ],
       t.tsInterfaceBody(body)
     )
@@ -1026,7 +1035,7 @@ const generateUseQueryQueryKey = ({
   queryKeysName,
   methodName,
   props,
-  options
+  options,
 }: GenerateUseQueryQueryKeyParams): t.ArrayExpression | t.CallExpression => {
   const { optionalClient, queryKeys } = options;
 
@@ -1055,7 +1064,7 @@ const generateUseQueryQueryKey = ({
 
   const queryKey: Array<Expression> = [
     t.stringLiteral(hookKeyName),
-    contractAddressExpression
+    contractAddressExpression,
   ];
 
   if (hasArgs) {

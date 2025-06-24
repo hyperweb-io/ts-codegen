@@ -1,5 +1,9 @@
 import * as w from '@cosmwasm/ts-codegen-ast';
-import { ContractInfo, RenderContext,RenderContextBase } from '@cosmwasm/ts-codegen-ast';
+import {
+  ContractInfo,
+  RenderContext,
+  RenderContextBase,
+} from '@cosmwasm/ts-codegen-ast';
 import { pascal } from 'case';
 
 import { BuilderFileType, TSBuilderOptions } from '../builder';

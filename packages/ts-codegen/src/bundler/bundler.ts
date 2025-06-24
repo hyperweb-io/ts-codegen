@@ -1,16 +1,16 @@
 import * as t from '@babel/types';
 import nested from 'nested-obj';
-import {
-  dirname, extname,
-  relative} from 'path';
+import { dirname, extname, relative } from 'path';
 
 export interface BundleData {
-    __export?: boolean;
-    [key: string]: boolean | BundleData;
+  __export?: boolean;
+  [key: string]: boolean | BundleData;
 }
 
-export const recursiveModuleBundle = (obj: BundleData): t.ExportNamedDeclaration[] => {
-  return Object.keys(obj).map(key => {
+export const recursiveModuleBundle = (
+  obj: BundleData
+): t.ExportNamedDeclaration[] => {
+  return Object.keys(obj).map((key) => {
     const value = obj[key];
     if (typeof value === 'object' && value && value.__export) {
       // e.g. abci
@@ -18,21 +18,21 @@ export const recursiveModuleBundle = (obj: BundleData): t.ExportNamedDeclaration
       // 2. splat ALL _0, parms into abci
       // 3. export that variable
 
-      const nmspc = t.variableDeclaration('const',
-        [t.variableDeclarator(
+      const nmspc = t.variableDeclaration('const', [
+        t.variableDeclarator(
           t.identifier(key),
           t.objectExpression(
             Object.keys(obj[key])
-              .filter(a => a !== '__export')
-              .filter(a => a.startsWith('_'))
-              .map(a => t.spreadElement(t.identifier(a)))
+              .filter((a) => a !== '__export')
+              .filter((a) => a.startsWith('_'))
+              .map((a) => t.spreadElement(t.identifier(a)))
           )
-        )]
-      );
+        ),
+      ]);
 
       const others = Object.keys(obj[key])
-        .filter(a => a !== '__export')
-        .filter(a => !a.startsWith('_'));
+        .filter((a) => a !== '__export')
+        .filter((a) => !a.startsWith('_'));
       if (others.length) {
         throw new Error('namespace and package not supported, yet.');
       }
@@ -54,19 +54,22 @@ export const recursiveModuleBundle = (obj: BundleData): t.ExportNamedDeclaration
   });
 };
 
-export const importNamespace = (ident: string, path: string) => t.importDeclaration(
-  [
-    t.importNamespaceSpecifier(t.identifier(ident))
-  ],
-  t.stringLiteral(path.replace(extname(path), ''))
-);
+export const importNamespace = (ident: string, path: string) =>
+  t.importDeclaration(
+    [t.importNamespaceSpecifier(t.identifier(ident))],
+    t.stringLiteral(path.replace(extname(path), ''))
+  );
 
 let counter = 0;
 export const createFileBundle = (
   pkg: string,
   filename: string,
   bundleFile: string,
-  importPaths: (t.ImportDeclaration | t.ImportDefaultSpecifier | t.ImportNamespaceSpecifier)[],
+  importPaths: (
+    | t.ImportDeclaration
+    | t.ImportDefaultSpecifier
+    | t.ImportNamespaceSpecifier
+  )[],
   bundleVariables: BundleData
 ) => {
   let rel = relative(dirname(bundleFile), filename);

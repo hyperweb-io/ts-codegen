@@ -21,19 +21,19 @@ export type UtilMapping = {
 const makeReactQuerySwitch = (varName: string) => {
   return (context: RenderContext) => {
     switch (context.options.reactQuery.version) {
-    case 'v4':
-      return {
-        type: 'import',
-        path: '@tanstack/react-query',
-        name: varName,
-      };
-    case 'v3':
-    default:
-      return {
-        type: 'import',
-        path: 'react-query',
-        name: varName,
-      };
+      case 'v4':
+        return {
+          type: 'import',
+          path: '@tanstack/react-query',
+          name: varName,
+        };
+      case 'v3':
+      default:
+        return {
+          type: 'import',
+          path: 'react-query',
+          name: varName,
+        };
     }
   };
 };

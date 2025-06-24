@@ -64,19 +64,19 @@ export const cleanse = (obj: any): any => {
           copy[cleanNullable(attr)] = cleanse(obj[attr]);
         } else {
           switch (attr) {
-          case 'title':
-          case '$ref':
-            if (typeof obj[attr] === 'string') {
-              // @ts-ignore
-              copy[attr] = cleanse(cleanNullable(cleanFor(obj[attr])));
-            } else {
+            case 'title':
+            case '$ref':
+              if (typeof obj[attr] === 'string') {
+                // @ts-ignore
+                copy[attr] = cleanse(cleanNullable(cleanFor(obj[attr])));
+              } else {
+                // @ts-ignore
+                copy[attr] = cleanse(obj[attr]);
+              }
+              break;
+            default:
               // @ts-ignore
               copy[attr] = cleanse(obj[attr]);
-            }
-            break;
-          default:
-            // @ts-ignore
-            copy[attr] = cleanse(obj[attr]);
           }
         }
       } else {

@@ -5,7 +5,7 @@ import {
   createExecuteClass,
   createExecuteInterface,
   createQueryClass,
-  createTypeInterface
+  createTypeInterface,
 } from '../../src';
 import { expectCode, makeContext } from '../../test-utils';
 

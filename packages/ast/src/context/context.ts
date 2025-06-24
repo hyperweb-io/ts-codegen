@@ -5,19 +5,35 @@ import { basename, extname } from 'path';
 
 import { ContractInfo, ProviderInfo, RenderOptions } from '../types';
 import { refLookup } from '../utils';
-import { convertUtilsToImportList, getImportStatements, UtilMapping } from './imports';
+import {
+  convertUtilsToImportList,
+  getImportStatements,
+  UtilMapping,
+} from './imports';
 
 export interface IContext {
   refLookup($ref: string): JSONSchema;
   addUtil(util: string): void;
-  getImports(registeredUtils?: UtilMapping, filepath?: string): (t.ImportNamespaceSpecifier | t.ImportDeclaration | t.ImportDefaultSpecifier)[];
+  getImports(
+    registeredUtils?: UtilMapping,
+    filepath?: string
+  ): (
+    | t.ImportNamespaceSpecifier
+    | t.ImportDeclaration
+    | t.ImportDefaultSpecifier
+  )[];
 }
 
 export interface IRenderContext<TOpt = RenderOptions> extends IContext {
   contract: ContractInfo;
   options: TOpt;
 
-  addProviderInfo(contractName: string, type: string, classname: string, filename: string): void;
+  addProviderInfo(
+    contractName: string,
+    type: string,
+    classname: string,
+    filename: string
+  ): void;
   getProviderInfos(): {
     [key: string]: {
       [key: string]: ProviderInfo;
@@ -30,7 +46,7 @@ export const defaultOptions: RenderOptions = {
   types: {
     enabled: true,
     itemsUseTuples: false,
-    aliasExecuteMsg: false
+    aliasExecuteMsg: false,
   },
   client: {
     enabled: true,
@@ -39,10 +55,10 @@ export const defaultOptions: RenderOptions = {
     useDeclareKeyword: false,
   },
   recoil: {
-    enabled: false
+    enabled: false,
   },
   messageComposer: {
-    enabled: false
+    enabled: false,
   },
   messageBuilder: {
     enabled: false,
@@ -53,25 +69,25 @@ export const defaultOptions: RenderOptions = {
     version: 'v4',
     mutations: false,
     camelize: true,
-    queryKeys: false
+    queryKeys: false,
   },
   useContractsHook: {
-    enabled: false
-  }
+    enabled: false,
+  },
 };
 
 export const getDefinitionSchema = (schemas: JSONSchema[]): JSONSchema => {
   const aggregateSchema = {
     definitions: {
       //
-    }
+    },
   };
 
-  schemas.forEach(schema => {
+  schemas.forEach((schema) => {
     schema.definitions = schema.definitions || {};
     aggregateSchema.definitions = {
       ...aggregateSchema.definitions,
-      ...schema.definitions
+      ...schema.definitions,
     };
   });
 
@@ -85,7 +101,12 @@ export class BuilderContext {
     };
   } = {};
 
-  addProviderInfo(contractName: string, type: string, classname: string, filename: string): void {
+  addProviderInfo(
+    contractName: string,
+    type: string,
+    classname: string,
+    filename: string
+  ): void {
     if (!this.providers[contractName]) {
       this.providers[contractName] = {};
     }
@@ -93,14 +114,14 @@ export class BuilderContext {
     this.providers[contractName][type] = {
       classname,
       filename,
-      basename: basename(filename, extname(filename))
+      basename: basename(filename, extname(filename)),
     };
   }
   getProviderInfos(): {
     [key: string]: {
       [key: string]: ProviderInfo;
     };
-    } {
+  } {
     return this.providers;
   }
 }
@@ -110,7 +131,9 @@ export class BuilderContext {
  * only mergeDefaultOpt needs to implementing for combine options and default options.
  * @param TOpt option type
  */
-export abstract class RenderContextBase<TOpt = RenderOptions> implements IRenderContext<TOpt> {
+export abstract class RenderContextBase<TOpt = RenderOptions>
+  implements IRenderContext<TOpt>
+{
   builderContext: BuilderContext;
   contract: ContractInfo;
   utils: Record<string, boolean> = {};
@@ -138,23 +161,36 @@ export abstract class RenderContextBase<TOpt = RenderOptions> implements IRender
   addUtil(util: string): void {
     this.utils[util] = true;
   }
-  addProviderInfo(contractName: string, type: string, classname: string, filename: string): void {
-    this.builderContext.addProviderInfo(contractName, type, classname, filename);
+  addProviderInfo(
+    contractName: string,
+    type: string,
+    classname: string,
+    filename: string
+  ): void {
+    this.builderContext.addProviderInfo(
+      contractName,
+      type,
+      classname,
+      filename
+    );
   }
   getProviderInfos(): {
     [key: string]: {
       [key: string]: ProviderInfo;
     };
-    } {
+  } {
     return this.builderContext.providers;
   }
-  getImports(registeredUtils?: UtilMapping, filepath?: string): (t.ImportNamespaceSpecifier | t.ImportDeclaration | t.ImportDefaultSpecifier)[] {
+  getImports(
+    registeredUtils?: UtilMapping,
+    filepath?: string
+  ): (
+    | t.ImportNamespaceSpecifier
+    | t.ImportDeclaration
+    | t.ImportDefaultSpecifier
+  )[] {
     return getImportStatements(
-      convertUtilsToImportList(
-        this,
-        Object.keys(this.utils),
-        registeredUtils,
-      ),
+      convertUtilsToImportList(this, Object.keys(this.utils), registeredUtils),
       filepath
     );
   }

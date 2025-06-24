@@ -7,21 +7,19 @@ it('issue-98', async () => {
   const schemaDir = FIXTURE_DIR + '/issues/98/';
 
   const builder = new TSBuilder({
-    contracts: [
-      schemaDir
-    ],
+    contracts: [schemaDir],
     outPath,
     options: {
       types: {
-        enabled: true
+        enabled: true,
       },
       client: {
-        enabled: true
+        enabled: true,
       },
       reactQuery: {
-        enabled: true
-      }
-    }
+        enabled: true,
+      },
+    },
   });
   await builder.build();
 });

@@ -12,18 +12,18 @@ it('issue-long-exe-msg-name', async () => {
     outPath,
     options: {
       messageComposer: {
-        enabled: true
+        enabled: true,
       },
       types: {
-        enabled: true
+        enabled: true,
       },
       client: {
-        enabled: true
+        enabled: true,
       },
       reactQuery: {
-        enabled: true
-      }
-    }
+        enabled: true,
+      },
+    },
   });
   await builder.build();
 });

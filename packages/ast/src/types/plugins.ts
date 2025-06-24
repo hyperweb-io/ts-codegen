@@ -4,8 +4,8 @@ export interface ReactQueryOptions {
   version?: 'v3' | 'v4';
   mutations?: boolean;
   camelize?: boolean;
-  queryKeys?: boolean
-  queryFactory?: boolean
+  queryKeys?: boolean;
+  queryFactory?: boolean;
 }
 
 export interface TSClientOptions {
@@ -33,4 +33,4 @@ export interface TSTypesOptions {
 
 export interface UseContractsOptions {
   enabled?: boolean;
-};
+}

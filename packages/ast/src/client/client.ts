@@ -13,14 +13,14 @@ import {
   getTypeOrRef,
   OPTIONAL_FUNDS_PARAM,
   promiseTypeAnnotation,
-  typedIdentifier
+  typedIdentifier,
 } from '../utils';
 import { identifier, propertySignature } from '../utils/babel';
 import { OPTIONAL_MEMO_PARAM } from '../utils/constants';
 import {
   createTypedObjectParams,
   getPropertyType,
-  getResponseType
+  getResponseType,
 } from '../utils/types';
 
 export const CONSTANT_EXEC_PARAMS = [
@@ -31,7 +31,7 @@ export const CONSTANT_EXEC_PARAMS = [
         t.tsUnionType([
           t.tSNumberKeyword(),
           t.tsTypeReference(t.identifier('StdFee')),
-          t.tsLiteralType(t.stringLiteral('auto'))
+          t.tsLiteralType(t.stringLiteral('auto')),
         ])
       ),
       false
@@ -39,7 +39,7 @@ export const CONSTANT_EXEC_PARAMS = [
     t.stringLiteral('auto')
   ),
   OPTIONAL_MEMO_PARAM,
-  OPTIONAL_FUNDS_PARAM
+  OPTIONAL_FUNDS_PARAM,
 ];
 
 export const createWasmQueryMethod = (
@@ -83,16 +83,16 @@ export const createWasmQueryMethod = (
                 t.thisExpression(),
                 t.identifier('contractAddress')
               ),
-              t.objectExpression([t.objectProperty(msgAction, msgActionValue)])
+              t.objectExpression([t.objectProperty(msgAction, msgActionValue)]),
             ]
           )
-        )
+        ),
       ]),
       t.tsTypeAnnotation(
         t.tsTypeReference(
           t.identifier('Promise'),
           t.tsTypeParameterInstantiation([
-            t.tSTypeReference(t.identifier(responseType))
+            t.tSTypeReference(t.identifier(responseType)),
           ])
         )
       ),
@@ -149,7 +149,7 @@ export const createQueryClass = (
             typedIdentifier(
               'contractAddress',
               t.tsTypeAnnotation(t.tsStringKeyword())
-            )
+            ),
           ],
           t.blockStatement([
             // client/contract set
@@ -171,11 +171,11 @@ export const createQueryClass = (
               )
             ),
 
-            ...bindings
+            ...bindings,
           ])
         ),
 
-        ...methods
+        ...methods,
       ],
       [t.tSExpressionWithTypeArguments(t.identifier(implementsClassName))]
     )
@@ -245,10 +245,10 @@ export const createWasmExecMethod = (
     arrowFunctionExpression(
       param
         ? [
-          // props
-          param,
-          ...CONSTANT_EXEC_PARAMS
-        ]
+            // props
+            param,
+            ...CONSTANT_EXEC_PARAMS,
+          ]
         : CONSTANT_EXEC_PARAMS,
       t.blockStatement([
         t.returnStatement(
@@ -265,22 +265,22 @@ export const createWasmExecMethod = (
                   t.identifier('contractAddress')
                 ),
                 t.objectExpression([
-                  t.objectProperty(msgAction, msgActionValue)
+                  t.objectProperty(msgAction, msgActionValue),
                 ]),
                 t.identifier('fee_'),
                 t.identifier('memo_'),
-                t.identifier('funds_')
+                t.identifier('funds_'),
               ]
             )
           )
-        )
+        ),
       ]),
       // return type
       t.tsTypeAnnotation(
         t.tsTypeReference(
           t.identifier('Promise'),
           t.tsTypeParameterInstantiation([
-            t.tSTypeReference(t.identifier('ExecuteResult'))
+            t.tSTypeReference(t.identifier('ExecuteResult')),
           ])
         )
       ),
@@ -316,37 +316,42 @@ export const createExecuteClass = (
       t.expressionStatement(
         t.callExpression(t.super(), [
           t.identifier('client'),
-          t.identifier('contractAddress')
+          t.identifier('contractAddress'),
         ])
       )
     );
   }
 
-  blockStmt.push(...[
-    // client/contract set
-    t.expressionStatement(
-      t.assignmentExpression(
-        '=',
-        t.memberExpression(t.thisExpression(), t.identifier('client')),
-        t.identifier('client')
-      )
-    ),
-    t.expressionStatement(
-      t.assignmentExpression(
-        '=',
-        t.memberExpression(t.thisExpression(), t.identifier('sender')),
-        t.identifier('sender')
-      )
-    ),
-    t.expressionStatement(
-      t.assignmentExpression(
-        '=',
-        t.memberExpression(t.thisExpression(), t.identifier('contractAddress')),
-        t.identifier('contractAddress')
-      )
-    ),
-    ...bindings
-  ]);
+  blockStmt.push(
+    ...[
+      // client/contract set
+      t.expressionStatement(
+        t.assignmentExpression(
+          '=',
+          t.memberExpression(t.thisExpression(), t.identifier('client')),
+          t.identifier('client')
+        )
+      ),
+      t.expressionStatement(
+        t.assignmentExpression(
+          '=',
+          t.memberExpression(t.thisExpression(), t.identifier('sender')),
+          t.identifier('sender')
+        )
+      ),
+      t.expressionStatement(
+        t.assignmentExpression(
+          '=',
+          t.memberExpression(
+            t.thisExpression(),
+            t.identifier('contractAddress')
+          ),
+          t.identifier('contractAddress')
+        )
+      ),
+      ...bindings,
+    ]
+  );
 
   const noImplicitOverride =
     context.options.client.noImplicitOverride &&
@@ -402,11 +407,11 @@ export const createExecuteClass = (
             typedIdentifier(
               'contractAddress',
               t.tsTypeAnnotation(t.tsStringKeyword())
-            )
+            ),
           ],
           t.blockStatement(blockStmt)
         ),
-        ...methods
+        ...methods,
       ],
       [t.tSExpressionWithTypeArguments(t.identifier(implementsClassName))],
       extendsClassName ? t.identifier(extendsClassName) : null
@@ -453,7 +458,7 @@ export const createExecuteInterface = (
           t.tsTypeAnnotation(t.tsStringKeyword())
         ),
 
-        ...methods
+        ...methods,
       ])
     )
   );
@@ -470,7 +475,7 @@ export const createPropertyFunctionWithObjectParams = (
   const func = {
     type: 'TSFunctionType',
     typeAnnotation: promiseTypeAnnotation(responseType),
-    parameters: obj ? [obj] : []
+    parameters: obj ? [obj] : [],
   };
 
   return t.tSPropertySignature(
@@ -495,7 +500,7 @@ export const createPropertyFunctionWithObjectParamsForExec = (
   const func = {
     type: 'TSFunctionType',
     typeAnnotation: promiseTypeAnnotation(responseType),
-    parameters: obj ? [obj, ...FIXED_EXECUTE_PARAMS] : FIXED_EXECUTE_PARAMS
+    parameters: obj ? [obj, ...FIXED_EXECUTE_PARAMS] : FIXED_EXECUTE_PARAMS,
   };
 
   return t.tSPropertySignature(
@@ -534,7 +539,7 @@ export const createQueryInterface = (
           t.identifier('contractAddress'),
           t.tsTypeAnnotation(t.tsStringKeyword())
         ),
-        ...methods
+        ...methods,
       ])
     )
   );
@@ -564,11 +569,7 @@ export const createTypeOrInterface = (
     // Use getTypeOrRef to handle string, array of strings, or $ref
     const typeAnnotation = getTypeOrRef(jsonschema);
     return t.exportNamedDeclaration(
-      t.tsTypeAliasDeclaration(
-        t.identifier(Type),
-        null,
-        typeAnnotation
-      )
+      t.tsTypeAliasDeclaration(t.identifier(Type), null, typeAnnotation)
     );
   }
   // Handle object type schemas
@@ -582,9 +583,7 @@ export const createTypeOrInterface = (
       t.identifier(Type),
       null,
       [],
-      t.tsInterfaceBody(
-        [...props]
-      )
+      t.tsInterfaceBody([...props])
     )
   );
 };

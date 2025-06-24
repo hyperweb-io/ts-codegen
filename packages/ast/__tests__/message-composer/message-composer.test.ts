@@ -2,11 +2,18 @@ import {
   createMessageComposerClass,
   createMessageComposerInterface,
 } from '../../src';
-import { expectCode, getLegacyFixture, getMsgExecuteLegacyFixture, makeContext } from '../../test-utils';
+import {
+  expectCode,
+  getLegacyFixture,
+  getMsgExecuteLegacyFixture,
+  makeContext,
+} from '../../test-utils';
 
-const execMsg = getMsgExecuteLegacyFixture('basic', '/execute_msg_for__empty.json');
+const execMsg = getMsgExecuteLegacyFixture(
+  'basic',
+  '/execute_msg_for__empty.json'
+);
 const ownership = getLegacyFixture('basic', '/ownership.json');
-
 
 it('execute classes', () => {
   const ctx = makeContext(execMsg);

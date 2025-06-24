@@ -5,7 +5,11 @@ import { camel } from 'case';
 
 import { getWasmMethodArgs } from '../client/client';
 import { RenderContext } from '../context';
-import { abstractClassDeclaration, arrowFunctionExpression, getMessageProperties } from '../utils';
+import {
+  abstractClassDeclaration,
+  arrowFunctionExpression,
+  getMessageProperties,
+} from '../utils';
 import { createTypedObjectParams } from '../utils/types';
 
 export const createMessageBuilderClass = (
@@ -33,19 +37,20 @@ function createExtractTypeAnnotation(underscoreName: string, msgTitle: string) {
       t.identifier('CamelCasedProperties'),
       t.tsTypeParameterInstantiation([
         t.tsIndexedAccessType(
-          t.tsTypeReference(t.identifier('Extract'),
+          t.tsTypeReference(
+            t.identifier('Extract'),
             t.tsTypeParameterInstantiation([
               t.tsTypeReference(t.identifier(msgTitle)),
               t.tsTypeLiteral([
                 t.tsPropertySignature(
                   t.identifier(underscoreName),
                   t.tsTypeAnnotation(t.tsUnknownKeyword())
-                )
-              ])
+                ),
+              ]),
             ])
           ),
           t.tsLiteralType(t.stringLiteral(underscoreName))
-        )
+        ),
       ])
     )
   );
@@ -72,9 +77,11 @@ const createStaticExecMethodMessageBuilder = (
   if (param?.type === 'Identifier') {
     actionValue = t.identifier(param.name);
   } else {
-    actionValue = t.tsAsExpression(t.objectExpression(args), t.tsTypeReference(t.identifier('const')));
+    actionValue = t.tsAsExpression(
+      t.objectExpression(args),
+      t.tsTypeReference(t.identifier('const'))
+    );
   }
-
 
   // TODO: this is a hack to get the type annotation to work
   // all type annotations in the future should be the extracted and camelized type
@@ -83,7 +90,10 @@ const createStaticExecMethodMessageBuilder = (
     param.typeAnnotation.type === 'TSTypeAnnotation' &&
     param.typeAnnotation.typeAnnotation.type === 'TSTypeLiteral'
   ) {
-    param.typeAnnotation = createExtractTypeAnnotation(underscoreName, msgTitle);
+    param.typeAnnotation = createExtractTypeAnnotation(
+      underscoreName,
+      msgTitle
+    );
   }
 
   return t.classProperty(
@@ -92,20 +102,17 @@ const createStaticExecMethodMessageBuilder = (
       // params
       param
         ? [
-          // props
-          param
-        ]
+            // props
+            param,
+          ]
         : [],
       // body
       t.blockStatement([
         t.returnStatement(
           t.objectExpression([
-            t.objectProperty(
-              t.identifier(underscoreName),
-              actionValue
-            )
+            t.objectProperty(t.identifier(underscoreName), actionValue),
           ])
-        )
+        ),
       ]),
       // return type
       t.tsTypeAnnotation(t.tsTypeReference(t.identifier(msgTitle))),

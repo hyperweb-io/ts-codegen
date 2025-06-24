@@ -6,7 +6,6 @@ import { readSchemas } from '../src/utils';
 const FIXTURE_DIR = __dirname + '/../../../__fixtures__';
 const OUTPUT_DIR = __dirname + '/../../../__output__';
 
-
 it('sg721', async () => {
   const out = OUTPUT_DIR + '/sg721';
   const schemaDir = FIXTURE_DIR + '/sg721/';
@@ -17,7 +16,6 @@ it('sg721', async () => {
   mkdirp(out);
   writeFileSync(out + '/orig.json', JSON.stringify(orig, null, 2));
   writeFileSync(out + '/clean.json', JSON.stringify(clean, null, 2));
-
 });
 
 it('daodao/cw-code-id-registry', async () => {
@@ -43,4 +41,3 @@ it('issues/103', async () => {
   writeFileSync(out + '/orig.json', JSON.stringify(orig, null, 2));
   writeFileSync(out + '/clean.json', JSON.stringify(clean, null, 2));
 });
-
