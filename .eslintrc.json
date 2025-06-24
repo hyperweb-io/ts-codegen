@@ -22,10 +22,7 @@
     "unused-imports"
   ],
   "rules": {
-    "indent": [
-      "error",
-      2
-    ],
+    "indent": "off", // prettier takes care of this (yarn format)
     "quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
     "quote-props": ["error", "as-needed"],
     "semi": ["error", "always"],
