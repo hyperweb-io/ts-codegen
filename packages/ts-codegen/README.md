@@ -7,8 +7,8 @@ Generate TypeScript SDKs for your CosmWasm smart contracts
 </p>
 
 <p align="center" width="100%">
-  <a href="https://github.com/CosmWasm/ts-codegen/actions/workflows/run-tests.yaml">
-    <img height="20" src="https://github.com/CosmWasm/ts-codegen/actions/workflows/run-tests.yaml/badge.svg" />
+  <a href="https://github.com/hyperweb-io/ts-codegen/actions/workflows/run-tests.yaml">
+    <img height="20" src="https://github.com/hyperweb-io/ts-codegen/actions/workflows/run-tests.yaml/badge.svg" />
   </a>
   <a href="https://github.com/hyperweb-io/lib-count">
   <img height="20" src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fhyperweb-io%2Flib-count%2Fmain%2Foutput%2Fbadges%2Fproducts%2Fcosmwasm%2Ftotal.json"/>  
@@ -17,11 +17,10 @@ Generate TypeScript SDKs for your CosmWasm smart contracts
   <img height="20" src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fhyperweb-io%2Flib-count%2Fmain%2Foutput%2Fbadges%2Fproducts%2Fcosmwasm%2Fmonthly.json"/>  
   </a>
   <br />
-  <a href="https://github.com/CosmWasm/ts-codegen/blob/main/LICENSE-MIT"><img height="20" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
-  <a href="https://github.com/CosmWasm/ts-codegen/blob/main/LICENSE-Apache"><img height="20" src="https://img.shields.io/badge/license-Apache-blue.svg"></a>
+  <a href="https://github.com/hyperweb-io/ts-codegen/blob/main/LICENSE-MIT"><img height="20" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
+  <a href="https://github.com/hyperweb-io/ts-codegen/blob/main/LICENSE-Apache"><img height="20" src="https://img.shields.io/badge/license-Apache-blue.svg"></a>
   <a href="https://www.npmjs.com/package/@cosmwasm/ts-codegen"><img height="20" src="https://img.shields.io/github/package-json/v/CosmWasm/ts-codegen?filename=packages%2Fts-codegen%2Fpackage.json"></a>
 </p>
-
 
 ```
 npm install @cosmwasm/ts-codegen
@@ -30,25 +29,26 @@ npm install @cosmwasm/ts-codegen
 The quickest and easiest way to interact with CosmWasm Contracts. `@cosmwasm/ts-codegen` converts your CosmWasm smart contracts into dev-friendly TypeScript classes so you can focus on shipping code.
 
 🎥 [Checkout our video playlist](https://cosmology.zone/learn/ts-codegen) to learn how to use `ts-codegen`!
+
 ## Table of contents
 
 - [@cosmwasm/ts-codegen](#cosmwasmts-codegen)
   - [Table of contents](#table-of-contents)
 - [Usage](#usage)
-    - [Programmatic Usage](#programmatic-usage)
-    - [Types](#types)
-    - [TS Clients](#client)
-    - [React Query](#react-query)
-    - [Recoil](#recoil)
-    - [Message Composer](#message-composer)
-    - [Message Builder](#message-builder)
-    - [Use Contracts Hook](#use-contracts-hooks-usage)
-    - [Bundles](#bundles)
-    - [CLI Usage and Examples](#cli-usage-and-examples)
-    - [Advanced Usage](#advanced-usage)
+  - [Programmatic Usage](#programmatic-usage)
+  - [Types](#types)
+  - [TS Clients](#client)
+  - [React Query](#react-query)
+  - [Recoil](#recoil)
+  - [Message Composer](#message-composer)
+  - [Message Builder](#message-builder)
+  - [Use Contracts Hook](#use-contracts-hooks-usage)
+  - [Bundles](#bundles)
+  - [CLI Usage and Examples](#cli-usage-and-examples)
+  - [Advanced Usage](#advanced-usage)
 - [JSON Schema](#json-schema)
-    - [JSON Schema Generation](#json-schema-generation)
-    - [Exporting Schemas](#exporting-schemas)
+  - [JSON Schema Generation](#json-schema-generation)
+  - [Exporting Schemas](#exporting-schemas)
 - [Developing](#developing)
 - [Related](#related)
 
@@ -59,93 +59,93 @@ The quickest and easiest way to interact with CosmWasm Contracts. `@cosmwasm/ts-
 For production usage, we recommend setting up a build script that uses the main entry point:
 
 ```ts
-import codegen from '@cosmwasm/ts-codegen';
+import codegen from "@cosmwasm/ts-codegen";
 
 codegen({
   contracts: [
     {
-      name: 'SG721',
-      dir: './path/to/sg721/schema'
+      name: "SG721",
+      dir: "./path/to/sg721/schema",
     },
     {
-      name: 'Minter',
-      dir: './path/to/Minter/schema'
-    }
+      name: "Minter",
+      dir: "./path/to/Minter/schema",
+    },
   ],
-  outPath: './path/to/code/src/',
+  outPath: "./path/to/code/src/",
 
   // options are completely optional ;)
   options: {
     bundle: {
-      bundleFile: 'index.ts',
-      scope: 'contracts'
+      bundleFile: "index.ts",
+      scope: "contracts",
     },
     types: {
-      enabled: true
+      enabled: true,
     },
     client: {
-      enabled: true
+      enabled: true,
     },
     reactQuery: {
       enabled: true,
       optionalClient: true,
-      version: 'v4',
+      version: "v4",
       mutations: true,
       queryKeys: true,
       queryFactory: true,
     },
     recoil: {
-      enabled: false
+      enabled: false,
     },
     messageComposer: {
-      enabled: false
+      enabled: false,
     },
     messageBuilder: {
-      enabled: false
+      enabled: false,
     },
     useContractsHook: {
-      enabled: false
-    }
-  }
+      enabled: false,
+    },
+  },
 }).then(() => {
-  console.log('✨ all done!');
+  console.log("✨ all done!");
 });
 ```
+
 #### Types
 
 Typescript types and interfaces are generated in separate files so they can be imported into various generated plugins.
 
-[see example output code](https://github.com/CosmWasm/ts-codegen/blob/main/__output__/sg721/Sg721.types.ts)
+[see example output code](https://github.com/hyperweb-io/ts-codegen/blob/main/__output__/sg721/Sg721.types.ts)
 
 #### Types Options
 
-| option                   | description                                          |
-| ------------------------ | ---------------------------------------------------- |
-| `types.enabled`          | enable type generation                               |
-| `types.aliasExecuteMsg`  | generate a type alias based on the contract name     |
-| `types.aliasEntryPoints` | generate type aliases for the entry points based on the contract name     |
+| option                   | description                                                           |
+| ------------------------ | --------------------------------------------------------------------- |
+| `types.enabled`          | enable type generation                                                |
+| `types.aliasExecuteMsg`  | generate a type alias based on the contract name                      |
+| `types.aliasEntryPoints` | generate type aliases for the entry points based on the contract name |
 
 ### Client
 
 The `client` plugin will generate TS client classes for your contracts. This option generates a `QueryClient` for queries as well as a `Client` for queries and mutations.
 
-[see example output code](https://github.com/CosmWasm/ts-codegen/blob/main/__output__/sg721/Sg721.client.ts )
+[see example output code](https://github.com/hyperweb-io/ts-codegen/blob/main/__output__/sg721/Sg721.client.ts)
 
 #### Client Options
 
-| option                                  | description                                          |
-| --------------------------------------- | ---------------------------------------------------  |
-| `client.enabled`                        | generate TS client classes for your contracts        |
-| `client.execExtendsQuery`               | execute should extend query message clients          |
-| `client.noImplicitOverride`             | should match your tsconfig noImplicitOverride option |
-| `client.useDeclareKeyword`              | use declare keyword for inherited class fields       |
-
+| option                      | description                                          |
+| --------------------------- | ---------------------------------------------------- |
+| `client.enabled`            | generate TS client classes for your contracts        |
+| `client.execExtendsQuery`   | execute should extend query message clients          |
+| `client.noImplicitOverride` | should match your tsconfig noImplicitOverride option |
+| `client.useDeclareKeyword`  | use declare keyword for inherited class fields       |
 
 ### React Query
 
 Generate [react-query v3](https://react-query-v3.tanstack.com/) or [react-query v4](https://tanstack.com/query/v4/) bindings for your contracts with the `react-query` command.
 
-[see example output code](https://github.com/CosmWasm/ts-codegen/blob/main/__output__/sg721/Sg721.react-query.ts)
+[see example output code](https://github.com/hyperweb-io/ts-codegen/blob/main/__output__/sg721/Sg721.react-query.ts)
 
 #### React Query Options
 
@@ -159,72 +159,66 @@ Generate [react-query v3](https://react-query-v3.tanstack.com/) or [react-query 
 | `reactQuery.mutations`      | also generate mutations                                                      |
 | `reactQuery.camelize`       | use camelCase style for property names                                       |
 
-
 ### Recoil
 
 Generate [recoil](https://recoiljs.org/) bindings for your contracts with the `recoil` command.
 
-[see example output code](https://github.com/CosmWasm/ts-codegen/blob/main/__output__/sg721/Sg721.recoil.ts)
+[see example output code](https://github.com/hyperweb-io/ts-codegen/blob/main/__output__/sg721/Sg721.recoil.ts)
 
 #### Recoil Options
 
-| option                         | description                                                         |
-| ------------------------------ | ------------------------------------------------------------------- |
-| `recoil.enabled`               | enable the recoil plugin                                            |
+| option           | description              |
+| ---------------- | ------------------------ |
+| `recoil.enabled` | enable the recoil plugin |
 
 ### Message Composer
 
 Generate pure message objects with the proper `utf8` encoding and `typeUrl` configured that you can broadcast yourself via `cosmjs` with the `message-composer` command.
 
-[see example output code](https://github.com/CosmWasm/ts-codegen/blob/main/__output__/sg721/Sg721.message-composer.ts)
+[see example output code](https://github.com/hyperweb-io/ts-codegen/blob/main/__output__/sg721/Sg721.message-composer.ts)
 
 #### Message Composer Options
 
-| option                         | description                                                         |
-| ------------------------------ | ------------------------------------------------------------------- |
-| `messageComposer.enabled`      | enable the messageComposer plugin                                   |
+| option                    | description                       |
+| ------------------------- | --------------------------------- |
+| `messageComposer.enabled` | enable the messageComposer plugin |
 
 ### Message Builder
 
 Generate raw message jsons for use in your application with the `message-builder` command.
 
-[see example output code](https://github.com/CosmWasm/ts-codegen/blob/main/__output__/sg721/Sg721.message-builder.ts)
+[see example output code](https://github.com/hyperweb-io/ts-codegen/blob/main/__output__/sg721/Sg721.message-builder.ts)
 
 #### Message Builder Options
 
-| option                   | description                        |
-|------------------------- | ---------------------------------- |
-| `messageBuilder.enabled` | enable the messageBuilder plugin   |
-
+| option                   | description                      |
+| ------------------------ | -------------------------------- |
+| `messageBuilder.enabled` | enable the messageBuilder plugin |
 
 ### `useContracts` Hook
 
 Generates `useContracts` hook to easily access contracts, already equipped with a signing client
 
-| option                           | description                             |
-| -------------------------------- | --------------------------------------- |
-| `useContractsHook.enabled`       | enable the `useContracts` plugin        |
+| option                     | description                      |
+| -------------------------- | -------------------------------- |
+| `useContractsHook.enabled` | enable the `useContracts` plugin |
 
 #### Example Output
 
-- [Provider](https://github.com/CosmWasm/ts-codegen/blob/main/__output__/builder/bundler_test/contracts/Factory.provider.ts)
-- [Contract Providers](https://github.com/CosmWasm/ts-codegen/blob/main/__output__/builder/bundler_test/contracts/contractContextProviders.ts)
-- [Contract Context](https://github.com/CosmWasm/ts-codegen/blob/main/__output__/builder/bundler_test/contracts/contracts-context.tsx)
-- [Context Base](https://github.com/CosmWasm/ts-codegen/blob/main/__output__/builder/bundler_test/contracts/contractContextBase.ts)
+- [Provider](https://github.com/hyperweb-io/ts-codegen/blob/main/__output__/builder/bundler_test/contracts/Factory.provider.ts)
+- [Contract Providers](https://github.com/hyperweb-io/ts-codegen/blob/main/__output__/builder/bundler_test/contracts/contractContextProviders.ts)
+- [Contract Context](https://github.com/hyperweb-io/ts-codegen/blob/main/__output__/builder/bundler_test/contracts/contracts-context.tsx)
+- [Context Base](https://github.com/hyperweb-io/ts-codegen/blob/main/__output__/builder/bundler_test/contracts/contractContextBase.ts)
 
 #### Use Contracts Provider Usage
 
 ```tsx
-import { useChain } from '@cosmos-kit/react';
-import { ContractsProvider } from '../path/to/codegen/contracts-context';
+import { useChain } from "@cosmos-kit/react";
+import { ContractsProvider } from "../path/to/codegen/contracts-context";
 
 export default function YourComponent() {
-
-  const {
-    address,
-    getCosmWasmClient,
-    getSigningCosmWasmClient
-  } = useChain(chainName);
+  const { address, getCosmWasmClient, getSigningCosmWasmClient } =
+    useChain(chainName);
 
   return (
     <ContractsProvider
@@ -234,10 +228,10 @@ export default function YourComponent() {
         getSigningCosmWasmClient,
       }}
     >
-        <SomeCoolComponent />
+      <SomeCoolComponent />
     </ContractsProvider>
-  )
-};
+  );
+}
 ```
 
 #### Use Contracts Provider Babel/TSC config
@@ -245,11 +239,7 @@ export default function YourComponent() {
 If you're using Babel, please make sure include `'@babel/preset-react'` in devDeps and presets in `.babelrc.js`:
 
 ```js
- presets: [
-   '@babel/typescript',
-   '@babel/env',
-   '@babel/preset-react',
- ]
+presets: ["@babel/typescript", "@babel/env", "@babel/preset-react"];
 ```
 
 For `tsc`, you should set the `jsx` option to `'react'` in your `tsconfig.json`.
@@ -279,26 +269,24 @@ await marketplaceClient.updateAskPrice({
 The bundler will make a nice package of all your contracts. For example:
 
 ```ts
-const {
-  MinterQueryClient,
-  useMinterConfigQuery
-} = contracts.Minter;
+const { MinterQueryClient, useMinterConfigQuery } = contracts.Minter;
 
 const { CwAdminFactoryClient } = contracts.CwAdminFactory;
 ```
+
 #### Bundler Options
 
-| option                | description                                                                      |
-| --------------------- | -------------------------------------------------------------------------------- |
-| `bundle.enabled`      | enable the bundler plugin                                                        |
-| `bundle.scope`        | name of the scope, defaults to `contracts` (you can use `.` to make more scopes) |
-| `bundle.bundleFile`   | name of the bundle file                                                          |
+| option              | description                                                                      |
+| ------------------- | -------------------------------------------------------------------------------- |
+| `bundle.enabled`    | enable the bundler plugin                                                        |
+| `bundle.scope`      | name of the scope, defaults to `contracts` (you can use `.` to make more scopes) |
+| `bundle.bundleFile` | name of the bundle file                                                          |
 
 #### Coding Style
 
-| option                | description                          | default |
-| --------------------- | ------------------------------------ | ------- |
-| `useShorthandCtor`    |  Enable using shorthand constructor. | true    |
+| option             | description                         | default |
+| ------------------ | ----------------------------------- | ------- |
+| `useShorthandCtor` | Enable using shorthand constructor. | true    |
 
 Using shorthand constructor (Might not be transpiled correctly with babel):
 
@@ -386,9 +374,10 @@ cosmwasm-ts-codegen generate
  ◯ recoil
  ◯ react-query
  ◯ message-composer
- ```
+```
 
 In this example, you can press space bar to select a number of plugins you wish you enable.
+
 #### Specifying Plugins
 
 Additionally, it will also show you the name of the field (in this case `plugin`) so you can specify the parameter (for example when using CI/CD) on the comand line. Here is an exampl with `--plugin` set to `client` via CLI:
@@ -399,7 +388,7 @@ ts-codegen generate \
     --schema ./schema \
     --out ./ts \
     --name MyContractName
- ```
+```
 
 You can specify multiple `--plugin` options using the `generate` command:
 
@@ -465,7 +454,6 @@ ts-codegen generate \
     --name MyContractName
 ```
 
-
 #### React Query via CLI
 
 Here is an example without optional client, using v3 for `react-query`, without mutations:
@@ -528,6 +516,7 @@ ts-codegen generate \
 ### JSON Schema
 
 We generate code from the [JSON Schema](https://json-schema.org/) exported from CosmWasm smart contracts.
+
 ### JSON Schema Generation
 
 Currently you have to have the JSON Schema output. Here is an example to start.
@@ -546,7 +535,9 @@ now build the schema with `cargo schema`
 cd contracts/sg721/
 cargo schema
 ```
+
 ### Exporting Schemas
+
 #### `cosmwasm v1.1` Example
 
 Using the new `write_api` method, you can export schemas:
@@ -608,23 +599,23 @@ yarn test:watch
 
 ### Working with ASTs
 
-See the [docs](https://github.com/CosmWasm/ts-codegen/blob/main/packages/ast/README.md) in the `@cosmwasm/ts-codegen-ast` package.
+See the [docs](https://github.com/hyperweb-io/ts-codegen/blob/main/packages/ast/README.md) in the `@cosmwasm/ts-codegen-ast` package.
 
-## Interchain JavaScript Stack 
+## Interchain JavaScript Stack
 
 A unified toolkit for building applications and smart contracts in the Interchain ecosystem ⚛️
 
-| Category              | Tools                                                                                                                  | Description                                                                                           |
-|----------------------|------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
-| **Chain Information**   | [**Chain Registry**](https://github.com/hyperweb-io/chain-registry), [**Utils**](https://www.npmjs.com/package/@chain-registry/utils), [**Client**](https://www.npmjs.com/package/@chain-registry/client) | Everything from token symbols, logos, and IBC denominations for all assets you want to support in your application. |
-| **Wallet Connectors**| [**Interchain Kit**](https://github.com/hyperweb-io/interchain-kit)<sup>beta</sup>, [**Cosmos Kit**](https://github.com/hyperweb-io/cosmos-kit) | Experience the convenience of connecting with a variety of web3 wallets through a single, streamlined interface. |
-| **Signing Clients**          | [**InterchainJS**](https://github.com/hyperweb-io/interchainjs)<sup>beta</sup>, [**CosmJS**](https://github.com/cosmos/cosmjs) | A single, universal signing interface for any network |
-| **SDK Clients**              | [**Telescope**](https://github.com/hyperweb-io/telescope)                                                          | Your Frontend Companion for Building with TypeScript with Cosmos SDK Modules. |
-| **Starter Kits**     | [**Create Interchain App**](https://github.com/hyperweb-io/create-interchain-app)<sup>beta</sup>, [**Create Cosmos App**](https://github.com/hyperweb-io/create-cosmos-app) | Set up a modern Interchain app by running one command. |
-| **UI Kits**          | [**Interchain UI**](https://github.com/hyperweb-io/interchain-ui)                                                   | The Interchain Design System, empowering developers with a flexible, easy-to-use UI kit. |
-| **Testing Frameworks**          | [**Starship**](https://github.com/hyperweb-io/starship)                                                             | Unified Testing and Development for the Interchain. |
-| **TypeScript Smart Contracts** | [**Create Hyperweb App**](https://github.com/hyperweb-io/create-hyperweb-app)                              | Build and deploy full-stack blockchain applications with TypeScript |
-| **CosmWasm Contracts** | [**CosmWasm TS Codegen**](https://github.com/CosmWasm/ts-codegen)                                                   | Convert your CosmWasm smart contracts into dev-friendly TypeScript classes. |
+| Category                       | Tools                                                                                                                                                                                                     | Description                                                                                                         |
+| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| **Chain Information**          | [**Chain Registry**](https://github.com/hyperweb-io/chain-registry), [**Utils**](https://www.npmjs.com/package/@chain-registry/utils), [**Client**](https://www.npmjs.com/package/@chain-registry/client) | Everything from token symbols, logos, and IBC denominations for all assets you want to support in your application. |
+| **Wallet Connectors**          | [**Interchain Kit**](https://github.com/hyperweb-io/interchain-kit)<sup>beta</sup>, [**Cosmos Kit**](https://github.com/hyperweb-io/cosmos-kit)                                                           | Experience the convenience of connecting with a variety of web3 wallets through a single, streamlined interface.    |
+| **Signing Clients**            | [**InterchainJS**](https://github.com/hyperweb-io/interchainjs)<sup>beta</sup>, [**CosmJS**](https://github.com/cosmos/cosmjs)                                                                            | A single, universal signing interface for any network                                                               |
+| **SDK Clients**                | [**Telescope**](https://github.com/hyperweb-io/telescope)                                                                                                                                                 | Your Frontend Companion for Building with TypeScript with Cosmos SDK Modules.                                       |
+| **Starter Kits**               | [**Create Interchain App**](https://github.com/hyperweb-io/create-interchain-app)<sup>beta</sup>, [**Create Cosmos App**](https://github.com/hyperweb-io/create-cosmos-app)                               | Set up a modern Interchain app by running one command.                                                              |
+| **UI Kits**                    | [**Interchain UI**](https://github.com/hyperweb-io/interchain-ui)                                                                                                                                         | The Interchain Design System, empowering developers with a flexible, easy-to-use UI kit.                            |
+| **Testing Frameworks**         | [**Starship**](https://github.com/hyperweb-io/starship)                                                                                                                                                   | Unified Testing and Development for the Interchain.                                                                 |
+| **TypeScript Smart Contracts** | [**Create Hyperweb App**](https://github.com/hyperweb-io/create-hyperweb-app)                                                                                                                             | Build and deploy full-stack blockchain applications with TypeScript                                                 |
+| **CosmWasm Contracts**         | [**CosmWasm TS Codegen**](https://github.com/hyperweb-io/ts-codegen)                                                                                                                                      | Convert your CosmWasm smart contracts into dev-friendly TypeScript classes.                                         |
 
 ## Credits
 

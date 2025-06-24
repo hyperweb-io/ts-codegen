@@ -43,6 +43,6 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/cosmwasm/ts-codegen"
+    "url": "https://github.com/hyperweb-io/ts-codegen"
   }
 }

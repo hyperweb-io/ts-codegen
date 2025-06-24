@@ -3,7 +3,7 @@
   "version": "1.8.1",
   "description": "CosmWasm TypeScript AST generation",
   "author": "Dan Lynch <pyramation@gmail.com>",
-  "homepage": "https://github.com/cosmwasm/ts-codegen/tree/master/packages/ast#readme",
+  "homepage": "https://github.com/hyperweb-io/ts-codegen/tree/master/packages/ast#readme",
   "license": "SEE LICENSE IN LICENSE",
   "main": "index.js",
   "module": "esm/index.js",
@@ -27,11 +27,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cosmwasm/ts-codegen"
+    "url": "https://github.com/hyperweb-io/ts-codegen"
   },
   "keywords": [],
   "bugs": {
-    "url": "https://github.com/cosmwasm/ts-codegen/issues"
+    "url": "https://github.com/hyperweb-io/ts-codegen/issues"
   },
   "dependencies": {
     "@babel/types": "7.24.0",
