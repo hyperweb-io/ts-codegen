@@ -10,6 +10,7 @@
     "build": "lerna run build --stream",
     "test": "lerna run test --stream",
     "lint": "lerna run lint --parallel",
+    "format": "lerna run format --parallel",
     "symlink": "symlink-workspace --logLevel error",
     "postinstall": "yarn symlink"
   },
