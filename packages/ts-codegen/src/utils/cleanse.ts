@@ -55,8 +55,7 @@ export const cleanse = (obj: any): any => {
     }
 
     for (let attr in obj) {
-      if (obj.hasOwnProperty(attr)) {
-
+      if (Object.prototype.hasOwnProperty.call(obj, attr)) {
         if (/_for_/.test(attr)) {
           // @ts-ignore
           copy[cleanFor(attr)] = cleanse(obj[attr]);
@@ -69,9 +68,7 @@ export const cleanse = (obj: any): any => {
           case '$ref':
             if (typeof obj[attr] === 'string') {
               // @ts-ignore
-              copy[attr] = cleanse(
-                cleanNullable(cleanFor(obj[attr]))
-              );
+              copy[attr] = cleanse(cleanNullable(cleanFor(obj[attr])));
             } else {
               // @ts-ignore
               copy[attr] = cleanse(obj[attr]);
@@ -82,7 +79,6 @@ export const cleanse = (obj: any): any => {
             copy[attr] = cleanse(obj[attr]);
           }
         }
-
       } else {
         // @ts-ignore
         copy[attr] = cleanse(obj[attr]);

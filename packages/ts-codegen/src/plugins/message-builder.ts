@@ -4,12 +4,12 @@ import {
   getMessageProperties,
   RenderContext,
   RenderContextBase,
-  RenderOptions
+  RenderOptions,
 } from '@cosmwasm/ts-codegen-ast';
 import { pascal } from 'case';
 
 import { BuilderFileType } from '../builder';
-import { findAndParseTypes, findExecuteMsg,findQueryMsg } from '../utils';
+import { findAndParseTypes, findExecuteMsg, findQueryMsg } from '../utils';
 import { BuilderPluginBase } from './plugin-base';
 
 export class MessageBuilderPlugin extends BuilderPluginBase<RenderOptions> {
@@ -70,7 +70,7 @@ export class MessageBuilderPlugin extends BuilderPluginBase<RenderOptions> {
       }
     }
 
-    if (typeHash.hasOwnProperty('Coin')) {
+    if (Object.prototype.hasOwnProperty.call(typeHash, 'Coin')) {
       // @ts-ignore
       delete context.utils.Coin;
     }
@@ -79,8 +79,8 @@ export class MessageBuilderPlugin extends BuilderPluginBase<RenderOptions> {
       {
         type: 'message-builder',
         localname,
-        body
-      }
+        body,
+      },
     ];
   }
 }

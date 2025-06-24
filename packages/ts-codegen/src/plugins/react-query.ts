@@ -4,7 +4,8 @@ import {
   getMessageProperties,
   RenderContext,
   RenderContextBase,
-  RenderOptions} from '@cosmwasm/ts-codegen-ast';
+  RenderOptions,
+} from '@cosmwasm/ts-codegen-ast';
 import { pascal } from 'case';
 
 import { BuilderFileType } from '../builder';
@@ -82,7 +83,7 @@ export class ReactQueryPlugin extends BuilderPluginBase<RenderOptions> {
           context,
           queryMsg: QueryMsg,
           contractName: name,
-          QueryClient
+          QueryClient,
         })
       );
     }
@@ -94,12 +95,12 @@ export class ReactQueryPlugin extends BuilderPluginBase<RenderOptions> {
           context,
           execMsg: ExecuteMsg,
           contractName: name,
-          ExecuteClient
+          ExecuteClient,
         })
       );
     }
 
-    if (typeHash.hasOwnProperty('Coin')) {
+    if (Object.prototype.hasOwnProperty.call(typeHash, 'Coin')) {
       // @ts-ignore
       delete context.utils.Coin;
     }
@@ -108,8 +109,8 @@ export class ReactQueryPlugin extends BuilderPluginBase<RenderOptions> {
       {
         type: 'react-query',
         localname,
-        body
-      }
+        body,
+      },
     ];
   }
 }

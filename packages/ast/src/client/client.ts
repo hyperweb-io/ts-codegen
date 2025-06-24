@@ -16,12 +16,12 @@ import {
   typedIdentifier
 } from '../utils';
 import { identifier, propertySignature } from '../utils/babel';
+import { OPTIONAL_MEMO_PARAM } from '../utils/constants';
 import {
   createTypedObjectParams,
   getPropertyType,
   getResponseType
 } from '../utils/types';
-import { OPTIONAL_MEMO_PARAM } from "../utils/constants";
 
 export const CONSTANT_EXEC_PARAMS = [
   t.assignmentPattern(
