@@ -12,7 +12,7 @@
   "registry": "https://registry.npmjs.org",
   "command": {
     "create": {
-      "homepage": "https://github.com/cosmwasm/ts-codegen",
+      "homepage": "https://github.com/hyperweb-io/ts-codegen",
       "license": "SEE LICENSE IN LICENSE",
       "access": "restricted"
     },
