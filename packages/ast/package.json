@@ -19,6 +19,7 @@
     "codegen": "ts-node ./scripts/build.ts",
     "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
     "lint": "eslint . --fix",
+    "format": "prettier --write --log-level warn \"./**/*.ts\"",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:ast": "ts-node scripts/test-ast.ts",

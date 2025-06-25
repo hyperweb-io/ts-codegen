@@ -1,16 +1,17 @@
 import generate from '@babel/generator';
 import * as t from '@babel/types';
-import { ContractInfo, defaultOptions,IContext, UtilMapping } from '@cosmwasm/ts-codegen-ast';
+import {
+  ContractInfo,
+  defaultOptions,
+  IContext,
+  UtilMapping,
+} from '@cosmwasm/ts-codegen-ast';
 import deepmerge from 'deepmerge';
 import { writeFileSync } from 'fs';
 import { sync as mkdirp } from 'mkdirp';
 import { join } from 'path';
 
-import {
-  BuilderFile,
-  BuilderFileType,
-  TSBuilder,
-} from '../builder';
+import { BuilderFile, BuilderFileType, TSBuilder } from '../builder';
 import { header } from '../utils/header';
 
 /**
@@ -43,7 +44,7 @@ export interface IBuilderPlugin {
   render(
     outPath: string,
     name?: string,
-    contractInfo?: ContractInfo,
+    contractInfo?: ContractInfo
   ): Promise<BuilderFile[]>;
 }
 
@@ -51,7 +52,8 @@ export interface IBuilderPlugin {
  * BuilderPluginBase enable ts-codegen users implement their own plugins by only implement a few functions.
  */
 export abstract class BuilderPluginBase<TOpt extends { enabled?: boolean }>
-implements IBuilderPlugin {
+  implements IBuilderPlugin
+{
   builder?: TSBuilder;
   options: TOpt;
   utils: UtilMapping;
@@ -75,7 +77,7 @@ implements IBuilderPlugin {
   async render(
     outPath: string,
     name?: string,
-    contractInfo?: ContractInfo,
+    contractInfo?: ContractInfo
   ): Promise<BuilderFile[]> {
     if (!this.options) {
       this.options = this.getDefaultOptions(this.options);
@@ -98,7 +100,8 @@ implements IBuilderPlugin {
     return results.map((result) => {
       const imports = context.getImports(this.utils, result.localname);
       // @ts-ignore
-      const code = header + generate(t.program([...imports, ...result.body])).code;
+      const code =
+        header + generate(t.program([...imports, ...result.body])).code;
 
       mkdirp(outPath);
       const filename = join(outPath, result.localname);

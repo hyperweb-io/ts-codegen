@@ -23,17 +23,17 @@ export const clean = (obj: any): any => {
   if (obj instanceof Object || typeof obj === 'object') {
     copy = {};
     for (let attr in obj) {
-      if (obj.hasOwnProperty(attr)) {
+      if (Object.prototype.hasOwnProperty.call(obj, attr)) {
         switch (attr) {
-        case 'leadingComments':
-        case 'trailingComments':
-        case 'loc':
-        case 'start':
-        case 'end':
-          break;
-        default:
-          // @ts-ignore
-          copy[attr] = clean(obj[attr]);
+          case 'leadingComments':
+          case 'trailingComments':
+          case 'loc':
+          case 'start':
+          case 'end':
+            break;
+          default:
+            // @ts-ignore
+            copy[attr] = clean(obj[attr]);
         }
       } else {
         // @ts-ignore

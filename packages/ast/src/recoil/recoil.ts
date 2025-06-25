@@ -6,7 +6,7 @@ import { RenderContext } from '../context';
 import {
   callExpression,
   getMessageProperties,
-  getResponseType
+  getResponseType,
 } from '../utils';
 
 export const createRecoilSelector = (
@@ -16,143 +16,100 @@ export const createRecoilSelector = (
   methodName: string,
   responseType: string
 ) => {
-
   context.addUtil('selectorFamily');
 
   const selectorName = camel(`${methodName}Selector`);
   const getterKey = camel(`${keyPrefix}${pascal(methodName)}`);
 
   return t.exportNamedDeclaration(
-    t.variableDeclaration(
-      'const',
-      [t.variableDeclarator(
+    t.variableDeclaration('const', [
+      t.variableDeclarator(
         t.identifier(selectorName),
         callExpression(
           t.identifier('selectorFamily'),
           [
-            t.objectExpression(
-              [
-                t.objectProperty(
-                  t.identifier('key'),
-                  t.stringLiteral(getterKey)
-                ),
-                t.objectProperty(
-                  t.identifier('get'),
+            t.objectExpression([
+              t.objectProperty(t.identifier('key'), t.stringLiteral(getterKey)),
+              t.objectProperty(
+                t.identifier('get'),
+                t.arrowFunctionExpression(
+                  [
+                    t.objectPattern([
+                      t.objectProperty(
+                        t.identifier('params'),
+                        t.identifier('params'),
+                        false,
+                        true
+                      ),
+                      t.restElement(t.identifier('queryClientParams')),
+                    ]),
+                  ],
                   t.arrowFunctionExpression(
                     [
-                      t.objectPattern(
-                        [
-                          t.objectProperty(
-                            t.identifier('params'),
-                            t.identifier('params'),
-                            false,
-                            true
-                          ),
-                          t.restElement(
-                            t.identifier('queryClientParams')
-                          )
-                        ]
-                      )
+                      t.objectPattern([
+                        t.objectProperty(
+                          t.identifier('get'),
+                          t.identifier('get'),
+                          false,
+                          true
+                        ),
+                      ]),
                     ],
-                    t.arrowFunctionExpression(
-                      [
-                        t.objectPattern(
-                          [
-                            t.objectProperty(
-                              t.identifier('get'),
-                              t.identifier('get'),
-                              false,
-                              true
-                            )
-                          ]
-                        )
-                      ],
-                      t.blockStatement(
-                        [
-                          t.variableDeclaration('const',
-                            [
-                              t.variableDeclarator(
-                                t.identifier('client'),
-                                t.callExpression(
-                                  t.identifier('get'),
-                                  [
-                                    t.callExpression(
-                                      t.identifier('queryClient'),
-                                      [
-                                        t.identifier('queryClientParams')
-                                      ]
-                                    )
-                                  ]
-                                )
-                              )
+                    t.blockStatement([
+                      t.variableDeclaration('const', [
+                        t.variableDeclarator(
+                          t.identifier('client'),
+                          t.callExpression(t.identifier('get'), [
+                            t.callExpression(t.identifier('queryClient'), [
+                              t.identifier('queryClientParams'),
                             ]),
-                          t.returnStatement(
-                            t.awaitExpression(
-                              t.callExpression(
-                                t.memberExpression(
-                                  t.identifier('client'),
-                                  t.identifier(methodName)
-                                ),
-                                [
-                                  t.spreadElement(
-                                    t.identifier('params')
-                                  )
-                                ]
-                              )
-                            )
+                          ])
+                        ),
+                      ]),
+                      t.returnStatement(
+                        t.awaitExpression(
+                          t.callExpression(
+                            t.memberExpression(
+                              t.identifier('client'),
+                              t.identifier(methodName)
+                            ),
+                            [t.spreadElement(t.identifier('params'))]
                           )
-                        ]
+                        )
                       ),
-                      true
-                    )
+                    ]),
+                    true
                   )
                 )
-              ]
-            )
-          ],
-          t.tsTypeParameterInstantiation(
-            [
-              t.tsTypeReference(
-                t.identifier(responseType)
               ),
-              t.tsIntersectionType(
-                [
-                  t.tsTypeReference(
-                    t.identifier('QueryClientParams')
-                  ),
-                  t.tsTypeLiteral(
-                    [
-                      t.tsPropertySignature(
-                        t.identifier('params'),
-                        t.tsTypeAnnotation(
-                          t.tsTypeReference(
-                            t.identifier('Parameters'),
-                            t.tsTypeParameterInstantiation(
-                              [
-                                t.tsIndexedAccessType(
-                                  t.tsTypeReference(
-                                    t.identifier(QueryClient)
-                                  ),
-                                  t.tsLiteralType(
-                                    t.stringLiteral(methodName)
-                                  )
-                                )
-                              ]
-                            )
-                          )
-                        )
-                      )
-                    ]
+            ]),
+          ],
+          t.tsTypeParameterInstantiation([
+            t.tsTypeReference(t.identifier(responseType)),
+            t.tsIntersectionType([
+              t.tsTypeReference(t.identifier('QueryClientParams')),
+              t.tsTypeLiteral([
+                t.tsPropertySignature(
+                  t.identifier('params'),
+                  t.tsTypeAnnotation(
+                    t.tsTypeReference(
+                      t.identifier('Parameters'),
+                      t.tsTypeParameterInstantiation([
+                        t.tsIndexedAccessType(
+                          t.tsTypeReference(t.identifier(QueryClient)),
+                          t.tsLiteralType(t.stringLiteral(methodName))
+                        ),
+                      ])
+                    )
                   )
-                ]
-              )
-            ]
-          )
+                ),
+              ]),
+            ]),
+          ])
         )
-      )]
-    )
+      ),
+    ])
   );
-
 };
 
 export const createRecoilSelectors = (
@@ -161,29 +118,26 @@ export const createRecoilSelectors = (
   QueryClient: string,
   queryMsg: QueryMsg
 ): t.ExportNamedDeclaration[] => {
-  return getMessageProperties(queryMsg)
-    .map((schema: JSONSchema) => {
+  return getMessageProperties(queryMsg).map((schema: JSONSchema) => {
+    const underscoreName = Object.keys(schema.properties)[0];
+    const methodName = camel(underscoreName);
+    const responseType = getResponseType(context, underscoreName);
 
-      const underscoreName = Object.keys(schema.properties)[0];
-      const methodName = camel(underscoreName);
-      const responseType = getResponseType(context, underscoreName);
-
-      return createRecoilSelector(
-        context,
-        keyPrefix,
-        QueryClient,
-        methodName,
-        responseType
-      );
-
-    });
+    return createRecoilSelector(
+      context,
+      keyPrefix,
+      QueryClient,
+      methodName,
+      responseType
+    );
+  });
 };
 
 export const createRecoilQueryClientType = () => ({
   type: 'TSTypeAliasDeclaration',
   id: {
     type: 'Identifier',
-    name: 'QueryClientParams'
+    name: 'QueryClientParams',
   },
   typeAnnotation: {
     type: 'TSTypeLiteral',
@@ -192,18 +146,18 @@ export const createRecoilQueryClientType = () => ({
         type: 'TSPropertySignature',
         key: {
           type: 'Identifier',
-          name: 'contractAddress'
+          name: 'contractAddress',
         },
         computed: false,
         typeAnnotation: {
           type: 'TSTypeAnnotation',
           typeAnnotation: {
-            type: 'TSStringKeyword'
-          }
-        }
-      }
-    ]
-  }
+            type: 'TSStringKeyword',
+          },
+        },
+      },
+    ],
+  },
 });
 
 export const createRecoilQueryClient = (
@@ -211,98 +165,71 @@ export const createRecoilQueryClient = (
   keyPrefix: string,
   QueryClient: string
 ) => {
-
   context.addUtil('selectorFamily');
 
   const getterKey = camel(`${keyPrefix}${'QueryClient'}`);
 
   return t.exportNamedDeclaration(
-    t.variableDeclaration(
-      'const',
-      [t.variableDeclarator(
+    t.variableDeclaration('const', [
+      t.variableDeclarator(
         t.identifier('queryClient'),
         callExpression(
           t.identifier('selectorFamily'),
           [
-            t.objectExpression(
-              [
-                t.objectProperty(
-                  t.identifier('key'),
-                  t.stringLiteral(getterKey)
-                ),
-                t.objectProperty(
-                  t.identifier('get'),
+            t.objectExpression([
+              t.objectProperty(t.identifier('key'), t.stringLiteral(getterKey)),
+              t.objectProperty(
+                t.identifier('get'),
+                t.arrowFunctionExpression(
+                  [
+                    t.objectPattern([
+                      t.objectProperty(
+                        t.identifier('contractAddress'),
+                        t.identifier('contractAddress'),
+                        false,
+                        true
+                      ),
+                    ]),
+                  ],
                   t.arrowFunctionExpression(
                     [
-                      t.objectPattern(
-                        [
-                          t.objectProperty(
-                            t.identifier('contractAddress'),
-                            t.identifier('contractAddress'),
-                            false,
-                            true
-                          )
-                        ]
-                      )
+                      t.objectPattern([
+                        t.objectProperty(
+                          t.identifier('get'),
+                          t.identifier('get'),
+                          false,
+                          true
+                        ),
+                      ]),
                     ],
-                    t.arrowFunctionExpression(
-                      [
-                        t.objectPattern(
-                          [
-                            t.objectProperty(
-                              t.identifier('get'),
-                              t.identifier('get'),
-                              false,
-                              true
-                            )
-                          ]
-                        )
-                      ],
-                      t.blockStatement(
-                        [
-                          t.variableDeclaration('const',
-                            [
-                              t.variableDeclarator(
-                                t.identifier('client'),
-                                t.callExpression(
-                                  t.identifier('get'),
-                                  [
-                                    t.identifier('cosmWasmClient')
-                                  ]
-                                )
-                              )
-                            ]),
-                          t.returnStatement(
-                            t.newExpression(
-                              t.identifier(QueryClient),
-                              [
-                                t.identifier('client'),
-                                t.identifier('contractAddress')
-                              ]
-                            )
-                          )
-                        ]
+                    t.blockStatement([
+                      t.variableDeclaration('const', [
+                        t.variableDeclarator(
+                          t.identifier('client'),
+                          t.callExpression(t.identifier('get'), [
+                            t.identifier('cosmWasmClient'),
+                          ])
+                        ),
+                      ]),
+                      t.returnStatement(
+                        t.newExpression(t.identifier(QueryClient), [
+                          t.identifier('client'),
+                          t.identifier('contractAddress'),
+                        ])
                       ),
-                      false
-                    )
+                    ]),
+                    false
                   )
                 )
-              ]
-            )
-          ],
-          t.tsTypeParameterInstantiation(
-            [
-              t.tsTypeReference(
-                t.identifier(QueryClient)
               ),
-              t.tsTypeReference(
-                t.identifier('QueryClientParams')
-              )
-            ]
-          )
+            ]),
+          ],
+          t.tsTypeParameterInstantiation([
+            t.tsTypeReference(t.identifier(QueryClient)),
+            t.tsTypeReference(t.identifier('QueryClientParams')),
+          ])
         )
-      )]
-    )
+      ),
+    ])
   );
-
 };

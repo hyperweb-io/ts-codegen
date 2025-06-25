@@ -4,11 +4,13 @@ import { QueryMsg } from '@cosmwasm/ts-codegen-types';
 import {
   createRecoilQueryClient,
   createRecoilSelector,
-  createRecoilSelectors
+  createRecoilSelectors,
 } from '../../src/recoil/recoil';
 import { expectCode, globLegacyContracts, makeContext } from '../../test-utils';
 
-const globbed = globLegacyContracts('basic').find(c => c.name === '/query_msg.json');
+const globbed = globLegacyContracts('basic').find(
+  (c) => c.name === '/query_msg.json'
+);
 const queryMsg = globbed.content as QueryMsg;
 const ctx = makeContext(queryMsg);
 
@@ -26,9 +28,7 @@ it('selector', () => {
 
 it('selectors', () => {
   expectCode(
-    t.program(
-      createRecoilSelectors(ctx, 'SG721', 'SG721QueryClient', queryMsg)
-    )
+    t.program(createRecoilSelectors(ctx, 'SG721', 'SG721QueryClient', queryMsg))
   );
 });
 

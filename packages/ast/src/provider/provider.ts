@@ -64,7 +64,7 @@ export const createProvider = (
               t.identifier(
                 providerInfos[PROVIDER_TYPES.MESSAGE_COMPOSER_TYPE]
                   ? providerInfos[PROVIDER_TYPES.MESSAGE_COMPOSER_TYPE]
-                    .classname
+                      .classname
                   : 'undefined'
               ),
             ])
@@ -223,11 +223,15 @@ export const createGettingProviders = (providerInfos: {
             ),
             identifier(
               'cosmWasmClient?',
-              t.tsTypeAnnotation(t.tsTypeReference(t.identifier('CosmWasmClient')))
+              t.tsTypeAnnotation(
+                t.tsTypeReference(t.identifier('CosmWasmClient'))
+              )
             ),
             identifier(
               'signingCosmWasmClient?',
-              t.tsTypeAnnotation(t.tsTypeReference(t.identifier('SigningCosmWasmClient')))
+              t.tsTypeAnnotation(
+                t.tsTypeReference(t.identifier('SigningCosmWasmClient'))
+              )
             ),
           ],
           t.objectExpression(properties)

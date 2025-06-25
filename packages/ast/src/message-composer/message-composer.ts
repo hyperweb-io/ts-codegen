@@ -12,7 +12,7 @@ import {
   classProperty,
   getMessageProperties,
   OPTIONAL_FUNDS_PARAM,
-  typedIdentifier
+  typedIdentifier,
 } from '../utils';
 import { createTypedObjectParams } from '../utils/types';
 
@@ -51,10 +51,10 @@ const createWasmExecMethodMessageComposer = (
     arrowFunctionExpression(
       param
         ? [
-          // props
-          param,
-          ...constantParams
-        ]
+            // props
+            param,
+            ...constantParams,
+          ]
         : constantParams,
       t.blockStatement([
         t.returnStatement(
@@ -99,22 +99,22 @@ const createWasmExecMethodMessageComposer = (
                               t.objectProperty(
                                 t.identifier(underscoreName),
                                 actionValue
-                              )
-                            ])
+                              ),
+                            ]),
                           ]
-                        )
+                        ),
                       ])
                     ),
                     t.objectProperty(
                       t.identifier('funds'),
                       t.identifier('funds_')
-                    )
-                  ])
+                    ),
+                  ]),
                 ]
               )
-            )
+            ),
           ])
-        )
+        ),
       ]),
       // return type
       t.tsTypeAnnotation(
@@ -143,23 +143,28 @@ export const createMessageComposerClass = (
 
   const blockStmt = [];
 
-  blockStmt.push(...[
-    t.expressionStatement(
-      t.assignmentExpression(
-        '=',
-        t.memberExpression(t.thisExpression(), t.identifier('sender')),
-        t.identifier('sender')
-      )
-    ),
-    t.expressionStatement(
-      t.assignmentExpression(
-        '=',
-        t.memberExpression(t.thisExpression(), t.identifier('contractAddress')),
-        t.identifier('contractAddress')
-      )
-    ),
-    ...bindings
-  ]);
+  blockStmt.push(
+    ...[
+      t.expressionStatement(
+        t.assignmentExpression(
+          '=',
+          t.memberExpression(t.thisExpression(), t.identifier('sender')),
+          t.identifier('sender')
+        )
+      ),
+      t.expressionStatement(
+        t.assignmentExpression(
+          '=',
+          t.memberExpression(
+            t.thisExpression(),
+            t.identifier('contractAddress')
+          ),
+          t.identifier('contractAddress')
+        )
+      ),
+      ...bindings,
+    ]
+  );
 
   return t.exportNamedDeclaration(
     classDeclaration(
@@ -183,11 +188,11 @@ export const createMessageComposerClass = (
             typedIdentifier(
               'contractAddress',
               t.tsTypeAnnotation(t.tsStringKeyword())
-            )
+            ),
           ],
           t.blockStatement(blockStmt)
         ),
-        ...methods
+        ...methods,
       ],
       [t.tSExpressionWithTypeArguments(t.identifier(implementsClassName))],
       null
@@ -231,7 +236,7 @@ export const createMessageComposerInterface = (
           t.tsTypeAnnotation(t.tsStringKeyword())
         ),
 
-        ...methods
+        ...methods,
       ])
     )
   );
@@ -250,7 +255,7 @@ const createPropertyFunctionWithObjectParamsForMessageComposer = (
     typeAnnotation: t.tsTypeAnnotation(
       t.tsTypeReference(t.identifier(responseType))
     ),
-    parameters: obj ? [obj, ...fixedParams] : fixedParams
+    parameters: obj ? [obj, ...fixedParams] : fixedParams,
   };
 
   return t.tSPropertySignature(

@@ -4,7 +4,7 @@ import {
   RenderContext,
   RenderContextBase,
   RenderOptions,
-  UtilMapping
+  UtilMapping,
 } from '@cosmwasm/ts-codegen-ast';
 import { pascal } from 'case';
 
@@ -68,12 +68,17 @@ export class RecoilPlugin extends BuilderPluginBase<RenderOptions> {
       body.push(w.createRecoilQueryClientType());
       body.push(w.createRecoilQueryClient(context, name, QueryClient));
 
-      const selectors = w.createRecoilSelectors(context, name, QueryClient, QueryMsg);
+      const selectors = w.createRecoilSelectors(
+        context,
+        name,
+        QueryClient,
+        QueryMsg
+      );
 
       body.push(...selectors);
     }
 
-    if (typeHash.hasOwnProperty('Coin')) {
+    if (Object.prototype.hasOwnProperty.call(typeHash, 'Coin')) {
       // @ts-ignore
       delete context.utils.Coin;
     }
@@ -82,8 +87,8 @@ export class RecoilPlugin extends BuilderPluginBase<RenderOptions> {
       {
         type: 'recoil',
         localname,
-        body
-      }
+        body,
+      },
     ];
   }
 }

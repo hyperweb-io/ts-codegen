@@ -10,13 +10,13 @@ const main = async () => {
     'asyncGenerators',
     'decorators-legacy',
     'typescript',
-    'dynamicImport'
+    'dynamicImport',
   ];
 
   const ast = parse(readFileSync(__dirname + '/fixture.ts', 'utf-8'), {
     sourceType: 'module',
     // @ts-ignore
-    plugins
+    plugins,
   });
 
   writeFileSync(__dirname + '/test-output.json', stringify(ast, null, 2));

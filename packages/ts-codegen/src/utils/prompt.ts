@@ -44,7 +44,7 @@ const transform = (questions) => {
       return {
         ...q,
         type: 'autocomplete',
-        source: getFuzzySearch(choices)
+        source: getFuzzySearch(choices),
       };
     } else if (q.type === 'fuzzy:objects') {
       const choices = q.choices;
@@ -52,7 +52,7 @@ const transform = (questions) => {
       return {
         ...q,
         type: 'autocomplete',
-        source: getFuzzySearchNames(choices)
+        source: getFuzzySearchNames(choices),
       };
     } else {
       return q;

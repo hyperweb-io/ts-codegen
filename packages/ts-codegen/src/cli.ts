@@ -9,8 +9,8 @@ const question = [
     type: 'fuzzy',
     name: 'cmd',
     message: 'what do you want to do?',
-    choices: Object.keys(commands)
-  }
+    choices: Object.keys(commands),
+  },
 ];
 
 export const cli = async (argv: MinimistArgs) => {

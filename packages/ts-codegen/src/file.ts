@@ -11,8 +11,8 @@ const question = [
     _: true,
     type: 'string',
     name: 'file',
-    message: 'file'
-  }
+    message: 'file',
+  },
 ];
 
 (async () => {

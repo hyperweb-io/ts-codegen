@@ -15,13 +15,16 @@ export default async (argv: MinimistArgs) => {
     return shell.exit(1);
   }
 
-  const { name } = await prompt([
-    {
-      type: 'string',
-      name: 'name',
-      message: 'Enter your new module name',
-    }
-  ], argv);
+  const { name } = await prompt(
+    [
+      {
+        type: 'string',
+        name: 'name',
+        message: 'Enter your new module name',
+      },
+    ],
+    argv
+  );
 
   shell.exec(`git clone ${repo} ${name}`);
   shell.cd(name);
@@ -89,14 +92,14 @@ export default async (argv: MinimistArgs) => {
     let content = fs.readFileSync(templateFile).toString();
     if (
       path.basename(templateFile) === 'LICENSE' &&
-            license.__LICENSE__ === 'closed'
+      license.__LICENSE__ === 'closed'
     ) {
       content = `Copyright (c) 2023 __USERFULLNAME__ <__USEREMAIL__> - All Rights Reserved
 Unauthorized copying via any medium is strictly prohibited
 Proprietary and confidential`;
     }
 
-    Object.keys(results).forEach(key => {
+    Object.keys(results).forEach((key) => {
       if (/^__/.test(key)) {
         content = content.replace(new RegExp(key, 'g'), results[key]);
       }

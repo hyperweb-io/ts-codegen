@@ -1,7 +1,15 @@
 import { BuilderContext } from '@cosmwasm/ts-codegen-ast';
 
 import { readSchemas } from '../src/utils';
-import { generateClient, generateContractHooks,generateMessageBuilder, generateMessageComposer, generateReactQuery, generateRecoil, generateTypes } from '../test-utils';
+import {
+  generateClient,
+  generateContractHooks,
+  generateMessageBuilder,
+  generateMessageComposer,
+  generateReactQuery,
+  generateRecoil,
+  generateTypes,
+} from '../test-utils';
 
 const FIXTURE_DIR = __dirname + '/../../../__fixtures__';
 const OUTPUT_DIR = __dirname + '/../../../__output__';
@@ -10,16 +18,18 @@ it('optionalClient', async () => {
   const outopt = OUTPUT_DIR + '/vectis/factory-optional-client';
   const schemaDir = FIXTURE_DIR + '/vectis/factory/';
   const contractInfo = await readSchemas({
-    schemaDir
+    schemaDir,
   });
-  await generateReactQuery('Factory', contractInfo, outopt, { optionalClient: true });
+  await generateReactQuery('Factory', contractInfo, outopt, {
+    optionalClient: true,
+  });
 });
 
 it('v4Query', async () => {
   const outopt = OUTPUT_DIR + '/vectis/factory-v4-query';
   const schemaDir = FIXTURE_DIR + '/vectis/factory/';
   const contractInfo = await readSchemas({
-    schemaDir
+    schemaDir,
   });
   await generateReactQuery('Factory', contractInfo, outopt, { version: 'v4' });
 });
@@ -28,38 +38,47 @@ it('queryKeys', async () => {
   const outopt = OUTPUT_DIR + '/vectis/factory-query-keys';
   const schemaDir = FIXTURE_DIR + '/vectis/factory/';
   const contractInfo = await readSchemas({
-    schemaDir
+    schemaDir,
   });
-  await generateReactQuery('Factory', contractInfo, outopt, { queryKeys: true });
+  await generateReactQuery('Factory', contractInfo, outopt, {
+    queryKeys: true,
+  });
 });
 
 it('queryFactory', async () => {
   const outopt = OUTPUT_DIR + '/vectis/factory-query-keys';
   const schemaDir = FIXTURE_DIR + '/vectis/factory/';
   const contractInfo = await readSchemas({
-    schemaDir
+    schemaDir,
   });
-  await generateReactQuery('Factory', contractInfo, outopt, { queryKeys: true, queryFactory: true });
+  await generateReactQuery('Factory', contractInfo, outopt, {
+    queryKeys: true,
+    queryFactory: true,
+  });
 });
-
-
 
 it('queryKeysOptionalClient', async () => {
   const outopt = OUTPUT_DIR + '/vectis/factory-query-keys-optional-client';
   const schemaDir = FIXTURE_DIR + '/vectis/factory/';
   const contractInfo = await readSchemas({
-    schemaDir
+    schemaDir,
   });
-  await generateReactQuery('Factory', contractInfo, outopt, { queryKeys: true, optionalClient: true });
+  await generateReactQuery('Factory', contractInfo, outopt, {
+    queryKeys: true,
+    optionalClient: true,
+  });
 });
 
 it('useMutations', async () => {
   const outopt = OUTPUT_DIR + '/vectis/factory-w-mutations';
   const schemaDir = FIXTURE_DIR + '/vectis/factory/';
   const contractInfo = await readSchemas({
-    schemaDir
+    schemaDir,
   });
-  await generateReactQuery('Factory', contractInfo, outopt, { version: 'v4', mutations: true });
+  await generateReactQuery('Factory', contractInfo, outopt, {
+    version: 'v4',
+    mutations: true,
+  });
 });
 
 it('vectis/factory', async () => {
@@ -67,7 +86,7 @@ it('vectis/factory', async () => {
   const schemaDir = FIXTURE_DIR + '/vectis/factory/';
 
   const contractInfo = await readSchemas({
-    schemaDir
+    schemaDir,
   });
   await generateTypes('Factory', contractInfo, out);
   await generateClient('Factory', contractInfo, out);
@@ -81,7 +100,7 @@ it('vectis/govec', async () => {
   const schemaDir = FIXTURE_DIR + '/vectis/govec/';
 
   const contractInfo = await readSchemas({
-    schemaDir
+    schemaDir,
   });
   await generateTypes('Govec', contractInfo, out);
   await generateClient('Govec', contractInfo, out);
@@ -95,7 +114,7 @@ it('vectis/proxy', async () => {
   const schemaDir = FIXTURE_DIR + '/vectis/proxy/';
 
   const contractInfo = await readSchemas({
-    schemaDir
+    schemaDir,
   });
   await generateTypes('Proxy', contractInfo, out);
   await generateClient('Proxy', contractInfo, out);
@@ -108,7 +127,7 @@ it('minter', async () => {
   const out = OUTPUT_DIR + '/minter';
   const schemaDir = FIXTURE_DIR + '/minter/';
   const contractInfo = await readSchemas({
-    schemaDir
+    schemaDir,
   });
   await generateTypes('Minter', contractInfo, out);
   await generateClient('Minter', contractInfo, out);
@@ -122,7 +141,7 @@ it('sg721', async () => {
   const schemaDir = FIXTURE_DIR + '/sg721/';
 
   const contractInfo = await readSchemas({
-    schemaDir
+    schemaDir,
   });
 
   const builderContext = new BuilderContext();
@@ -141,7 +160,7 @@ it('cw-named-groups', async () => {
   const schemaDir = FIXTURE_DIR + '/daodao/cw-named-groups/';
 
   const contractInfo = await readSchemas({
-    schemaDir
+    schemaDir,
   });
   await generateTypes('CwNamedGroups', contractInfo, out);
   await generateClient('CwNamedGroups', contractInfo, out);
@@ -155,7 +174,7 @@ it('cw-proposal-single', async () => {
   const schemaDir = FIXTURE_DIR + '/daodao/cw-proposal-single/';
 
   const contractInfo = await readSchemas({
-    schemaDir
+    schemaDir,
   });
   await generateTypes('CwProposalSingle', contractInfo, out);
   await generateClient('CwProposalSingle', contractInfo, out);
@@ -169,7 +188,7 @@ it('cw-admin-factory', async () => {
   const schemaDir = FIXTURE_DIR + '/daodao/cw-admin-factory/';
 
   const contractInfo = await readSchemas({
-    schemaDir
+    schemaDir,
   });
   await generateTypes('CwAdminFactory', contractInfo, out);
   await generateClient('CwAdminFactory', contractInfo, out);
@@ -183,7 +202,7 @@ it('cw-code-id-registry', async () => {
   const schemaDir = FIXTURE_DIR + '/daodao/cw-code-id-registry/';
 
   const contractInfo = await readSchemas({
-    schemaDir
+    schemaDir,
   });
   await generateTypes('CwCodeIdRegistry', contractInfo, out);
   await generateClient('CwCodeIdRegistry', contractInfo, out);
@@ -197,7 +216,7 @@ it('idl-version/hackatom', async () => {
   const schemaDir = FIXTURE_DIR + '/idl-version/hackatom/';
 
   const contractInfo = await readSchemas({
-    schemaDir
+    schemaDir,
   });
   await generateTypes('HackAtom', contractInfo, out);
   await generateClient('HackAtom', contractInfo, out);
@@ -211,7 +230,7 @@ it('idl-version/cyberpunk', async () => {
   const schemaDir = FIXTURE_DIR + '/idl-version/cyberpunk/';
 
   const contractInfo = await readSchemas({
-    schemaDir
+    schemaDir,
   });
 
   await generateTypes('CyberPunk', contractInfo, out);
@@ -226,7 +245,7 @@ it('idl-version/cw4-group', async () => {
   const schemaDir = FIXTURE_DIR + '/idl-version/cw4-group/';
 
   const contractInfo = await readSchemas({
-    schemaDir
+    schemaDir,
   });
 
   await generateTypes('Cw4Group', contractInfo, out);
@@ -241,7 +260,7 @@ it('idl-version/cw3-fixed-multisig', async () => {
   const schemaDir = FIXTURE_DIR + '/idl-version/cw3-fixed-multisig/';
 
   const contractInfo = await readSchemas({
-    schemaDir
+    schemaDir,
   });
 
   await generateTypes('Cw3FixedMultiSig', contractInfo, out);
@@ -256,7 +275,7 @@ it('idl-version/accounts-nft', async () => {
   const schemaDir = FIXTURE_DIR + '/idl-version/accounts-nft/';
 
   const contractInfo = await readSchemas({
-    schemaDir
+    schemaDir,
   });
 
   await generateTypes('AccountsNft', contractInfo, out);

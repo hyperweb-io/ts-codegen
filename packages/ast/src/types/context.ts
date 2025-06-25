@@ -1,12 +1,20 @@
 import { IDLObject, JSONSchema } from '@cosmwasm/ts-codegen-types';
 
-import { MessageBuilderOptions, MessageComposerOptions, ReactQueryOptions, RecoilOptions, TSClientOptions, TSTypesOptions, UseContractsOptions } from './plugins';
+import {
+  MessageBuilderOptions,
+  MessageComposerOptions,
+  ReactQueryOptions,
+  RecoilOptions,
+  TSClientOptions,
+  TSTypesOptions,
+  UseContractsOptions,
+} from './plugins';
 
 export interface ContractInfo {
   schemas: JSONSchema[];
   responses?: Record<string, JSONSchema>;
   idlObject?: Partial<IDLObject>;
-};
+}
 export interface RenderOptions {
   enabled?: boolean;
   types?: TSTypesOptions;
@@ -19,7 +27,7 @@ export interface RenderOptions {
 }
 
 export interface ProviderInfo {
-  classname: string,
-  filename: string,
-  basename: string,
+  classname: string;
+  filename: string;
+  basename: string;
 }

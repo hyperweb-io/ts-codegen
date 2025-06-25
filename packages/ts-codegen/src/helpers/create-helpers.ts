@@ -1,6 +1,6 @@
 import { BuilderContext } from '@cosmwasm/ts-codegen-ast';
 import { sync as mkdirp } from 'mkdirp';
-import { basename, dirname, extname,join } from 'path';
+import { basename, dirname, extname, join } from 'path';
 
 import { BuilderFile, TSBuilderInput } from '../builder';
 import {

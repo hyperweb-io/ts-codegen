@@ -71,7 +71,7 @@ export class MessageComposerPlugin extends BuilderPluginBase<RenderOptions> {
       }
     }
 
-    if (typeHash.hasOwnProperty('Coin')) {
+    if (Object.prototype.hasOwnProperty.call(typeHash, 'Coin')) {
       // @ts-ignore
       delete context.utils.Coin;
     }

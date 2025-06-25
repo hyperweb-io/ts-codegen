@@ -8,7 +8,7 @@ interface PathObj {
   name: string;
   param: string;
   safe: string;
-  path: string
+  path: string;
 }
 const paths: PathObj[] = glob(`${srcDir}/**.[j|t]s`).map((file: string) => {
   const [, name] = file.match(/\/(.*)\.[j|t]s$/);
@@ -19,7 +19,7 @@ const paths: PathObj[] = glob(`${srcDir}/**.[j|t]s`).map((file: string) => {
     path: file
       .replace(srcDir, './commands')
       .replace(/\.js$/, '')
-      .replace(/\.ts$/, '')
+      .replace(/\.ts$/, ''),
   };
 });
 
@@ -33,10 +33,10 @@ const out = `
 ${imports}
 const Commands: any = {};
 ${paths
-    .map((a) => {
-      return `Commands['${a.param}'] = _${a.safe};`;
-    })
-    .join('\n')}
+  .map((a) => {
+    return `Commands['${a.param}'] = _${a.safe};`;
+  })
+  .join('\n')}
 
   export { Commands }; 
 
