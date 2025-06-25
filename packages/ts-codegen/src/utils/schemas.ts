@@ -34,33 +34,37 @@ export const readSchemas = async ({
   const fn = clean
     ? cleanse
     : (schema: JSONSchema[] | Partial<IDLObject>) => schema;
-  const files = await findSchemaFiles(schemaDir);
 
-  const schemas: JSONSchema[] = files.map((file) =>
-    JSON.parse(readFileSync(file, 'utf-8'))
+  const files = (await findSchemaFiles(schemaDir)).map((path) =>
+    readFileSync(path, 'utf-8')
   );
 
-  if (schemas.length > 1) {
+  if (files.length > 1) {
     // legacy
     // TODO add console.warn here
+    console.warn(
+      'Found a multiple schema files. This mode will be removed in the next major version. Please migrate the schemas that contain a single <contract_name>.json IDL file (CosmWasm 1.1+).'
+    );
+
+    const schemas: JSONSchema[] = files.map((file) => JSON.parse(file));
     return {
       schemas: fn(schemas),
     };
   }
 
-  if (schemas.length === 0) {
+  if (files.length === 0) {
     throw new Error(
       'Error [too few files]: requires one schema file per contract'
     );
   }
 
-  if (schemas.length !== 1) {
+  if (files.length !== 1) {
     throw new Error(
       'Error [too many files]: CosmWasm v1.1 schemas supports one file'
     );
   }
 
-  const idlObject: Partial<IDLObject> = schemas[0] as Partial<IDLObject>;
+  const idlObject: Partial<IDLObject> = JSON.parse(files[0]);
   const {
     // contract_name,
     // contract_version,
@@ -75,8 +79,13 @@ export const readSchemas = async ({
 
   if (typeof idl_version !== 'string') {
     // legacy
+    // fall back to a single JSON Schema file
+    console.warn(
+      'Found a single schema file with missing idl_version. This mode will be removed in the next major version. Please migrate the schemas that contain a single <contract_name>.json IDL file (CosmWasm 1.1+).'
+    );
+    const schema: JSONSchema = JSON.parse(files[0]);
     return {
-      schemas: fn(schemas),
+      schemas: fn([schema]),
     };
   }
 
