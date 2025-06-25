@@ -50,14 +50,14 @@ const globCache: Record<string, GlobContractLegacy[] | GlobContract[]> = {};
 export const globIdlBasedContracts = (p: string): GlobContract[] => {
   if (globCache[p]) return globCache[p] as GlobContract[];
   // @ts-ignore
-  const contracts: GlobContract[] = glob(join(fixtureDir, p, '/*.json')).map(
-    (file) => {
+  const contracts: GlobContract[] = glob(join(fixtureDir, p, '/*.json'))
+    .sort()
+    .map((file) => {
       return {
         name: file.split(join('__fixtures__', p))[1],
         content: JSON.parse(readFileSync(file, 'utf-8')),
       };
-    }
-  );
+    });
   globCache[p] = contracts;
   return contracts;
 };
@@ -65,14 +65,14 @@ export const globIdlBasedContracts = (p: string): GlobContract[] => {
 export const globLegacyContracts = (p: string): GlobContractLegacy[] => {
   if (globCache[p]) return globCache[p] as GlobContractLegacy[];
   // @ts-ignore
-  const contracts: GlobContractLegacy[] = glob(
-    join(fixtureDir, p, '/*.json')
-  ).map((file) => {
-    return {
-      name: file.split(join('__fixtures__', p))[1],
-      content: JSON.parse(readFileSync(file, 'utf-8')),
-    };
-  });
+  const contracts: GlobContractLegacy[] = glob(join(fixtureDir, p, '/*.json'))
+    .sort()
+    .map((file) => {
+      return {
+        name: file.split(join('__fixtures__', p))[1],
+        content: JSON.parse(readFileSync(file, 'utf-8')),
+      };
+    });
   globCache[p] = contracts;
   return contracts;
 };

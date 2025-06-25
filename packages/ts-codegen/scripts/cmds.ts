@@ -10,19 +10,20 @@ interface PathObj {
   safe: string;
   path: string;
 }
-const paths: PathObj[] = glob(`${srcDir}/**.[j|t]s`).map((file: string) => {
-  const [, name] = file.match(/\/(.*)\.[j|t]s$/);
-  return {
-    name: path.basename(name),
-    param: Case.kebab(path.basename(name)),
-    safe: Case.snake(path.basename(name)),
-    path: file
-      .replace(srcDir, './commands')
-      .replace(/\.js$/, '')
-      .replace(/\.ts$/, ''),
-  };
-});
-
+const paths: PathObj[] = glob(`${srcDir}/**.[j|t]s`)
+  .sort()
+  .map((file: string) => {
+    const [, name] = file.match(/\/(.*)\.[j|t]s$/);
+    return {
+      name: path.basename(name),
+      param: Case.kebab(path.basename(name)),
+      safe: Case.snake(path.basename(name)),
+      path: file
+        .replace(srcDir, './commands')
+        .replace(/\.js$/, '')
+        .replace(/\.ts$/, ''),
+    };
+  });
 const imports = paths
   .map((f) => {
     return [`import _${f.safe} from '${f.path}';`];

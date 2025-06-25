@@ -78,7 +78,7 @@ export default async (argv: MinimistArgs) => {
   );
 
   // protos
-  const pkgs = glob('./smart-contracts/**/package.json');
+  const pkgs = glob('./smart-contracts/**/package.json').sort();
   const cmds = pkgs
     .filter((f) => {
       return f !== './smart-contracts/package.json';
@@ -89,7 +89,7 @@ export default async (argv: MinimistArgs) => {
       const dir = extDir.split('node_modules/')[1];
       const dst = basename(dir);
 
-      const files = glob(`${extDir}/**/*`, { nodir: true });
+      const files = glob(`${extDir}/**/*`, { nodir: true }).sort();
       files.forEach((f) => {
         if (
           extname(f) === '.json' ||
