@@ -16,6 +16,17 @@ interface ReadSchemaOpts {
   clean?: boolean;
 }
 
+/**
+ * Takes a schema directory and returns a list of relevant file paths
+ */
+export const findSchemaFiles = async (schemaDir: string): Promise<string[]> => {
+  const files = glob(schemaDir + '/**/*.json')
+    .filter((file) => !file.includes('/raw/')) // raw JSON Schema files that are also included in the main <contract_name>.json
+    .filter((file) => !file.includes('/cw_schema/')) // sub-folder for the new schema format for CosmWasm 3+
+    .sort();
+  return files;
+};
+
 export const readSchemas = async ({
   schemaDir,
   clean = true,
@@ -23,9 +34,7 @@ export const readSchemas = async ({
   const fn = clean
     ? cleanse
     : (schema: JSONSchema[] | Partial<IDLObject>) => schema;
-  const files = glob(schemaDir + '/**/*.json')
-    .filter((file) => !file.match(/\/raw\//))
-    .sort();
+  const files = await findSchemaFiles(schemaDir);
 
   const schemas: JSONSchema[] = files.map((file) =>
     JSON.parse(readFileSync(file, 'utf-8'))
