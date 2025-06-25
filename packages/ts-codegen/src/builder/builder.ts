@@ -228,12 +228,7 @@ export class TSBuilder {
     const ast = recursiveModuleBundle(bundleVariables);
     const nodes = [...importPaths, ...ast];
     // @ts-ignore
-    let code = generate(
-      t.program(
-        // @ts-ignore
-        nodes
-      )
-    ).code;
+    let code = generate(t.program(nodes)).code;
 
     if (this.options?.bundle?.bundlePath) {
       mkdirp(this.options?.bundle?.bundlePath);

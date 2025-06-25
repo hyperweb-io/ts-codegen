@@ -99,9 +99,9 @@ export abstract class BuilderPluginBase<TOpt extends { enabled?: boolean }>
 
     return results.map((result) => {
       const imports = context.getImports(this.utils, result.localname);
+      const nodes = [...imports, ...result.body];
       // @ts-ignore
-      const code =
-        header + generate(t.program([...imports, ...result.body])).code;
+      const code = header + generate(t.program(nodes)).code;
 
       mkdirp(outPath);
       const filename = join(outPath, result.localname);
