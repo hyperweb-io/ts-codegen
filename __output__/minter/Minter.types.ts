@@ -4,9 +4,26 @@
 * and run the @cosmwasm/ts-codegen generate command to regenerate this file.
 */
 
+export type Addr = string;
 export type Timestamp = Uint64;
 export type Uint64 = string;
 export type Uint128 = string;
+export interface Config {
+  admin: Addr;
+  base_token_uri: string;
+  num_tokens: number;
+  per_address_limit: number;
+  sg721_code_id: number;
+  start_time: Timestamp;
+  unit_price: Coin;
+  whitelist?: Addr | null;
+  [k: string]: unknown;
+}
+export interface Coin {
+  amount: Uint128;
+  denom: string;
+  [k: string]: unknown;
+}
 export interface ConfigResponse {
   admin: string;
   base_token_uri: string;
@@ -17,23 +34,6 @@ export interface ConfigResponse {
   start_time: Timestamp;
   unit_price: Coin;
   whitelist?: string | null;
-  [k: string]: unknown;
-}
-export interface Coin {
-  amount: Uint128;
-  denom: string;
-  [k: string]: unknown;
-}
-export type Addr = string;
-export interface Config {
-  admin: Addr;
-  base_token_uri: string;
-  num_tokens: number;
-  per_address_limit: number;
-  sg721_code_id: number;
-  start_time: Timestamp;
-  unit_price: Coin;
-  whitelist?: Addr | null;
   [k: string]: unknown;
 }
 export type ExecuteMsg = {

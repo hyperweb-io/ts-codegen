@@ -23,9 +23,9 @@ export const readSchemas = async ({
   const fn = clean
     ? cleanse
     : (schema: JSONSchema[] | Partial<IDLObject>) => schema;
-  const files = glob(schemaDir + '/**/*.json').filter(
-    (file) => !file.match(/\/raw\//)
-  );
+  const files = glob(schemaDir + '/**/*.json')
+    .filter((file) => !file.match(/\/raw\//))
+    .sort();
 
   const schemas: JSONSchema[] = files.map((file) =>
     JSON.parse(readFileSync(file, 'utf-8'))

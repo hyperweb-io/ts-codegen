@@ -83,7 +83,8 @@ export default async (argv: MinimistArgs) => {
 
   const files = []
     .concat(glob(process.cwd() + '/**/.*'))
-    .concat(glob(process.cwd() + '/**/*'));
+    .concat(glob(process.cwd() + '/**/*'))
+    .sort();
 
   for (let i = 0; i < files.length; i++) {
     const templateFile = files[i];
