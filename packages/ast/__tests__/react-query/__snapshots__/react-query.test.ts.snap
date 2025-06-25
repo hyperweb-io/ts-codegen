@@ -754,73 +754,73 @@ export function useSg721OwnerOfQuery<TData = OwnerOfResponse>({
 
 exports[`createReactQueryHooks 5`] = `
 "export const sg721QueryKeys = {
-  contract: ([{
+  contract: [{
     contract: "sg721"
-  }] as const),
-  address: (contractAddress: string | undefined) => ([{
+  }] as const,
+  address: (contractAddress: string | undefined) => [{
     ...sg721QueryKeys.contract[0],
     address: contractAddress
-  }] as const),
-  ownerOf: (contractAddress: string | undefined, args?: Record<string, unknown>) => ([{
+  }] as const,
+  ownerOf: (contractAddress: string | undefined, args?: Record<string, unknown>) => [{
     ...sg721QueryKeys.address(contractAddress)[0],
     method: "owner_of",
     args
-  }] as const),
-  approval: (contractAddress: string | undefined, args?: Record<string, unknown>) => ([{
+  }] as const,
+  approval: (contractAddress: string | undefined, args?: Record<string, unknown>) => [{
     ...sg721QueryKeys.address(contractAddress)[0],
     method: "approval",
     args
-  }] as const),
-  approvals: (contractAddress: string | undefined, args?: Record<string, unknown>) => ([{
+  }] as const,
+  approvals: (contractAddress: string | undefined, args?: Record<string, unknown>) => [{
     ...sg721QueryKeys.address(contractAddress)[0],
     method: "approvals",
     args
-  }] as const),
-  allOperators: (contractAddress: string | undefined, args?: Record<string, unknown>) => ([{
+  }] as const,
+  allOperators: (contractAddress: string | undefined, args?: Record<string, unknown>) => [{
     ...sg721QueryKeys.address(contractAddress)[0],
     method: "all_operators",
     args
-  }] as const),
-  numTokens: (contractAddress: string | undefined, args?: Record<string, unknown>) => ([{
+  }] as const,
+  numTokens: (contractAddress: string | undefined, args?: Record<string, unknown>) => [{
     ...sg721QueryKeys.address(contractAddress)[0],
     method: "num_tokens",
     args
-  }] as const),
-  contractInfo: (contractAddress: string | undefined, args?: Record<string, unknown>) => ([{
+  }] as const,
+  contractInfo: (contractAddress: string | undefined, args?: Record<string, unknown>) => [{
     ...sg721QueryKeys.address(contractAddress)[0],
     method: "contract_info",
     args
-  }] as const),
-  nftInfo: (contractAddress: string | undefined, args?: Record<string, unknown>) => ([{
+  }] as const,
+  nftInfo: (contractAddress: string | undefined, args?: Record<string, unknown>) => [{
     ...sg721QueryKeys.address(contractAddress)[0],
     method: "nft_info",
     args
-  }] as const),
-  allNftInfo: (contractAddress: string | undefined, args?: Record<string, unknown>) => ([{
+  }] as const,
+  allNftInfo: (contractAddress: string | undefined, args?: Record<string, unknown>) => [{
     ...sg721QueryKeys.address(contractAddress)[0],
     method: "all_nft_info",
     args
-  }] as const),
-  tokens: (contractAddress: string | undefined, args?: Record<string, unknown>) => ([{
+  }] as const,
+  tokens: (contractAddress: string | undefined, args?: Record<string, unknown>) => [{
     ...sg721QueryKeys.address(contractAddress)[0],
     method: "tokens",
     args
-  }] as const),
-  allTokens: (contractAddress: string | undefined, args?: Record<string, unknown>) => ([{
+  }] as const,
+  allTokens: (contractAddress: string | undefined, args?: Record<string, unknown>) => [{
     ...sg721QueryKeys.address(contractAddress)[0],
     method: "all_tokens",
     args
-  }] as const),
-  minter: (contractAddress: string | undefined, args?: Record<string, unknown>) => ([{
+  }] as const,
+  minter: (contractAddress: string | undefined, args?: Record<string, unknown>) => [{
     ...sg721QueryKeys.address(contractAddress)[0],
     method: "minter",
     args
-  }] as const),
-  collectionInfo: (contractAddress: string | undefined, args?: Record<string, unknown>) => ([{
+  }] as const,
+  collectionInfo: (contractAddress: string | undefined, args?: Record<string, unknown>) => [{
     ...sg721QueryKeys.address(contractAddress)[0],
     method: "collection_info",
     args
-  }] as const)
+  }] as const
 };
 export const sg721Queries = {
   ownerOf: <TData = OwnerOfResponse,>({
