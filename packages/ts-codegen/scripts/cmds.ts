@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const glob = require('glob').sync;
+const { globSync: glob } = require('glob');
 const Case = require('case');
 const srcDir = path.resolve(`${__dirname}/../src/commands`);
 

@@ -4,7 +4,7 @@ import * as shell from 'shelljs';
 
 import { prompt } from '../utils/prompt';
 
-const glob = require('glob').sync;
+const { globSync: glob } = require('glob');
 const fs = require('fs');
 const path = require('path');
 
