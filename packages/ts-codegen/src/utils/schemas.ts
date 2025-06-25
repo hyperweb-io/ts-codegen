@@ -7,7 +7,7 @@ import {
 } from '@cosmwasm/ts-codegen-types';
 import { compile } from '@pyramation/json-schema-to-typescript';
 import { readFileSync } from 'fs';
-import { sync as glob } from 'glob';
+import { globSync as glob } from 'glob';
 
 import { cleanse } from './cleanse';
 import { parser } from './parse';

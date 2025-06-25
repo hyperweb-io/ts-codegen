@@ -7,7 +7,7 @@ import {
   QueryMsg,
 } from '@cosmwasm/ts-codegen-types';
 import { readFileSync } from 'fs';
-import { sync as glob } from 'glob';
+import { globSync as glob } from 'glob';
 import { join } from 'path';
 
 import { RenderContext } from '../src/context';

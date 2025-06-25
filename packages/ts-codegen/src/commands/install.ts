@@ -1,6 +1,6 @@
 import { MinimistArgs } from '@cosmwasm/ts-codegen-types';
 import { readFileSync, writeFileSync } from 'fs';
-import { sync as glob } from 'glob';
+import { globSync as glob } from 'glob';
 import { sync as mkdirp } from 'mkdirp';
 import { tmpdir } from 'os';
 import { parse } from 'parse-package-name';
