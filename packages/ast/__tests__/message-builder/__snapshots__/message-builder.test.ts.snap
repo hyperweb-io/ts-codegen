@@ -9,10 +9,10 @@ exports[`execute class 1`] = `
     transfer_nft: unknown;
   }>["transfer_nft"]>): ExecuteMsg_for_Empty => {
     return {
-      transfer_nft: ({
+      transfer_nft: {
         recipient,
         token_id: tokenId
-      } as const)
+      } as const
     };
   };
   static sendNft = ({
@@ -23,11 +23,11 @@ exports[`execute class 1`] = `
     send_nft: unknown;
   }>["send_nft"]>): ExecuteMsg_for_Empty => {
     return {
-      send_nft: ({
+      send_nft: {
         contract,
         msg,
         token_id: tokenId
-      } as const)
+      } as const
     };
   };
   static approve = ({
@@ -38,11 +38,11 @@ exports[`execute class 1`] = `
     approve: unknown;
   }>["approve"]>): ExecuteMsg_for_Empty => {
     return {
-      approve: ({
+      approve: {
         expires,
         spender,
         token_id: tokenId
-      } as const)
+      } as const
     };
   };
   static revoke = ({
@@ -52,10 +52,10 @@ exports[`execute class 1`] = `
     revoke: unknown;
   }>["revoke"]>): ExecuteMsg_for_Empty => {
     return {
-      revoke: ({
+      revoke: {
         spender,
         token_id: tokenId
-      } as const)
+      } as const
     };
   };
   static approveAll = ({
@@ -65,10 +65,10 @@ exports[`execute class 1`] = `
     approve_all: unknown;
   }>["approve_all"]>): ExecuteMsg_for_Empty => {
     return {
-      approve_all: ({
+      approve_all: {
         expires,
         operator
-      } as const)
+      } as const
     };
   };
   static revokeAll = ({
@@ -77,9 +77,9 @@ exports[`execute class 1`] = `
     revoke_all: unknown;
   }>["revoke_all"]>): ExecuteMsg_for_Empty => {
     return {
-      revoke_all: ({
+      revoke_all: {
         operator
-      } as const)
+      } as const
     };
   };
   static mint = ({
@@ -91,12 +91,12 @@ exports[`execute class 1`] = `
     mint: unknown;
   }>["mint"]>): ExecuteMsg_for_Empty => {
     return {
-      mint: ({
+      mint: {
         extension,
         owner,
         token_id: tokenId,
         token_uri: tokenUri
-      } as const)
+      } as const
     };
   };
   static burn = ({
@@ -105,9 +105,9 @@ exports[`execute class 1`] = `
     burn: unknown;
   }>["burn"]>): ExecuteMsg_for_Empty => {
     return {
-      burn: ({
+      burn: {
         token_id: tokenId
-      } as const)
+      } as const
     };
   };
 }"
@@ -121,9 +121,9 @@ exports[`ownership 1`] = `
     set_factory: unknown;
   }>["set_factory"]>): ExecuteMsg => {
     return {
-      set_factory: ({
+      set_factory: {
         new_factory: newFactory
-      } as const)
+      } as const
     };
   };
   static updateOwnership = (action: Action): ExecuteMsg => {
@@ -143,10 +143,10 @@ exports[`query class 1`] = `
     owner_of: unknown;
   }>["owner_of"]>): QueryMsg => {
     return {
-      owner_of: ({
+      owner_of: {
         include_expired: includeExpired,
         token_id: tokenId
-      } as const)
+      } as const
     };
   };
   static approval = ({
@@ -157,11 +157,11 @@ exports[`query class 1`] = `
     approval: unknown;
   }>["approval"]>): QueryMsg => {
     return {
-      approval: ({
+      approval: {
         include_expired: includeExpired,
         spender,
         token_id: tokenId
-      } as const)
+      } as const
     };
   };
   static approvals = ({
@@ -171,10 +171,10 @@ exports[`query class 1`] = `
     approvals: unknown;
   }>["approvals"]>): QueryMsg => {
     return {
-      approvals: ({
+      approvals: {
         include_expired: includeExpired,
         token_id: tokenId
-      } as const)
+      } as const
     };
   };
   static allOperators = ({
@@ -186,22 +186,22 @@ exports[`query class 1`] = `
     all_operators: unknown;
   }>["all_operators"]>): QueryMsg => {
     return {
-      all_operators: ({
+      all_operators: {
         include_expired: includeExpired,
         limit,
         owner,
         start_after: startAfter
-      } as const)
+      } as const
     };
   };
   static numTokens = (): QueryMsg => {
     return {
-      num_tokens: ({} as const)
+      num_tokens: {} as const
     };
   };
   static contractInfo = (): QueryMsg => {
     return {
-      contract_info: ({} as const)
+      contract_info: {} as const
     };
   };
   static nftInfo = ({
@@ -210,9 +210,9 @@ exports[`query class 1`] = `
     nft_info: unknown;
   }>["nft_info"]>): QueryMsg => {
     return {
-      nft_info: ({
+      nft_info: {
         token_id: tokenId
-      } as const)
+      } as const
     };
   };
   static allNftInfo = ({
@@ -222,10 +222,10 @@ exports[`query class 1`] = `
     all_nft_info: unknown;
   }>["all_nft_info"]>): QueryMsg => {
     return {
-      all_nft_info: ({
+      all_nft_info: {
         include_expired: includeExpired,
         token_id: tokenId
-      } as const)
+      } as const
     };
   };
   static tokens = ({
@@ -236,11 +236,11 @@ exports[`query class 1`] = `
     tokens: unknown;
   }>["tokens"]>): QueryMsg => {
     return {
-      tokens: ({
+      tokens: {
         limit,
         owner,
         start_after: startAfter
-      } as const)
+      } as const
     };
   };
   static allTokens = ({
@@ -250,20 +250,20 @@ exports[`query class 1`] = `
     all_tokens: unknown;
   }>["all_tokens"]>): QueryMsg => {
     return {
-      all_tokens: ({
+      all_tokens: {
         limit,
         start_after: startAfter
-      } as const)
+      } as const
     };
   };
   static minter = (): QueryMsg => {
     return {
-      minter: ({} as const)
+      minter: {} as const
     };
   };
   static collectionInfo = (): QueryMsg => {
     return {
-      collection_info: ({} as const)
+      collection_info: {} as const
     };
   };
 }"
