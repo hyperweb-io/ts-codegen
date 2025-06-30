@@ -16,15 +16,15 @@
     "copy": "copyfiles -f LICENSE-Apache LICENSE-MIT README.md package.json dist",
     "clean": "rimraf dist/**",
     "prepare": "npm run build",
-    "codegen": "ts-node ./scripts/build.ts",
+    "codegen": "tsx ./scripts/build.ts",
     "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
     "lint": "eslint . --fix",
     "format": "prettier --write --log-level warn \"./**/*.ts\"",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:ast": "ts-node scripts/test-ast.ts",
-    "dev": "ts-node src/ts-codegen",
-    "file": "ts-node src/file"
+    "test:ast": "tsx scripts/test-ast.ts",
+    "dev": "tsx src/ts-codegen",
+    "file": "tsx src/file"
   },
   "repository": {
     "type": "git",

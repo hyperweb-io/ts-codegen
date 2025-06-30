@@ -20,14 +20,14 @@
     "copy": "copyfiles -f LICENSE-Apache LICENSE-MIT README.md package.json dist",
     "clean": "rimraf dist/**",
     "prepare": "npm run build",
-    "cmds": "ts-node ./scripts/cmds.ts",
+    "cmds": "tsx ./scripts/cmds.ts",
     "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
     "lint": "eslint . --fix",
     "format": "prettier --write --log-level warn \"./**/*.ts\"",
     "test": "jest",
     "test:watch": "jest --watch",
-    "dev": "ts-node src/ts-codegen",
-    "file": "ts-node src/file"
+    "dev": "tsx src/ts-codegen",
+    "file": "tsx src/file"
   },
   "repository": {
     "type": "git",
