@@ -2,9 +2,21 @@ import { writeFileSync } from 'fs';
 import { sync as mkdirp } from 'mkdirp';
 
 import { readSchemas } from '../src/utils';
+import { cleanFor } from '../src/utils/cleanse';
 
 const FIXTURE_DIR = __dirname + '/../../../__fixtures__';
 const OUTPUT_DIR = __dirname + '/../../../__output__';
+
+describe('cleanFor', () => {
+  it('works', () => {
+    expect(cleanFor('NftInfoResponse_for_Empty')).toEqual(
+      'NftInfoResponseForEmpty'
+    );
+    expect(cleanFor('UpdateCollectionInfoMsg_for_RoyaltyInfoResponse')).toEqual(
+      'UpdateCollectionInfoMsgForRoyaltyInfoResponse'
+    );
+  });
+});
 
 it('sg721', async () => {
   const out = OUTPUT_DIR + '/sg721';
