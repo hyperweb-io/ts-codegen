@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 import { readFileSync } from 'fs';
+import minimist from 'minimist';
 
 import { cli } from './cli';
 import { prompt } from './utils/prompt';
 
-const argv = require('minimist')(process.argv.slice(2));
+const argv = minimist(process.argv.slice(2));
 
 const question = [
   {

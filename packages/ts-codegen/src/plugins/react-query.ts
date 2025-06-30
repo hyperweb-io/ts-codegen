@@ -56,7 +56,7 @@ export class ReactQueryPlugin extends BuilderPluginBase<RenderOptions> {
 
     const clientImports = [];
 
-    QueryMsg && clientImports.push(QueryClient);
+    if (QueryMsg) clientImports.push(QueryClient);
 
     // check that there are commands within the exec msg
     const shouldGenerateMutationHooks =

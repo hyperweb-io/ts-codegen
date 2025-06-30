@@ -35,7 +35,7 @@ export default async (argv: MinimistArgs) => {
   let thisPackage;
   try {
     thisPackage = JSON.parse(readFileSync(join(cur, 'package.json'), 'utf-8'));
-  } catch (e) {
+  } catch {
     throw new Error('make sure you are inside of a telescope package!');
   }
 

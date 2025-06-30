@@ -1,12 +1,11 @@
 import { MinimistArgs } from '@cosmwasm/ts-codegen-types';
 import dargs from 'dargs';
+import { lstatSync, readFileSync, writeFileSync } from 'fs';
+import { globSync as glob } from 'glob';
+import * as path from 'path';
 import * as shell from 'shelljs';
 
 import { prompt } from '../utils/prompt';
-
-const { globSync: glob } = require('glob');
-const fs = require('fs');
-const path = require('path');
 
 const repo = 'https://github.com/hyperweb-io/ts-codegen-module-boilerplate';
 export default async (argv: MinimistArgs) => {
@@ -29,7 +28,7 @@ export default async (argv: MinimistArgs) => {
   shell.exec(`git clone ${repo} ${name}`);
   shell.cd(name);
 
-  const questions = JSON.parse(fs.readFileSync(`.questions.json`));
+  const questions = JSON.parse(readFileSync(`.questions.json`, 'utf-8'));
 
   const fullname = shell
     .exec('git config --global user.name', { silent: true })
@@ -88,9 +87,9 @@ export default async (argv: MinimistArgs) => {
 
   for (let i = 0; i < files.length; i++) {
     const templateFile = files[i];
-    if (fs.lstatSync(templateFile).isDirectory()) continue;
+    if (lstatSync(templateFile).isDirectory()) continue;
 
-    let content = fs.readFileSync(templateFile).toString();
+    let content = readFileSync(templateFile, 'utf-8');
     if (
       path.basename(templateFile) === 'LICENSE' &&
       license.__LICENSE__ === 'closed'
@@ -129,7 +128,7 @@ Proprietary and confidential`;
     //     content = `# ${results.__MODULENAME__}`;
     // }
 
-    fs.writeFileSync(templateFile, content);
+    writeFileSync(templateFile, content);
   }
 
   shell.rm('-rf', '.git');
