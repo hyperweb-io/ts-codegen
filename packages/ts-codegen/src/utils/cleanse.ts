@@ -6,9 +6,6 @@ export const cleanFor = (str: string) => {
         2. ONLY if you find capitals after, modify it
     */
 
-  // When we upgrade to eslint v9, we can remove this exception and
-  // rely on allExceptWhileTrue (https://eslint.org/docs/latest/rules/no-constant-condition)
-  // eslint-disable-next-line no-constant-condition
   while (true) {
     const match = str.match(/(_[a-z]+_)[A-Z]/);
     if (!match) break;
