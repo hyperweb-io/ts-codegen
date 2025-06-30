@@ -1,8 +1,9 @@
-const fs = require('fs');
-const path = require('path');
-const { globSync: glob } = require('glob');
-const Case = require('case');
-const srcDir = path.resolve(`${__dirname}/../src/commands`);
+import { kebab, snake } from 'case';
+import { writeFileSync } from 'fs';
+import { globSync as glob } from 'glob';
+import { basename, resolve } from 'path';
+
+const srcDir = resolve(`${__dirname}/../src/commands`);
 
 interface PathObj {
   name: string;
@@ -15,9 +16,9 @@ const paths: PathObj[] = glob(`${srcDir}/**.[j|t]s`)
   .map((file: string) => {
     const [, name] = file.match(/\/(.*)\.[j|t]s$/);
     return {
-      name: path.basename(name),
-      param: Case.kebab(path.basename(name)),
-      safe: Case.snake(path.basename(name)),
+      name: basename(name),
+      param: kebab(basename(name)),
+      safe: snake(basename(name)),
       path: file
         .replace(srcDir, './commands')
         .replace(/\.js$/, '')
@@ -43,4 +44,4 @@ ${paths
 
   `;
 
-fs.writeFileSync(`${__dirname}/../src/cmds.ts`, out);
+writeFileSync(`${__dirname}/../src/cmds.ts`, out);

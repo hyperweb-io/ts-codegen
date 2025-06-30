@@ -1,12 +1,11 @@
 import { MinimistArgs } from '@cosmwasm/ts-codegen-types';
 import dargs from 'dargs';
+import * as fs from 'fs';
+import { globSync as glob } from 'glob';
+import * as path from 'path';
 import * as shell from 'shelljs';
 
 import { prompt } from '../utils/prompt';
-
-const { globSync: glob } = require('glob');
-const fs = require('fs');
-const path = require('path');
 
 const repo = 'https://github.com/hyperweb-io/ts-codegen-module-boilerplate';
 export default async (argv: MinimistArgs) => {
