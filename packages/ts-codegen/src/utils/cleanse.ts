@@ -1,13 +1,20 @@
 import { pascal } from 'case';
 
-const cleanFor = (str: string) => {
+export const cleanFor = (str: string) => {
   /*
         1. look at first char after _for_
         2. ONLY if you find capitals after, modify it
     */
-  while (/_[a-z]+_[A-Z]/.test(str)) {
-    const m = str.match(/(_[a-z]+_)[A-Z]/);
-    str = str.replace(m[1], pascal(m[1]));
+
+  // When we upgrade to eslint v9, we can remove this exception and
+  // rely on allExceptWhileTrue (https://eslint.org/docs/latest/rules/no-constant-condition)
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    const match = str.match(/(_[a-z]+_)[A-Z]/);
+    if (!match) break;
+    // this replace is unsafe as it replaces the same text but maybe
+    // in a different location than the match
+    str = str.replace(match[1], pascal(match[1]));
   }
 
   return str;
