@@ -1,12 +1,13 @@
 import { MinimistArgs } from '@cosmwasm/ts-codegen-types';
 import { readFileSync, writeFileSync } from 'fs';
-import { globSync as glob } from 'glob';
 import { sync as mkdirp } from 'mkdirp';
 import { tmpdir } from 'os';
 import { parse } from 'parse-package-name';
 import { basename, dirname, extname, join, resolve } from 'path';
 import { sync as rimraf } from 'rimraf';
 import { exec } from 'shelljs';
+
+import { crossGlob, toPosixPath } from '../utils';
 
 import { prompt } from '../utils/prompt';
 
@@ -78,7 +79,7 @@ export default async (argv: MinimistArgs) => {
   );
 
   // protos
-  const pkgs = glob('./smart-contracts/**/package.json').sort();
+  const pkgs = crossGlob('./smart-contracts/**/package.json').sort();
   const cmds = pkgs
     .filter((f) => {
       return f !== './smart-contracts/package.json';
@@ -89,7 +90,7 @@ export default async (argv: MinimistArgs) => {
       const dir = extDir.split('node_modules/')[1];
       const dst = basename(dir);
 
-      const files = glob(`${extDir}/**/*`, { nodir: true }).sort();
+      const files = crossGlob(`${extDir}/**/*`, { nodir: true }).sort();
       files.forEach((f) => {
         if (
           extname(f) === '.json' ||

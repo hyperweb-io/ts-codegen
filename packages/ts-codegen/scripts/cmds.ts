@@ -1,7 +1,7 @@
 import { kebab, snake } from 'case';
 import { writeFileSync } from 'fs';
-import { globSync as glob } from 'glob';
 import { basename, resolve } from 'path';
+import { crossGlob, toPosixPath } from '../src/utils';
 
 const srcDir = resolve(`${__dirname}/../src/commands`);
 
@@ -11,7 +11,7 @@ interface PathObj {
   safe: string;
   path: string;
 }
-const paths: PathObj[] = glob(`${srcDir}/**.[j|t]s`)
+const paths: PathObj[] = crossGlob(`${srcDir}/**.[j|t]s`)
   .sort()
   .map((file: string) => {
     const [, name] = file.match(/\/(.*)\.[j|t]s$/);
@@ -19,8 +19,8 @@ const paths: PathObj[] = glob(`${srcDir}/**.[j|t]s`)
       name: basename(name),
       param: kebab(basename(name)),
       safe: snake(basename(name)),
-      path: file
-        .replace(srcDir, './commands')
+      path: toPosixPath(file)
+        .replace(toPosixPath(srcDir), './commands')
         .replace(/\.js$/, '')
         .replace(/\.ts$/, ''),
     };

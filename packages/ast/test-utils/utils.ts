@@ -7,10 +7,10 @@ import {
   QueryMsg,
 } from '@cosmwasm/ts-codegen-types';
 import { readFileSync } from 'fs';
-import { globSync as glob } from 'glob';
 import { join } from 'path';
 
 import { RenderContext } from '../src/context';
+import { crossGlob, toPosixPath } from '../src/utils';
 
 export const expectCode = (ast: any): void => {
   expect(generate(ast).code).toMatchSnapshot();
@@ -50,11 +50,11 @@ const globCache: Record<string, GlobContractLegacy[] | GlobContract[]> = {};
 export const globIdlBasedContracts = (p: string): GlobContract[] => {
   if (globCache[p]) return globCache[p] as GlobContract[];
   // @ts-ignore
-  const contracts: GlobContract[] = glob(join(fixtureDir, p, '/*.json'))
+  const contracts: GlobContract[] = crossGlob(join(fixtureDir, p, '/*.json'))
     .sort()
     .map((file) => {
       return {
-        name: file.split(join('__fixtures__', p))[1],
+        name: file.split(toPosixPath(join('__fixtures__', p)))[1],
         content: JSON.parse(readFileSync(file, 'utf-8')),
       };
     });
@@ -65,11 +65,11 @@ export const globIdlBasedContracts = (p: string): GlobContract[] => {
 export const globLegacyContracts = (p: string): GlobContractLegacy[] => {
   if (globCache[p]) return globCache[p] as GlobContractLegacy[];
   // @ts-ignore
-  const contracts: GlobContractLegacy[] = glob(join(fixtureDir, p, '/*.json'))
+  const contracts: GlobContractLegacy[] = crossGlob(join(fixtureDir, p, '/*.json'))
     .sort()
     .map((file) => {
       return {
-        name: file.split(join('__fixtures__', p))[1],
+        name: file.split(toPosixPath(join('__fixtures__', p)))[1],
         content: JSON.parse(readFileSync(file, 'utf-8')),
       };
     });

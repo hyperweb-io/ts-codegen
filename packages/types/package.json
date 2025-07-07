@@ -8,15 +8,22 @@
   "main": "index.js",
   "module": "esm/index.js",
   "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./esm/index.js",
+      "require": "./index.js",
+      "types": "./index.d.ts"
+    }
+  },
   "publishConfig": {
     "access": "public",
     "directory": "dist"
   },
   "scripts": {
     "copy": "copyfiles -f LICENSE-Apache LICENSE-MIT README.md package.json dist",
-    "clean": "rimraf dist/**",
+    "clean": "rimraf dist",
     "prepare": "npm run build",
-    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
+    "build": "npm run clean && tsc && tsc -p tsconfig.esm.json && npm run copy",
     "lint": "eslint . --fix",
     "format": "prettier --write --log-level warn \"./**/*.ts\"",
     "test": "jest --passWithNoTests",
