@@ -46,5 +46,11 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/hyperweb-io/ts-codegen"
+  },
+  "dependencies": {
+    "@interchainjs/amino": "^1.11.18",
+    "@interchainjs/cosmos": "^1.11.18",
+    "@interchainjs/types": "^1.11.18",
+    "interchainjs": "^1.11.18"
   }
 }

@@ -37,7 +37,6 @@
     "url": "https://github.com/hyperweb-io/ts-codegen/issues"
   },
   "devDependencies": {
-    "@cosmjs/cosmwasm-stargate": "0.32.3"
   },
   "dependencies": {
     "@babel/generator": "7.24.4",
@@ -48,6 +47,10 @@
     "@pyramation/json-schema-to-typescript": " 11.0.4",
     "@types/rimraf": "3.0.2",
     "@types/shelljs": "0.8.15",
+    "@interchainjs/amino": "^1.11.18",
+    "@interchainjs/cosmos": "^1.11.18",
+    "@interchainjs/types": "^1.11.18",
+    "interchainjs": "^1.11.18",
     "case": "1.6.3",
     "dargs": "7.0.0",
     "deepmerge": "4.2.2",

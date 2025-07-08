@@ -1,13 +1,50 @@
 export const contractContextBaseShortHandCtor = `
-import {
-  CosmWasmClient,
-  SigningCosmWasmClient,
-} from '@cosmjs/cosmwasm-stargate';
+import { StdFee } from '@interchainjs/amino';
+import { SigningClient } from '@interchainjs/cosmos/signing-client';
+
+// InterchainJS interfaces for CosmWasm clients
+export interface ICosmWasmClient {
+  queryContractSmart(contractAddr: string, query: any): Promise<any>;
+}
+
+export interface ISigningCosmWasmClient {
+  execute(tx: any): Promise<any>;
+}
+
+export interface ISigningClient {
+  signAndBroadcast(
+    signerAddress: string,
+    messages: any[],
+    fee: StdFee,
+    memo?: string
+  ): Promise<any>;
+}
+
+// Helper functions to create InterchainJS clients
+export function getCosmWasmClient(rpc: string): ICosmWasmClient {
+  return {
+    queryContractSmart: (contractAddr: string, query: any) => {
+      // TODO: implement
+      // the helper function to query the contract
+      throw new Error('queryContractSmart not implemented yet');
+    },
+  };
+}
+
+export function getSigningCosmWasmClient(client: ISigningClient): ISigningCosmWasmClient {
+  return {
+    execute: (tx: any) => {
+      // TODO: implement
+      // the helper function to execute the transaction
+      throw new Error('execute not implemented yet');
+    },
+  };
+}
 
 export interface IContractConstructor {
   address: string | undefined;
-  cosmWasmClient: CosmWasmClient | undefined;
-  signingCosmWasmClient: SigningCosmWasmClient | undefined;
+  cosmWasmClient: ICosmWasmClient | undefined;
+  signingCosmWasmClient: ISigningCosmWasmClient | undefined;
 }
 
 export const NO_SINGING_ERROR_MESSAGE = 'signingCosmWasmClient not connected';
@@ -49,15 +86,15 @@ export class ContractBase<
 > {
   constructor(
     protected address: string | undefined,
-    protected cosmWasmClient: CosmWasmClient | undefined,
-    protected signingCosmWasmClient: SigningCosmWasmClient | undefined,
+    protected cosmWasmClient: ICosmWasmClient | undefined,
+    protected signingCosmWasmClient: ISigningCosmWasmClient | undefined,
     private TSign?: new (
-      client: SigningCosmWasmClient,
+      client: ISigningCosmWasmClient,
       sender: string,
       contractAddress: string
     ) => TSign,
     private TQuery?: new (
-      client: CosmWasmClient,
+      client: ICosmWasmClient,
       contractAddress: string
     ) => TQuery,
     private TMsgComposer?: new (
