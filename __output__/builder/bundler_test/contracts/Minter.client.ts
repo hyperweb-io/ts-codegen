@@ -4,8 +4,9 @@
 * and run the @cosmwasm/ts-codegen generate command to regenerate this file.
 */
 
-import { CosmWasmClient, SigningCosmWasmClient, ExecuteResult } from "@cosmjs/cosmwasm-stargate";
-import { StdFee } from "@cosmjs/amino";
+import { ICosmWasmClient, ISigningCosmWasmClient } from "./contractContextBase";
+import { ExecuteResult } from "@interchainjs/cosmos/signing-client";
+import { StdFee } from "@interchainjs/amino";
 import { Addr, Timestamp, Uint64, Uint128, Config, Coin, ConfigResponse, ExecuteMsg, Decimal, InstantiateMsg, InstantiateMsg1, CollectionInfoForRoyaltyInfoResponse, RoyaltyInfoResponse, QueryMsg } from "./Minter.types";
 export interface MinterReadOnlyInterface {
   contractAddress: string;
@@ -20,9 +21,9 @@ export interface MinterReadOnlyInterface {
   }) => Promise<MintCountResponse>;
 }
 export class MinterQueryClient implements MinterReadOnlyInterface {
-  client: CosmWasmClient;
+  client: ICosmWasmClient;
   contractAddress: string;
-  constructor(client: CosmWasmClient, contractAddress: string) {
+  constructor(client: ICosmWasmClient, contractAddress: string) {
     this.client = client;
     this.contractAddress = contractAddress;
     this.config = this.config.bind(this);
@@ -93,10 +94,10 @@ export interface MinterInterface {
   withdraw: (fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
 }
 export class MinterClient implements MinterInterface {
-  client: SigningCosmWasmClient;
+  client: ISigningCosmWasmClient;
   sender: string;
   contractAddress: string;
-  constructor(client: SigningCosmWasmClient, sender: string, contractAddress: string) {
+  constructor(client: ISigningCosmWasmClient, sender: string, contractAddress: string) {
     this.client = client;
     this.sender = sender;
     this.contractAddress = contractAddress;

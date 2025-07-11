@@ -1,6 +1,11 @@
 export const contractContextBaseShortHandCtor = `
 import { StdFee } from '@interchainjs/amino';
 import { SigningClient } from '@interchainjs/cosmos/signing-client';
+import { createGetSmartContractState } from '@interchainjs/cosmwasm/wasm/v1/query.rpc.func';
+import { createExecuteContract } from '@interchainjs/cosmwasm/wasm/v1/tx.rpc.func';
+import { QuerySmartContractStateRequest } from '@interchainjs/cosmwasm/wasm/v1/query';
+import { MsgExecuteContract } from '@interchainjs/cosmwasm/wasm/v1/tx';
+import { fromUtf8, toUtf8 } from '@interchainjs/encoding';
 
 // InterchainJS interfaces for CosmWasm clients
 export interface ICosmWasmClient {
@@ -8,7 +13,7 @@ export interface ICosmWasmClient {
 }
 
 export interface ISigningCosmWasmClient {
-  execute(tx: any): Promise<any>;
+  execute(sender: string, contractAddress: string, msg: any, fee?: any, memo?: string, funds?: any[]): Promise<any>;
 }
 
 export interface ISigningClient {
@@ -22,21 +27,44 @@ export interface ISigningClient {
 
 // Helper functions to create InterchainJS clients
 export function getCosmWasmClient(rpc: string): ICosmWasmClient {
+  // Create the query client using InterchainJS
+  const querySmartContractState = createGetSmartContractState();
+  
   return {
-    queryContractSmart: (contractAddr: string, query: any) => {
-      // TODO: implement
-      // the helper function to query the contract
-      throw new Error('queryContractSmart not implemented yet');
+    queryContractSmart: async (contractAddr: string, query: any) => {
+      // Create the request object
+      const request: QuerySmartContractStateRequest = {
+        address: contractAddr,
+        queryData: fromUtf8(JSON.stringify(query))
+      };
+      
+      // Execute the query
+      const response = await querySmartContractState(request);
+      
+      // Parse and return the result
+      return JSON.parse(toUtf8(response.data));
     },
   };
 }
 
 export function getSigningCosmWasmClient(client: ISigningClient): ISigningCosmWasmClient {
+  // Create the execute client using InterchainJS
+  const executeContract = createExecuteContract();
+  
   return {
-    execute: (tx: any) => {
-      // TODO: implement
-      // the helper function to execute the transaction
-      throw new Error('execute not implemented yet');
+    execute: async (sender: string, contractAddress: string, msg: any, fee?: any, memo?: string, funds?: any[]) => {
+      // Create the message object
+      const message: MsgExecuteContract = {
+        sender,
+        contract: contractAddress,
+        msg: fromUtf8(JSON.stringify(msg)),
+        funds: funds || []
+      };
+      
+      // Execute the transaction
+      const result = await executeContract(message);
+      
+      return result;
     },
   };
 }

@@ -266,7 +266,7 @@ export const importAs = (
 };
 
 export const importAminoMsg = (): t.ImportDeclaration => {
-  return importStmt(['AminoMsg'], '@cosmjs/amino');
+  return importStmt(['AminoMsg'], '@interchainjs/amino');
 };
 
 export const getFieldDimensionality = (field: Field) => {
