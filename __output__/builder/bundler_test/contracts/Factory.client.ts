@@ -4,8 +4,9 @@
 * and run the @cosmwasm/ts-codegen generate command to regenerate this file.
 */
 
-import { CosmWasmClient, SigningCosmWasmClient, ExecuteResult } from "@cosmjs/cosmwasm-stargate";
-import { StdFee } from "@cosmjs/amino";
+import { ICosmWasmClient, ISigningCosmWasmClient } from "./contractContextBase";
+import { ExecuteResult } from "@interchainjs/cosmos/signing-client";
+import { StdFee } from "@interchainjs/amino";
 import { AdminAddrResponse, CodeIdResponse, CodeIdType, Uint128, Binary, CreateWalletMsg, Guardians, MultiSig, Coin, Cw20Coin, ExecuteMsg, Addr, ProxyMigrationTxMsg, WalletAddr, CanonicalAddr, RelayTransaction, FeeResponse, GovecAddrResponse, InstantiateMsg, QueryMsg, WalletQueryPrefix, Duration, StakingOptions, WalletInfo, ContractVersion, WalletsOfResponse, WalletsResponse } from "./Factory.types";
 export interface FactoryReadOnlyInterface {
   contractAddress: string;
@@ -35,9 +36,9 @@ export interface FactoryReadOnlyInterface {
   adminAddr: () => Promise<AdminAddrResponse>;
 }
 export class FactoryQueryClient implements FactoryReadOnlyInterface {
-  client: CosmWasmClient;
+  client: ICosmWasmClient;
   contractAddress: string;
-  constructor(client: CosmWasmClient, contractAddress: string) {
+  constructor(client: ICosmWasmClient, contractAddress: string) {
     this.client = client;
     this.contractAddress = contractAddress;
     this.wallets = this.wallets.bind(this);
@@ -151,10 +152,10 @@ export interface FactoryInterface {
   }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
 }
 export class FactoryClient implements FactoryInterface {
-  client: SigningCosmWasmClient;
+  client: ISigningCosmWasmClient;
   sender: string;
   contractAddress: string;
-  constructor(client: SigningCosmWasmClient, sender: string, contractAddress: string) {
+  constructor(client: ISigningCosmWasmClient, sender: string, contractAddress: string) {
     this.client = client;
     this.sender = sender;
     this.contractAddress = contractAddress;

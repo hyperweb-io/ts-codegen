@@ -4,8 +4,7 @@
 * and run the @cosmwasm/ts-codegen generate command to regenerate this file.
 */
 
-import { CosmWasmClient, SigningCosmWasmClient } from "@cosmjs/cosmwasm-stargate";
-import { IQueryClientProvider, ISigningClientProvider, IMessageComposerProvider } from "./contractContextBase";
+import { ICosmWasmClient, ISigningCosmWasmClient, getCosmWasmClient, getSigningCosmWasmClient, IQueryClientProvider, ISigningClientProvider, IMessageComposerProvider } from "./contractContextBase";
 import { FactoryQueryClient } from "./Factory.client";
 import { FactoryClient } from "./Factory.client";
 import { FactoryMsgComposer } from "./Factory.message-composer";

@@ -40,14 +40,14 @@ const makeReactQuerySwitch = (varName: string) => {
 
 export const UTILS = {
   selectorFamily: 'recoil',
-  MsgExecuteContract: 'cosmjs-types/cosmwasm/wasm/v1/tx',
-  MsgExecuteContractEncodeObject: '@cosmjs/cosmwasm-stargate',
-  Coin: '@cosmjs/amino',
-  toUtf8: '@cosmjs/encoding',
-  StdFee: '@cosmjs/amino',
-  CosmWasmClient: '@cosmjs/cosmwasm-stargate',
-  ExecuteResult: '@cosmjs/cosmwasm-stargate',
-  SigningCosmWasmClient: '@cosmjs/cosmwasm-stargate',
+  MsgExecuteContract: '@interchainjs/cosmwasm/wasm/v1/tx',
+  MsgExecuteContractEncodeObject: '@interchainjs/cosmwasm/wasm/v1/tx',
+  Coin: '@interchainjs/amino',
+  toUtf8: '@interchainjs/encoding',
+  StdFee: '@interchainjs/amino',
+  ICosmWasmClient: '__contractContextBase__',
+  ExecuteResult: '@interchainjs/cosmos/signing-client',
+  ISigningCosmWasmClient: '__contractContextBase__',
 
   // react-query
   useQuery: makeReactQuerySwitch('useQuery'),

@@ -1,13 +1,78 @@
 export const contractContextBase = `
-import {
-  CosmWasmClient,
-  SigningCosmWasmClient,
-} from '@cosmjs/cosmwasm-stargate';
+import { StdFee } from '@interchainjs/amino';
+import { SigningClient } from '@interchainjs/cosmos/signing-client';
+import { createGetSmartContractState } from '@interchainjs/cosmwasm/wasm/v1/query.rpc.func';
+import { createExecuteContract } from '@interchainjs/cosmwasm/wasm/v1/tx.rpc.func';
+import { QuerySmartContractStateRequest } from '@interchainjs/cosmwasm/wasm/v1/query';
+import { MsgExecuteContract } from '@interchainjs/cosmwasm/wasm/v1/tx';
+import { fromUtf8, toUtf8 } from '@interchainjs/encoding';
+
+// InterchainJS interfaces for CosmWasm clients
+export interface ICosmWasmClient {
+  queryContractSmart(contractAddr: string, query: any): Promise<any>;
+}
+
+export interface ISigningCosmWasmClient extends ICosmWasmClient {
+  execute(sender: string, contractAddress: string, msg: any, fee?: any, memo?: string, funds?: any[]): Promise<any>;
+}
+
+export interface ISigningClient {
+  signAndBroadcast(
+    signerAddress: string,
+    messages: any[],
+    fee: StdFee,
+    memo?: string
+  ): Promise<any>;
+}
+
+// Helper functions to create InterchainJS clients
+export function getCosmWasmClient(rpc: string): ICosmWasmClient {
+  // Create the query client using InterchainJS
+  const querySmartContractState = createGetSmartContractState();
+  
+  return {
+    queryContractSmart: async (contractAddr: string, query: any) => {
+      // Create the request object
+      const request: QuerySmartContractStateRequest = {
+        address: contractAddr,
+        queryData: fromUtf8(JSON.stringify(query))
+      };
+      
+      // Execute the query
+      const response = await querySmartContractState(request);
+      
+      // Parse and return the result
+      return JSON.parse(toUtf8(response.data));
+    },
+  };
+}
+
+export function getSigningCosmWasmClient(client: ISigningClient): ISigningCosmWasmClient {
+  // Create the execute client using InterchainJS
+  const executeContract = createExecuteContract();
+  
+  return {
+    execute: async (sender: string, contractAddress: string, msg: any, fee?: any, memo?: string, funds?: any[]) => {
+      // Create the message object
+      const message: MsgExecuteContract = {
+        sender,
+        contract: contractAddress,
+        msg: fromUtf8(JSON.stringify(msg)),
+        funds: funds || []
+      };
+      
+      // Execute the transaction
+      const result = await executeContract(message);
+      
+      return result;
+    },
+  };
+}
 
 export interface IContractConstructor {
   address: string | undefined;
-  cosmWasmClient: CosmWasmClient | undefined;
-  signingCosmWasmClient: SigningCosmWasmClient | undefined;
+  cosmWasmClient: ICosmWasmClient | undefined;
+  signingCosmWasmClient: ISigningCosmWasmClient | undefined;
 }
 
 export const NO_SINGING_ERROR_MESSAGE = 'signingCosmWasmClient not connected';
@@ -49,15 +114,15 @@ export class ContractBase<
 > {
 
   address: string | undefined;
-  cosmWasmClient: CosmWasmClient | undefined;
-  signingCosmWasmClient: SigningCosmWasmClient | undefined;
+  cosmWasmClient: ICosmWasmClient | undefined;
+  signingCosmWasmClient: ISigningCosmWasmClient | undefined;
   TSign?: new (
-    client: SigningCosmWasmClient,
+    client: ISigningCosmWasmClient,
     sender: string,
     contractAddress: string
   ) => TSign;
   TQuery?: new (
-    client: CosmWasmClient,
+    client: ICosmWasmClient,
     contractAddress: string
   ) => TQuery;
   TMsgComposer?: new (
@@ -67,15 +132,15 @@ export class ContractBase<
 
   constructor(
     address: string | undefined,
-    cosmWasmClient: CosmWasmClient | undefined,
-    signingCosmWasmClient: SigningCosmWasmClient | undefined,
+    cosmWasmClient: ICosmWasmClient | undefined,
+    signingCosmWasmClient: ISigningCosmWasmClient | undefined,
     TSign?: new (
-      client: SigningCosmWasmClient,
+      client: ISigningCosmWasmClient,
       sender: string,
       contractAddress: string
     ) => TSign,
     TQuery?: new (
-      client: CosmWasmClient,
+      client: ICosmWasmClient,
       contractAddress: string
     ) => TQuery,
     TMsgComposer?: new (
