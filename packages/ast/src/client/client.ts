@@ -107,7 +107,7 @@ export const createQueryClass = (
   implementsClassName: string,
   queryMsg: QueryMsg
 ) => {
-  context.addUtil('CosmWasmClient');
+  context.addUtil('ICosmWasmClient');
 
   const propertyNames = getMessageProperties(queryMsg)
     .map((method) => Object.keys(method.properties)?.[0])
@@ -126,7 +126,7 @@ export const createQueryClass = (
         // client
         classProperty(
           'client',
-          t.tsTypeAnnotation(t.tsTypeReference(t.identifier('CosmWasmClient')))
+          t.tsTypeAnnotation(t.tsTypeReference(t.identifier('ICosmWasmClient')))
         ),
 
         // contractAddress
@@ -143,7 +143,7 @@ export const createQueryClass = (
             typedIdentifier(
               'client',
               t.tsTypeAnnotation(
-                t.tsTypeReference(t.identifier('CosmWasmClient'))
+                t.tsTypeReference(t.identifier('ICosmWasmClient'))
               )
             ),
             typedIdentifier(
@@ -296,7 +296,7 @@ export const createExecuteClass = (
   extendsClassName: string | null,
   execMsg: ExecuteMsg
 ) => {
-  context.addUtil('SigningCosmWasmClient');
+  context.addUtil('ISigningCosmWasmClient');
 
   const propertyNames = getMessageProperties(execMsg)
     .map((method) => Object.keys(method.properties)?.[0])
@@ -371,7 +371,7 @@ export const createExecuteClass = (
         classProperty(
           'client',
           t.tsTypeAnnotation(
-            t.tsTypeReference(t.identifier('SigningCosmWasmClient'))
+            t.tsTypeReference(t.identifier('ISigningCosmWasmClient'))
           ),
           false,
           false,
@@ -400,7 +400,7 @@ export const createExecuteClass = (
             typedIdentifier(
               'client',
               t.tsTypeAnnotation(
-                t.tsTypeReference(t.identifier('SigningCosmWasmClient'))
+                t.tsTypeReference(t.identifier('ISigningCosmWasmClient'))
               )
             ),
             typedIdentifier('sender', t.tsTypeAnnotation(t.tsStringKeyword())),

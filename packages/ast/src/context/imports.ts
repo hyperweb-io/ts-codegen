@@ -45,9 +45,9 @@ export const UTILS = {
   Coin: '@interchainjs/amino',
   toUtf8: '@interchainjs/encoding',
   StdFee: '@interchainjs/amino',
-  CosmWasmClient: '__contractContextBase__',
+  ICosmWasmClient: '__contractContextBase__',
   ExecuteResult: '@interchainjs/cosmos/signing-client',
-  SigningCosmWasmClient: '__contractContextBase__',
+  ISigningCosmWasmClient: '__contractContextBase__',
 
   // react-query
   useQuery: makeReactQuerySwitch('useQuery'),
