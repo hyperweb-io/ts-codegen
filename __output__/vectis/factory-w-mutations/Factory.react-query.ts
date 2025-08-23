@@ -5,8 +5,7 @@
 */
 
 import { UseQueryOptions, useQuery, useMutation, UseMutationOptions } from "@tanstack/react-query";
-import { ExecuteResult } from "@cosmjs/cosmwasm-stargate";
-import { StdFee } from "@cosmjs/amino";
+import { StdFee } from "@interchainjs/types";
 import { AdminAddrResponse, CodeIdResponse, CodeIdType, Uint128, Binary, CreateWalletMsg, Guardians, MultiSig, Coin, Cw20Coin, ExecuteMsg, Addr, ProxyMigrationTxMsg, WalletAddr, CanonicalAddr, RelayTransaction, FeeResponse, GovecAddrResponse, InstantiateMsg, QueryMsg, WalletQueryPrefix, Duration, StakingOptions, WalletInfo, ContractVersion, WalletsOfResponse, WalletsResponse } from "./Factory.types";
 import { FactoryQueryClient, FactoryClient } from "./Factory.client";
 export interface FactoryReactQuery<TResponse, TData = TResponse> {
@@ -95,8 +94,8 @@ export interface FactoryUpdateAdminMutation {
     funds?: Coin[];
   };
 }
-export function useFactoryUpdateAdminMutation(options?: Omit<UseMutationOptions<ExecuteResult, Error, FactoryUpdateAdminMutation>, "mutationFn">) {
-  return useMutation<ExecuteResult, Error, FactoryUpdateAdminMutation>(({
+export function useFactoryUpdateAdminMutation(options?: Omit<UseMutationOptions<any, Error, FactoryUpdateAdminMutation>, "mutationFn">) {
+  return useMutation<any, Error, FactoryUpdateAdminMutation>(({
     client,
     msg,
     args: {
@@ -117,8 +116,8 @@ export interface FactoryUpdateGovecAddrMutation {
     funds?: Coin[];
   };
 }
-export function useFactoryUpdateGovecAddrMutation(options?: Omit<UseMutationOptions<ExecuteResult, Error, FactoryUpdateGovecAddrMutation>, "mutationFn">) {
-  return useMutation<ExecuteResult, Error, FactoryUpdateGovecAddrMutation>(({
+export function useFactoryUpdateGovecAddrMutation(options?: Omit<UseMutationOptions<any, Error, FactoryUpdateGovecAddrMutation>, "mutationFn">) {
+  return useMutation<any, Error, FactoryUpdateGovecAddrMutation>(({
     client,
     msg,
     args: {
@@ -139,8 +138,8 @@ export interface FactoryUpdateWalletFeeMutation {
     funds?: Coin[];
   };
 }
-export function useFactoryUpdateWalletFeeMutation(options?: Omit<UseMutationOptions<ExecuteResult, Error, FactoryUpdateWalletFeeMutation>, "mutationFn">) {
-  return useMutation<ExecuteResult, Error, FactoryUpdateWalletFeeMutation>(({
+export function useFactoryUpdateWalletFeeMutation(options?: Omit<UseMutationOptions<any, Error, FactoryUpdateWalletFeeMutation>, "mutationFn">) {
+  return useMutation<any, Error, FactoryUpdateWalletFeeMutation>(({
     client,
     msg,
     args: {
@@ -162,8 +161,8 @@ export interface FactoryUpdateCodeIdMutation {
     funds?: Coin[];
   };
 }
-export function useFactoryUpdateCodeIdMutation(options?: Omit<UseMutationOptions<ExecuteResult, Error, FactoryUpdateCodeIdMutation>, "mutationFn">) {
-  return useMutation<ExecuteResult, Error, FactoryUpdateCodeIdMutation>(({
+export function useFactoryUpdateCodeIdMutation(options?: Omit<UseMutationOptions<any, Error, FactoryUpdateCodeIdMutation>, "mutationFn">) {
+  return useMutation<any, Error, FactoryUpdateCodeIdMutation>(({
     client,
     msg,
     args: {
@@ -185,8 +184,8 @@ export interface FactoryMigrateWalletMutation {
     funds?: Coin[];
   };
 }
-export function useFactoryMigrateWalletMutation(options?: Omit<UseMutationOptions<ExecuteResult, Error, FactoryMigrateWalletMutation>, "mutationFn">) {
-  return useMutation<ExecuteResult, Error, FactoryMigrateWalletMutation>(({
+export function useFactoryMigrateWalletMutation(options?: Omit<UseMutationOptions<any, Error, FactoryMigrateWalletMutation>, "mutationFn">) {
+  return useMutation<any, Error, FactoryMigrateWalletMutation>(({
     client,
     msg,
     args: {
@@ -208,8 +207,8 @@ export interface FactoryUpdateProxyUserMutation {
     funds?: Coin[];
   };
 }
-export function useFactoryUpdateProxyUserMutation(options?: Omit<UseMutationOptions<ExecuteResult, Error, FactoryUpdateProxyUserMutation>, "mutationFn">) {
-  return useMutation<ExecuteResult, Error, FactoryUpdateProxyUserMutation>(({
+export function useFactoryUpdateProxyUserMutation(options?: Omit<UseMutationOptions<any, Error, FactoryUpdateProxyUserMutation>, "mutationFn">) {
+  return useMutation<any, Error, FactoryUpdateProxyUserMutation>(({
     client,
     msg,
     args: {
@@ -230,8 +229,8 @@ export interface FactoryCreateWalletMutation {
     funds?: Coin[];
   };
 }
-export function useFactoryCreateWalletMutation(options?: Omit<UseMutationOptions<ExecuteResult, Error, FactoryCreateWalletMutation>, "mutationFn">) {
-  return useMutation<ExecuteResult, Error, FactoryCreateWalletMutation>(({
+export function useFactoryCreateWalletMutation(options?: Omit<UseMutationOptions<any, Error, FactoryCreateWalletMutation>, "mutationFn">) {
+  return useMutation<any, Error, FactoryCreateWalletMutation>(({
     client,
     msg,
     args: {

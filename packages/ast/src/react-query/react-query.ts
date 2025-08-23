@@ -490,7 +490,7 @@ export const createReactQueryMutationHooks = ({
     // TODO: there should be a better way to do this
     const hasMsg = !!(Object.keys(properties)?.length || jsonschema?.$ref);
 
-    // <ExecuteResult, Error, Cw4UpdateMembersMutation>
+    // <any, Error, Cw4UpdateMembersMutation>
     const useMutationTypeParameter = generateMutationTypeParameter(
       context,
       mutationHookParamsTypeName
@@ -524,11 +524,11 @@ const generateMutationTypeParameter = (
   context: RenderContext,
   mutationHookParamsTypeName: string
 ) => {
-  context.addUtil('ExecuteResult');
+
 
   return t.tsTypeParameterInstantiation([
     // Data
-    t.tSTypeReference(t.identifier('ExecuteResult')),
+    t.tSTypeReference(t.identifier('any')),
     // Error
     t.tsTypeReference(t.identifier('Error')),
     // Variables
@@ -550,7 +550,7 @@ interface ReactQueryMutationHook {
  * Example:
 ```
 export const useCw4UpdateMembersMutation = ({ client, options }: Omit<Cw4UpdateMembersMutation, 'args'>) =>
-  useMutation<ExecuteResult, Error, Pick<Cw4UpdateMembersMutation, 'args'>>(
+  useMutation<DeliverTxResponse, Error, Pick<Cw4UpdateMembersMutation, 'args'>>(
     ({ args }) => client.updateMembers(args),
     options
   )

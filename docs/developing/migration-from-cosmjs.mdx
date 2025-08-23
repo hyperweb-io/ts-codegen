@@ -1,0 +1,214 @@
+# Migration from CosmJS to InterchainJS
+
+This guide covers the migration from CosmJS to InterchainJS in ts-codegen generated clients. The migration introduces new client architecture with improved gas fee handling and better type safety.
+
+## Overview
+
+With the latest version of ts-codegen, we've migrated from CosmJS to InterchainJS as the underlying blockchain interaction library.
+
+## Key Changes
+
+### Deprecated CosmJS Clients
+
+The following CosmJS clients are now deprecated:
+
+```typescript
+// ❌ Deprecated - CosmJS clients
+import { CosmWasmClient, SigningCosmWasmClient } from '@cosmjs/cosmwasm-stargate';
+```
+
+### New InterchainJS Base Client
+
+All generated contracts now use a new `baseClient.ts` file that provides InterchainJS-based clients:
+
+```typescript
+// ✅ New - InterchainJS clients
+import { 
+  getCosmWasmClient, 
+  getSigningCosmWasmClient,
+  ICosmWasmClient,
+  ISigningCosmWasmClient 
+} from './baseClient';
+```
+
+## Client Migration
+
+**Before (CosmJS):**
+```typescript
+import { CosmWasmClient, SigningCosmWasmClient } from '@cosmjs/cosmwasm-stargate';
+
+// For queries
+const client = await CosmWasmClient.connect('https://rpc.cosmos.network');
+const result = await client.queryContractSmart(contractAddress, {
+  // your query object
+});
+
+// For transactions  
+const signingClient = await SigningCosmWasmClient.connectWithSigner(
+  'https://rpc.cosmos.network',
+  signer
+);
+const executeResult = await signingClient.execute(
+  sender,
+  contractAddress,
+  msg,
+  "auto"
+);
+```
+
+**After (InterchainJS):**
+```typescript
+import { getCosmWasmClient, getSigningCosmWasmClient } from './baseClient';
+
+//For queries
+const client = getCosmWasmClient('https://rpc.cosmos.network');
+const result = await client.queryContractSmart(contractAddress, {
+  // your query object
+});
+
+//For transactions
+const { data: signingClient } = useCustomSigningClient({ signerType: 'direct' });
+const signingClient = getSigningCosmWasmClient(signingClient);
+const executeResult = await client.execute(
+  address,
+  contractAddress,
+  JSON.parse(executeMsg),
+  'auto', // fee
+  'Test execution from chain-template', // memo
+  [], // funds
+  { chain } // chainConfig
+);
+
+```
+
+Example of useCustomSigningClient:
+```typescript
+import { DirectSigner, createCosmosQueryClient } from '@interchainjs/cosmos';
+import { useQuery } from '@tanstack/react-query';
+import { useChain } from '@interchain-kit/react';
+
+import { useChainStore } from '@/contexts';
+
+import { useRpcEndpoint } from './useRpcEndpoint';
+
+export const useCustomSigningClient = ({
+  signerType = 'direct',
+}: {
+  signerType?: 'direct' | 'amino';
+} = {}) => {
+  const { selectedChain } = useChainStore();
+  const { chain } = useChain(selectedChain);
+  const { data: rpcEndpoint } = useRpcEndpoint(selectedChain);
+
+  const chainId = chain.chainId || '';
+
+  return useQuery({
+    queryKey: ['useCustomSigningClient', signerType, chainId],
+    queryFn: async () => {
+      const offlineSignerAmino = (window as any).keplr.getOfflineSignerOnlyAmino(chainId);
+      const offlineSignerDirect = (window as any).keplr.getOfflineSigner(chainId);
+
+      // Create query client for signer configuration
+      const rpcUrl = typeof rpcEndpoint === 'string' ? rpcEndpoint : rpcEndpoint!.url;
+      const queryClient = await createCosmosQueryClient(rpcUrl);
+
+      const baseSignerConfig = {
+        queryClient: queryClient,
+        chainId: chainId,
+        addressPrefix: chain.bech32Prefix || 'cosmos'
+      };
+
+      const client = new DirectSigner(
+        signerType === 'amino' ? offlineSignerAmino : offlineSignerDirect,
+        baseSignerConfig
+      );
+      return client;
+    },
+    enabled: !!rpcEndpoint && !!chainId,
+  });
+};
+```
+
+## Gas Fee Management
+
+One of the major improvements is the new gas fee handling system that integrates with the chain registry.
+
+### Automatic Gas Calculation
+
+The new system automatically calculates gas fees based on chain registry data:
+
+```typescript
+import { ChainConfig, getAutoGasFee } from './baseClient';
+
+// Using chain registry data
+const chainConfig: ChainConfig = {
+  chain: cosmosChain, // From @chain-registry/v2-types
+};
+
+// Gas fee is automatically calculated
+const result = await contractClient.execute(
+  sender,
+  { transfer: { recipient, amount } },
+  'auto', // Automatic gas calculation
+  undefined, // memo
+  [], // funds
+  chainConfig // Chain configuration for gas calculation
+);
+```
+
+### Manual Gas Price Configuration
+
+You can also specify custom gas prices:
+
+```typescript
+const chainConfig: ChainConfig = {
+  gasPrice: {
+    denom: 'uatom',
+    amount: '0.025'
+  }
+};
+
+const result = await contractClient.execute(
+  sender,
+  executeMsg,
+  'auto',
+  undefined,
+  [],
+  chainConfig
+);
+```
+
+### Default Gas Amount Configuration
+
+You can configure the default gas amount globally:
+
+```typescript
+import { setDefaultGasAmount, getDefaultGasAmount } from './baseClient';
+
+// Set default gas amount (default is '200000')
+setDefaultGasAmount('300000');
+
+// Get current default
+const currentDefault = getDefaultGasAmount();
+```
+
+### Manual Fee Specification
+
+For precise control, you can still specify exact fees:
+
+```typescript
+import { StdFee } from '@interchainjs/types';
+
+const fee: StdFee = {
+  amount: [{ denom: 'uatom', amount: '5000' }],
+  gas: '200000'
+};
+
+const result = await contractClient.execute(
+  sender,
+  executeMsg,
+  fee // Exact fee specification
+);
+```
+
+For more detailed information about InterchainJS, visit the [InterchainJS documentation](https://github.com/hyperweb-io/interchainjs).

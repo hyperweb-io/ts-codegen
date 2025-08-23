@@ -7,6 +7,7 @@ import {
   contractContextBase,
   contractContextBaseShortHandCtor,
   contractsContextTSX,
+  baseClient,
 } from '../helpers';
 import { writeContentToFile } from '../utils/files';
 import { header } from '../utils/header';
@@ -35,6 +36,9 @@ export const createHelpers = (
   builderContext: BuilderContext
 ): BuilderFile[] => {
   const files: BuilderFile[] = [];
+
+  // Always generate baseClient.ts since InterchainJS interfaces are needed by all clients
+  files.push(write(input.outPath, 'baseClient.ts', baseClient));
 
   if (
     input.options?.useContractsHook?.enabled &&

@@ -4,8 +4,8 @@
 * and run the @cosmwasm/ts-codegen generate command to regenerate this file.
 */
 
-import { CosmWasmClient, SigningCosmWasmClient, ExecuteResult } from "@cosmjs/cosmwasm-stargate";
-import { Coin, StdFee } from "@cosmjs/amino";
+import { ICosmWasmClient, ISigningCosmWasmClient } from "./baseClient";
+import { Coin, StdFee } from "@interchainjs/types";
 import { Addr, PaymentInfo, Uint128, ConfigResponse, ExecuteMsg, Binary, Cw20ReceiveMsg, GetRegistrationResponse, Registration, InfoForCodeIdResponse, InstantiateMsg, ListRegistrationsResponse, QueryMsg, ReceiveMsg } from "./CwCodeIdRegistry.types";
 export interface CwCodeIdRegistryReadOnlyInterface {
   contractAddress: string;
@@ -35,9 +35,9 @@ export interface CwCodeIdRegistryReadOnlyInterface {
   }) => Promise<ListRegistrationsResponse>;
 }
 export class CwCodeIdRegistryQueryClient implements CwCodeIdRegistryReadOnlyInterface {
-  client: CosmWasmClient;
+  client: ICosmWasmClient;
   contractAddress: string;
-  constructor(client: CosmWasmClient, contractAddress: string) {
+  constructor(client: ICosmWasmClient, contractAddress: string) {
     this.client = client;
     this.contractAddress = contractAddress;
     this.config = this.config.bind(this);
@@ -107,7 +107,7 @@ export interface CwCodeIdRegistryInterface extends CwCodeIdRegistryReadOnlyInter
     amount: Uint128;
     msg: Binary;
     sender: string;
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
   register: ({
     chainId,
     checksum,
@@ -120,7 +120,7 @@ export interface CwCodeIdRegistryInterface extends CwCodeIdRegistryReadOnlyInter
     codeId: number;
     name: string;
     version: string;
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
   setOwner: ({
     chainId,
     name,
@@ -129,27 +129,27 @@ export interface CwCodeIdRegistryInterface extends CwCodeIdRegistryReadOnlyInter
     chainId: string;
     name: string;
     owner?: string;
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
   unregister: ({
     chainId,
     codeId
   }: {
     chainId: string;
     codeId: number;
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
   updateConfig: ({
     admin,
     paymentInfo
   }: {
     admin?: string;
     paymentInfo?: PaymentInfo;
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
 }
 export class CwCodeIdRegistryClient extends CwCodeIdRegistryQueryClient implements CwCodeIdRegistryInterface {
-  client: SigningCosmWasmClient;
+  client: ISigningCosmWasmClient;
   sender: string;
   contractAddress: string;
-  constructor(client: SigningCosmWasmClient, sender: string, contractAddress: string) {
+  constructor(client: ISigningCosmWasmClient, sender: string, contractAddress: string) {
     super(client, contractAddress);
     this.client = client;
     this.sender = sender;
@@ -168,7 +168,7 @@ export class CwCodeIdRegistryClient extends CwCodeIdRegistryQueryClient implemen
     amount: Uint128;
     msg: Binary;
     sender: string;
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       receive: {
         amount,
@@ -189,7 +189,7 @@ export class CwCodeIdRegistryClient extends CwCodeIdRegistryQueryClient implemen
     codeId: number;
     name: string;
     version: string;
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       register: {
         chain_id: chainId,
@@ -208,7 +208,7 @@ export class CwCodeIdRegistryClient extends CwCodeIdRegistryQueryClient implemen
     chainId: string;
     name: string;
     owner?: string;
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       set_owner: {
         chain_id: chainId,
@@ -223,7 +223,7 @@ export class CwCodeIdRegistryClient extends CwCodeIdRegistryQueryClient implemen
   }: {
     chainId: string;
     codeId: number;
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       unregister: {
         chain_id: chainId,
@@ -237,7 +237,7 @@ export class CwCodeIdRegistryClient extends CwCodeIdRegistryQueryClient implemen
   }: {
     admin?: string;
     paymentInfo?: PaymentInfo;
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       update_config: {
         admin,

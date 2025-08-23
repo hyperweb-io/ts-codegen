@@ -1,4 +1,5 @@
 {
   "index": "Developing",
-  "ast": "Working with ASTs"
+  "ast": "Working with ASTs",
+  "migration-from-cosmjs": "Migration from CosmJS"
 }

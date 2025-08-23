@@ -8,7 +8,7 @@ exports[`create IContractsContext 1`] = `
 `;
 
 exports[`create getProviders 1`] = `
-"export const getProviders = (address?: string, cosmWasmClient?: CosmWasmClient, signingCosmWasmClient?: SigningCosmWasmClient) => ({
+"export const getProviders = (address?: string, cosmWasmClient?: ICosmWasmClient, signingCosmWasmClient?: ISigningCosmWasmClient) => ({
   whitelist: new Whitelist({
     address,
     cosmWasmClient,

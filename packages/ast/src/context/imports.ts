@@ -3,7 +3,6 @@ import { dirname, extname, relative } from 'path';
 
 import { importAs, importStmt } from '../utils';
 import { RenderContext } from './context';
-
 export interface ImportObj {
   type: 'import' | 'default' | 'namespace';
   name: string;
@@ -40,14 +39,19 @@ const makeReactQuerySwitch = (varName: string) => {
 
 export const UTILS = {
   selectorFamily: 'recoil',
-  MsgExecuteContract: 'cosmjs-types/cosmwasm/wasm/v1/tx',
-  MsgExecuteContractEncodeObject: '@cosmjs/cosmwasm-stargate',
-  Coin: '@cosmjs/amino',
-  toUtf8: '@cosmjs/encoding',
-  StdFee: '@cosmjs/amino',
-  CosmWasmClient: '@cosmjs/cosmwasm-stargate',
-  ExecuteResult: '@cosmjs/cosmwasm-stargate',
-  SigningCosmWasmClient: '@cosmjs/cosmwasm-stargate',
+  MsgExecuteContract: 'interchainjs/cosmwasm/wasm/v1/tx',
+  EncodeObject: '@interchainjs/cosmos-types',
+  Coin: '@interchainjs/types',
+  toUtf8: '@interchainjs/encoding',
+  StdFee: '@interchainjs/types',
+  ICosmWasmClient: '__baseClient__',
+
+  ISigningCosmWasmClient: '__baseClient__',
+  getCosmWasmClient: '__baseClient__',
+  getSigningCosmWasmClient: '__baseClient__',
+  IQueryClientProvider: '__contractContextBase__',
+  ISigningClientProvider: '__contractContextBase__',
+  IMessageComposerProvider: '__contractContextBase__',
 
   // react-query
   useQuery: makeReactQuerySwitch('useQuery'),
@@ -56,7 +60,7 @@ export const UTILS = {
   UseMutationOptions: makeReactQuerySwitch('UseMutationOptions'),
 };
 
-export const UTIL_HELPERS = ['__contractContextBase__'];
+export const UTIL_HELPERS = ['__contractContextBase__', '__baseClient__'];
 
 export const convertUtilsToImportList = (
   context: RenderContext,

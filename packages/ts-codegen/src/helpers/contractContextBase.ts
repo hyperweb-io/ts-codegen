@@ -1,13 +1,15 @@
 export const contractContextBase = `
 import {
-  CosmWasmClient,
-  SigningCosmWasmClient,
-} from '@cosmjs/cosmwasm-stargate';
+  ICosmWasmClient,
+  ISigningCosmWasmClient,
+  getCosmWasmClient,
+  getSigningCosmWasmClient,
+} from './baseClient';
 
 export interface IContractConstructor {
   address: string | undefined;
-  cosmWasmClient: CosmWasmClient | undefined;
-  signingCosmWasmClient: SigningCosmWasmClient | undefined;
+  cosmWasmClient: ICosmWasmClient | undefined;
+  signingCosmWasmClient: ISigningCosmWasmClient | undefined;
 }
 
 export const NO_SINGING_ERROR_MESSAGE = 'signingCosmWasmClient not connected';
@@ -49,15 +51,15 @@ export class ContractBase<
 > {
 
   address: string | undefined;
-  cosmWasmClient: CosmWasmClient | undefined;
-  signingCosmWasmClient: SigningCosmWasmClient | undefined;
+  cosmWasmClient: ICosmWasmClient | undefined;
+  signingCosmWasmClient: ISigningCosmWasmClient | undefined;
   TSign?: new (
-    client: SigningCosmWasmClient,
+    client: ISigningCosmWasmClient,
     sender: string,
     contractAddress: string
   ) => TSign;
   TQuery?: new (
-    client: CosmWasmClient,
+    client: ICosmWasmClient,
     contractAddress: string
   ) => TQuery;
   TMsgComposer?: new (
@@ -67,15 +69,15 @@ export class ContractBase<
 
   constructor(
     address: string | undefined,
-    cosmWasmClient: CosmWasmClient | undefined,
-    signingCosmWasmClient: SigningCosmWasmClient | undefined,
+    cosmWasmClient: ICosmWasmClient | undefined,
+    signingCosmWasmClient: ISigningCosmWasmClient | undefined,
     TSign?: new (
-      client: SigningCosmWasmClient,
+      client: ISigningCosmWasmClient,
       sender: string,
       contractAddress: string
     ) => TSign,
     TQuery?: new (
-      client: CosmWasmClient,
+      client: ICosmWasmClient,
       contractAddress: string
     ) => TQuery,
     TMsgComposer?: new (

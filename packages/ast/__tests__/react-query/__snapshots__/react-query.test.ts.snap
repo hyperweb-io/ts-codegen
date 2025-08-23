@@ -1185,8 +1185,8 @@ exports[`createReactQueryHooks 6`] = `
     funds?: Coin[];
   };
 }
-export function useSg721BurnMutation(options?: Omit<UseMutationOptions<ExecuteResult, Error, Sg721BurnMutation>, "mutationFn">) {
-  return useMutation<ExecuteResult, Error, Sg721BurnMutation>(({
+export function useSg721BurnMutation(options?: Omit<UseMutationOptions<any, Error, Sg721BurnMutation>, "mutationFn">) {
+  return useMutation<any, Error, Sg721BurnMutation>(({
     client,
     msg,
     args: {
@@ -1210,8 +1210,8 @@ export interface Sg721MintMutation {
     funds?: Coin[];
   };
 }
-export function useSg721MintMutation(options?: Omit<UseMutationOptions<ExecuteResult, Error, Sg721MintMutation>, "mutationFn">) {
-  return useMutation<ExecuteResult, Error, Sg721MintMutation>(({
+export function useSg721MintMutation(options?: Omit<UseMutationOptions<any, Error, Sg721MintMutation>, "mutationFn">) {
+  return useMutation<any, Error, Sg721MintMutation>(({
     client,
     msg,
     args: {
@@ -1232,8 +1232,8 @@ export interface Sg721RevokeAllMutation {
     funds?: Coin[];
   };
 }
-export function useSg721RevokeAllMutation(options?: Omit<UseMutationOptions<ExecuteResult, Error, Sg721RevokeAllMutation>, "mutationFn">) {
-  return useMutation<ExecuteResult, Error, Sg721RevokeAllMutation>(({
+export function useSg721RevokeAllMutation(options?: Omit<UseMutationOptions<any, Error, Sg721RevokeAllMutation>, "mutationFn">) {
+  return useMutation<any, Error, Sg721RevokeAllMutation>(({
     client,
     msg,
     args: {
@@ -1255,8 +1255,8 @@ export interface Sg721ApproveAllMutation {
     funds?: Coin[];
   };
 }
-export function useSg721ApproveAllMutation(options?: Omit<UseMutationOptions<ExecuteResult, Error, Sg721ApproveAllMutation>, "mutationFn">) {
-  return useMutation<ExecuteResult, Error, Sg721ApproveAllMutation>(({
+export function useSg721ApproveAllMutation(options?: Omit<UseMutationOptions<any, Error, Sg721ApproveAllMutation>, "mutationFn">) {
+  return useMutation<any, Error, Sg721ApproveAllMutation>(({
     client,
     msg,
     args: {
@@ -1278,8 +1278,8 @@ export interface Sg721RevokeMutation {
     funds?: Coin[];
   };
 }
-export function useSg721RevokeMutation(options?: Omit<UseMutationOptions<ExecuteResult, Error, Sg721RevokeMutation>, "mutationFn">) {
-  return useMutation<ExecuteResult, Error, Sg721RevokeMutation>(({
+export function useSg721RevokeMutation(options?: Omit<UseMutationOptions<any, Error, Sg721RevokeMutation>, "mutationFn">) {
+  return useMutation<any, Error, Sg721RevokeMutation>(({
     client,
     msg,
     args: {
@@ -1302,8 +1302,8 @@ export interface Sg721ApproveMutation {
     funds?: Coin[];
   };
 }
-export function useSg721ApproveMutation(options?: Omit<UseMutationOptions<ExecuteResult, Error, Sg721ApproveMutation>, "mutationFn">) {
-  return useMutation<ExecuteResult, Error, Sg721ApproveMutation>(({
+export function useSg721ApproveMutation(options?: Omit<UseMutationOptions<any, Error, Sg721ApproveMutation>, "mutationFn">) {
+  return useMutation<any, Error, Sg721ApproveMutation>(({
     client,
     msg,
     args: {
@@ -1326,8 +1326,8 @@ export interface Sg721SendNftMutation {
     funds?: Coin[];
   };
 }
-export function useSg721SendNftMutation(options?: Omit<UseMutationOptions<ExecuteResult, Error, Sg721SendNftMutation>, "mutationFn">) {
-  return useMutation<ExecuteResult, Error, Sg721SendNftMutation>(({
+export function useSg721SendNftMutation(options?: Omit<UseMutationOptions<any, Error, Sg721SendNftMutation>, "mutationFn">) {
+  return useMutation<any, Error, Sg721SendNftMutation>(({
     client,
     msg,
     args: {
@@ -1349,8 +1349,8 @@ export interface Sg721TransferNftMutation {
     funds?: Coin[];
   };
 }
-export function useSg721TransferNftMutation(options?: Omit<UseMutationOptions<ExecuteResult, Error, Sg721TransferNftMutation>, "mutationFn">) {
-  return useMutation<ExecuteResult, Error, Sg721TransferNftMutation>(({
+export function useSg721TransferNftMutation(options?: Omit<UseMutationOptions<any, Error, Sg721TransferNftMutation>, "mutationFn">) {
+  return useMutation<any, Error, Sg721TransferNftMutation>(({
     client,
     msg,
     args: {
@@ -1372,8 +1372,8 @@ exports[`ownership 1`] = `
     funds?: Coin[];
   };
 }
-export function useOwnershipUpdateOwnershipMutation(options?: Omit<UseMutationOptions<ExecuteResult, Error, OwnershipUpdateOwnershipMutation>, "mutationFn">) {
-  return useMutation<ExecuteResult, Error, OwnershipUpdateOwnershipMutation>(({
+export function useOwnershipUpdateOwnershipMutation(options?: Omit<UseMutationOptions<any, Error, OwnershipUpdateOwnershipMutation>, "mutationFn">) {
+  return useMutation<any, Error, OwnershipUpdateOwnershipMutation>(({
     client,
     msg,
     args: {
@@ -1394,8 +1394,8 @@ export interface OwnershipSetFactoryMutation {
     funds?: Coin[];
   };
 }
-export function useOwnershipSetFactoryMutation(options?: Omit<UseMutationOptions<ExecuteResult, Error, OwnershipSetFactoryMutation>, "mutationFn">) {
-  return useMutation<ExecuteResult, Error, OwnershipSetFactoryMutation>(({
+export function useOwnershipSetFactoryMutation(options?: Omit<UseMutationOptions<any, Error, OwnershipSetFactoryMutation>, "mutationFn">) {
+  return useMutation<any, Error, OwnershipSetFactoryMutation>(({
     client,
     msg,
     args: {

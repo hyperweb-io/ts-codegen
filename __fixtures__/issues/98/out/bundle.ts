@@ -7,10 +7,14 @@
 import * as _0 from "./98.types";
 import * as _1 from "./98.client";
 import * as _2 from "./98.react-query";
+import * as _3 from "./baseClient";
 export namespace contracts {
   export const 98 = {
     ..._0,
     ..._1,
     ..._2
+  };
+  export const baseClient = {
+    ..._3
   };
 }

@@ -4,99 +4,103 @@
 * and run the @cosmwasm/ts-codegen generate command to regenerate this file.
 */
 
-import * as _15 from "./Factory.types";
-import * as _16 from "./Factory.client";
-import * as _17 from "./Factory.message-composer";
-import * as _18 from "./Factory.react-query";
-import * as _19 from "./Factory.recoil";
-import * as _20 from "./Factory.message-builder";
-import * as _21 from "./Factory.provider";
-import * as _22 from "./Minter.types";
-import * as _23 from "./Minter.client";
-import * as _24 from "./Minter.message-composer";
-import * as _25 from "./Minter.react-query";
-import * as _26 from "./Minter.recoil";
-import * as _27 from "./Minter.message-builder";
-import * as _28 from "./Minter.provider";
-import * as _29 from "./CwAdminFactory.types";
-import * as _30 from "./CwAdminFactory.client";
-import * as _31 from "./CwAdminFactory.message-composer";
-import * as _32 from "./CwAdminFactory.react-query";
-import * as _33 from "./CwAdminFactory.recoil";
-import * as _34 from "./CwAdminFactory.message-builder";
-import * as _35 from "./CwAdminFactory.provider";
-import * as _36 from "./CwCodeIdRegistry.types";
-import * as _37 from "./CwCodeIdRegistry.client";
-import * as _38 from "./CwCodeIdRegistry.message-composer";
-import * as _39 from "./CwCodeIdRegistry.react-query";
-import * as _40 from "./CwCodeIdRegistry.recoil";
-import * as _41 from "./CwCodeIdRegistry.message-builder";
-import * as _42 from "./CwCodeIdRegistry.provider";
-import * as _43 from "./CwSingle.types";
-import * as _44 from "./CwSingle.client";
-import * as _45 from "./CwSingle.message-composer";
-import * as _46 from "./CwSingle.react-query";
-import * as _47 from "./CwSingle.recoil";
-import * as _48 from "./CwSingle.message-builder";
-import * as _49 from "./CwSingle.provider";
-import * as _50 from "./contractContextProviders";
-import * as _51 from "./contractContextBase";
-import * as _52 from "./contracts-context";
+import * as _16 from "./Factory.types";
+import * as _17 from "./Factory.client";
+import * as _18 from "./Factory.message-composer";
+import * as _19 from "./Factory.react-query";
+import * as _20 from "./Factory.recoil";
+import * as _21 from "./Factory.message-builder";
+import * as _22 from "./Factory.provider";
+import * as _23 from "./Minter.types";
+import * as _24 from "./Minter.client";
+import * as _25 from "./Minter.message-composer";
+import * as _26 from "./Minter.react-query";
+import * as _27 from "./Minter.recoil";
+import * as _28 from "./Minter.message-builder";
+import * as _29 from "./Minter.provider";
+import * as _30 from "./CwAdminFactory.types";
+import * as _31 from "./CwAdminFactory.client";
+import * as _32 from "./CwAdminFactory.message-composer";
+import * as _33 from "./CwAdminFactory.react-query";
+import * as _34 from "./CwAdminFactory.recoil";
+import * as _35 from "./CwAdminFactory.message-builder";
+import * as _36 from "./CwAdminFactory.provider";
+import * as _37 from "./CwCodeIdRegistry.types";
+import * as _38 from "./CwCodeIdRegistry.client";
+import * as _39 from "./CwCodeIdRegistry.message-composer";
+import * as _40 from "./CwCodeIdRegistry.react-query";
+import * as _41 from "./CwCodeIdRegistry.recoil";
+import * as _42 from "./CwCodeIdRegistry.message-builder";
+import * as _43 from "./CwCodeIdRegistry.provider";
+import * as _44 from "./CwSingle.types";
+import * as _45 from "./CwSingle.client";
+import * as _46 from "./CwSingle.message-composer";
+import * as _47 from "./CwSingle.react-query";
+import * as _48 from "./CwSingle.recoil";
+import * as _49 from "./CwSingle.message-builder";
+import * as _50 from "./CwSingle.provider";
+import * as _51 from "./contractContextProviders";
+import * as _52 from "./baseClient";
+import * as _53 from "./contractContextBase";
+import * as _54 from "./contracts-context";
 export namespace smart {
   export namespace contracts {
     export const Factory = {
-      ..._15,
       ..._16,
       ..._17,
       ..._18,
       ..._19,
       ..._20,
-      ..._21
+      ..._21,
+      ..._22
     };
     export const Minter = {
-      ..._22,
       ..._23,
       ..._24,
       ..._25,
       ..._26,
       ..._27,
-      ..._28
+      ..._28,
+      ..._29
     };
     export const CwAdminFactory = {
-      ..._29,
       ..._30,
       ..._31,
       ..._32,
       ..._33,
       ..._34,
-      ..._35
+      ..._35,
+      ..._36
     };
     export const CwCodeIdRegistry = {
-      ..._36,
       ..._37,
       ..._38,
       ..._39,
       ..._40,
       ..._41,
-      ..._42
+      ..._42,
+      ..._43
     };
     export const CwSingle = {
-      ..._43,
       ..._44,
       ..._45,
       ..._46,
       ..._47,
       ..._48,
-      ..._49
-    };
-    export const undefined = {
+      ..._49,
       ..._50
     };
-    export const contractContextBase = {
+    export const undefined = {
       ..._51
     };
-    export const contractsContext = {
+    export const baseClient = {
       ..._52
+    };
+    export const contractContextBase = {
+      ..._53
+    };
+    export const contractsContext = {
+      ..._54
     };
   }
 }

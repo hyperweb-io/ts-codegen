@@ -4,7 +4,7 @@
 * and run the @cosmwasm/ts-codegen generate command to regenerate this file.
 */
 
-import { CosmWasmClient, SigningCosmWasmClient } from "@cosmjs/cosmwasm-stargate";
+import { ICosmWasmClient, ISigningCosmWasmClient, getCosmWasmClient, getSigningCosmWasmClient } from "./baseClient";
 import { IQueryClientProvider, ISigningClientProvider, IMessageComposerProvider } from "./contractContextBase";
 import { FactoryQueryClient } from "./Factory.client";
 import { FactoryClient } from "./Factory.client";
@@ -33,7 +33,7 @@ export interface IContractsContext {
   cwCodeIdRegistry: IQueryClientProvider<CwCodeIdRegistryQueryClient> & ISigningClientProvider<CwCodeIdRegistryClient> & IMessageComposerProvider<CwCodeIdRegistryMsgComposer>;
   cwSingle: IQueryClientProvider<CwSingleQueryClient> & ISigningClientProvider<CwSingleClient> & IMessageComposerProvider<CwSingleMsgComposer>;
 }
-export const getProviders = (address?: string, cosmWasmClient?: CosmWasmClient, signingCosmWasmClient?: SigningCosmWasmClient) => ({
+export const getProviders = (address?: string, cosmWasmClient?: ICosmWasmClient, signingCosmWasmClient?: ISigningCosmWasmClient) => ({
   factory: new Factory({
     address,
     cosmWasmClient,

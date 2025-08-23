@@ -2,9 +2,9 @@
 
 exports[`query classes 1`] = `
 "export class SG721QueryClient implements SG721ReadOnlyInstance {
-  client: CosmWasmClient;
+  client: ICosmWasmClient;
   contractAddress: string;
-  constructor(client: CosmWasmClient, contractAddress: string) {
+  constructor(client: ICosmWasmClient, contractAddress: string) {
     this.client = client;
     this.contractAddress = contractAddress;
   }
