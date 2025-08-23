@@ -524,8 +524,6 @@ const generateMutationTypeParameter = (
   context: RenderContext,
   mutationHookParamsTypeName: string
 ) => {
-
-
   return t.tsTypeParameterInstantiation([
     // Data
     t.tSTypeReference(t.identifier('any')),

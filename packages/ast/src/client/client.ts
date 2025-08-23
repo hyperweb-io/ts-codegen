@@ -218,7 +218,6 @@ export const createWasmExecMethod = (
   context: RenderContext,
   jsonschema: JSONSchema
 ) => {
-
   context.addUtil('StdFee');
   context.addUtil('Coin');
 
