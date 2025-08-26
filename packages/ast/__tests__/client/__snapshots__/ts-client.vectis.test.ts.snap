@@ -10,10 +10,10 @@ exports[`cosmos_msg_for__empty 1`] = `"export type CosmosMsg_for_Empty = CosmosM
 
 exports[`execute classes array types 1`] = `
 "export class SG721Client implements SG721Instance {
-  client: SigningCosmWasmClient;
+  client: ISigningCosmWasmClient;
   sender: string;
   contractAddress: string;
-  constructor(client: SigningCosmWasmClient, sender: string, contractAddress: string) {
+  constructor(client: ISigningCosmWasmClient, sender: string, contractAddress: string) {
     this.client = client;
     this.sender = sender;
     this.contractAddress = contractAddress;
@@ -30,14 +30,14 @@ exports[`execute classes array types 1`] = `
     msgs
   }: {
     msgs: CosmosMsg_for_Empty[];
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       execute: {
         msgs
       }
     }, fee_, memo_, funds_);
   };
-  revertFreezeStatus = async (fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  revertFreezeStatus = async (fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       revert_freeze_status: {}
     }, fee_, memo_, funds_);
@@ -46,7 +46,7 @@ exports[`execute classes array types 1`] = `
     transaction
   }: {
     transaction: RelayTransaction;
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       relay: {
         transaction
@@ -57,7 +57,7 @@ exports[`execute classes array types 1`] = `
     newUserAddress
   }: {
     newUserAddress: string;
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       rotate_user_key: {
         new_user_address: newUserAddress
@@ -68,7 +68,7 @@ exports[`execute classes array types 1`] = `
     newRelayerAddress
   }: {
     newRelayerAddress: Addr;
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       add_relayer: {
         new_relayer_address: newRelayerAddress
@@ -79,7 +79,7 @@ exports[`execute classes array types 1`] = `
     relayerAddress
   }: {
     relayerAddress: Addr;
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       remove_relayer: {
         relayer_address: relayerAddress
@@ -92,7 +92,7 @@ exports[`execute classes array types 1`] = `
   }: {
     guardians: Guardians;
     newMultisigCodeId?: number;
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       update_guardians: {
         guardians,
@@ -104,7 +104,7 @@ exports[`execute classes array types 1`] = `
     newLabel
   }: {
     newLabel: string;
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       update_label: {
         new_label: newLabel
@@ -122,40 +122,40 @@ exports[`execute interfaces no extends 1`] = `
     msgs
   }: {
     msgs: CosmosMsg_for_Empty[];
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
-  revertFreezeStatus: (fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
+  revertFreezeStatus: (fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
   relay: ({
     transaction
   }: {
     transaction: RelayTransaction;
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
   rotateUserKey: ({
     newUserAddress
   }: {
     newUserAddress: string;
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
   addRelayer: ({
     newRelayerAddress
   }: {
     newRelayerAddress: Addr;
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
   removeRelayer: ({
     relayerAddress
   }: {
     relayerAddress: Addr;
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
   updateGuardians: ({
     guardians,
     newMultisigCodeId
   }: {
     guardians: Guardians;
     newMultisigCodeId?: number;
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
   updateLabel: ({
     newLabel
   }: {
     newLabel: string;
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
 }"
 `;
 
@@ -178,9 +178,9 @@ exports[`info_response 1`] = `
 
 exports[`query classes 1`] = `
 "export class SG721QueryClient implements SG721ReadOnlyInstance {
-  client: CosmWasmClient;
+  client: ICosmWasmClient;
   contractAddress: string;
-  constructor(client: CosmWasmClient, contractAddress: string) {
+  constructor(client: ICosmWasmClient, contractAddress: string) {
     this.client = client;
     this.contractAddress = contractAddress;
     this.bank = this.bank.bind(this);
@@ -219,9 +219,9 @@ exports[`query classes 1`] = `
 
 exports[`query classes 2`] = `
 "export class SG721QueryClient implements SG721ReadOnlyInstance {
-  client: CosmWasmClient;
+  client: ICosmWasmClient;
   contractAddress: string;
-  constructor(client: CosmWasmClient, contractAddress: string) {
+  constructor(client: ICosmWasmClient, contractAddress: string) {
     this.client = client;
     this.contractAddress = contractAddress;
     this.execute = this.execute.bind(this);

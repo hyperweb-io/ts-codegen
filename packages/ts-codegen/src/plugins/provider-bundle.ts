@@ -19,8 +19,10 @@ export class ContractsProviderBundlePlugin extends BuilderPluginBase<TSBuilderOp
     this.defaultContractName = 'contractContextProviders';
 
     this.utils = {
-      CosmWasmClient: '@cosmjs/cosmwasm-stargate',
-      SigningCosmWasmClient: '@cosmjs/cosmwasm-stargate',
+      ICosmWasmClient: '__baseClient__',
+      ISigningCosmWasmClient: '__baseClient__',
+      getCosmWasmClient: '__baseClient__',
+      getSigningCosmWasmClient: '__baseClient__',
       IQueryClientProvider: '__contractContextBase__',
       ISigningClientProvider: '__contractContextBase__',
       IMessageComposerProvider: '__contractContextBase__',
@@ -59,8 +61,10 @@ export class ContractsProviderBundlePlugin extends BuilderPluginBase<TSBuilderOp
 
     const body = [];
 
-    context.addUtil('CosmWasmClient');
-    context.addUtil('SigningCosmWasmClient');
+    context.addUtil('ICosmWasmClient');
+    context.addUtil('ISigningCosmWasmClient');
+    context.addUtil('getCosmWasmClient');
+    context.addUtil('getSigningCosmWasmClient');
 
     context.addUtil('IQueryClientProvider');
     context.addUtil('ISigningClientProvider');

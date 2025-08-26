@@ -7,16 +7,16 @@
 
 import React, { useEffect, useMemo, useRef, useState, useContext } from 'react';
 import {
-  CosmWasmClient,
-  SigningCosmWasmClient,
-} from '@cosmjs/cosmwasm-stargate';
+  ICosmWasmClient,
+  ISigningCosmWasmClient,
+} from './baseClient';
 
 import { IContractsContext, getProviders } from './contractContextProviders';
 
 export interface ContractsConfig {
   address: string | undefined;
-  getCosmWasmClient: () => Promise<CosmWasmClient>;
-  getSigningCosmWasmClient: () => Promise<SigningCosmWasmClient>;
+  getCosmWasmClient: () => Promise<ICosmWasmClient>;
+  getSigningCosmWasmClient: () => Promise<ISigningCosmWasmClient>;
 }
 
 const ContractsContext = React.createContext<IContractsContext | null>(null);
@@ -28,9 +28,9 @@ export const ContractsProvider = ({
   children: React.ReactNode;
   contractsConfig: ContractsConfig;
 }) => {
-  const [cosmWasmClient, setCosmWasmClient] = useState<CosmWasmClient>();
+  const [cosmWasmClient, setCosmWasmClient] = useState<ICosmWasmClient>();
   const [signingCosmWasmClient, setSigningCosmWasmClient] =
-    useState<SigningCosmWasmClient>();
+    useState<ISigningCosmWasmClient>();
 
   const { address, getCosmWasmClient, getSigningCosmWasmClient } =
     contractsConfig;

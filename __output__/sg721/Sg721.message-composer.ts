@@ -4,10 +4,10 @@
 * and run the @cosmwasm/ts-codegen generate command to regenerate this file.
 */
 
-import { Coin } from "@cosmjs/amino";
-import { MsgExecuteContractEncodeObject } from "@cosmjs/cosmwasm-stargate";
-import { MsgExecuteContract } from "cosmjs-types/cosmwasm/wasm/v1/tx";
-import { toUtf8 } from "@cosmjs/encoding";
+import { Coin } from "@interchainjs/types";
+import { EncodeObject } from "@interchainjs/cosmos-types";
+import { MsgExecuteContract } from "interchainjs/cosmwasm/wasm/v1/tx";
+import { toUtf8 } from "@interchainjs/encoding";
 import { Expiration, Timestamp, Uint64, AllNftInfoResponse, OwnerOfResponse, Approval, NftInfoResponseForEmpty, Empty, AllOperatorsResponse, AllTokensResponse, ApprovalResponse, ApprovalsResponse, Decimal, CollectionInfoResponse, RoyaltyInfoResponse, ContractInfoResponse, ExecuteMsgForEmpty, Binary, MintMsgForEmpty, InstantiateMsg, CollectionInfoForRoyaltyInfoResponse, MinterResponse, NftInfoResponse, NumTokensResponse, OperatorsResponse, QueryMsg, TokensResponse } from "./Sg721.types";
 export interface Sg721Msg {
   contractAddress: string;
@@ -18,7 +18,7 @@ export interface Sg721Msg {
   }: {
     recipient: string;
     tokenId: string;
-  }, funds_?: Coin[]) => MsgExecuteContractEncodeObject;
+  }, funds_?: Coin[]) => EncodeObject;
   sendNft: ({
     contract,
     msg,
@@ -27,7 +27,7 @@ export interface Sg721Msg {
     contract: string;
     msg: Binary;
     tokenId: string;
-  }, funds_?: Coin[]) => MsgExecuteContractEncodeObject;
+  }, funds_?: Coin[]) => EncodeObject;
   approve: ({
     expires,
     spender,
@@ -36,26 +36,26 @@ export interface Sg721Msg {
     expires?: Expiration;
     spender: string;
     tokenId: string;
-  }, funds_?: Coin[]) => MsgExecuteContractEncodeObject;
+  }, funds_?: Coin[]) => EncodeObject;
   revoke: ({
     spender,
     tokenId
   }: {
     spender: string;
     tokenId: string;
-  }, funds_?: Coin[]) => MsgExecuteContractEncodeObject;
+  }, funds_?: Coin[]) => EncodeObject;
   approveAll: ({
     expires,
     operator
   }: {
     expires?: Expiration;
     operator: string;
-  }, funds_?: Coin[]) => MsgExecuteContractEncodeObject;
+  }, funds_?: Coin[]) => EncodeObject;
   revokeAll: ({
     operator
   }: {
     operator: string;
-  }, funds_?: Coin[]) => MsgExecuteContractEncodeObject;
+  }, funds_?: Coin[]) => EncodeObject;
   mint: ({
     extension,
     owner,
@@ -66,12 +66,12 @@ export interface Sg721Msg {
     owner: string;
     tokenId: string;
     tokenUri?: string;
-  }, funds_?: Coin[]) => MsgExecuteContractEncodeObject;
+  }, funds_?: Coin[]) => EncodeObject;
   burn: ({
     tokenId
   }: {
     tokenId: string;
-  }, funds_?: Coin[]) => MsgExecuteContractEncodeObject;
+  }, funds_?: Coin[]) => EncodeObject;
 }
 export class Sg721MsgComposer implements Sg721Msg {
   sender: string;
@@ -94,7 +94,7 @@ export class Sg721MsgComposer implements Sg721Msg {
   }: {
     recipient: string;
     tokenId: string;
-  }, funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  }, funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({
@@ -118,7 +118,7 @@ export class Sg721MsgComposer implements Sg721Msg {
     contract: string;
     msg: Binary;
     tokenId: string;
-  }, funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  }, funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({
@@ -143,7 +143,7 @@ export class Sg721MsgComposer implements Sg721Msg {
     expires?: Expiration;
     spender: string;
     tokenId: string;
-  }, funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  }, funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({
@@ -166,7 +166,7 @@ export class Sg721MsgComposer implements Sg721Msg {
   }: {
     spender: string;
     tokenId: string;
-  }, funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  }, funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({
@@ -188,7 +188,7 @@ export class Sg721MsgComposer implements Sg721Msg {
   }: {
     expires?: Expiration;
     operator: string;
-  }, funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  }, funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({
@@ -208,7 +208,7 @@ export class Sg721MsgComposer implements Sg721Msg {
     operator
   }: {
     operator: string;
-  }, funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  }, funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({
@@ -233,7 +233,7 @@ export class Sg721MsgComposer implements Sg721Msg {
     owner: string;
     tokenId: string;
     tokenUri?: string;
-  }, funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  }, funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({
@@ -255,7 +255,7 @@ export class Sg721MsgComposer implements Sg721Msg {
     tokenId
   }: {
     tokenId: string;
-  }, funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  }, funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({

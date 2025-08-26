@@ -4,10 +4,10 @@
 * and run the @cosmwasm/ts-codegen generate command to regenerate this file.
 */
 
-import { Coin } from "@cosmjs/amino";
-import { MsgExecuteContractEncodeObject } from "@cosmjs/cosmwasm-stargate";
-import { MsgExecuteContract } from "cosmjs-types/cosmwasm/wasm/v1/tx";
-import { toUtf8 } from "@cosmjs/encoding";
+import { Coin } from "@interchainjs/types";
+import { EncodeObject } from "@interchainjs/cosmos-types";
+import { MsgExecuteContract } from "interchainjs/cosmwasm/wasm/v1/tx";
+import { toUtf8 } from "@interchainjs/encoding";
 import { Addr, PaymentInfo, Uint128, ConfigResponse, ExecuteMsg, Binary, Cw20ReceiveMsg, GetRegistrationResponse, Registration, InfoForCodeIdResponse, InstantiateMsg, ListRegistrationsResponse, QueryMsg, ReceiveMsg } from "./CwCodeIdRegistry.types";
 export interface CwCodeIdRegistryMsg {
   contractAddress: string;
@@ -20,7 +20,7 @@ export interface CwCodeIdRegistryMsg {
     amount: Uint128;
     msg: Binary;
     sender: string;
-  }, funds_?: Coin[]) => MsgExecuteContractEncodeObject;
+  }, funds_?: Coin[]) => EncodeObject;
   register: ({
     chainId,
     checksum,
@@ -33,7 +33,7 @@ export interface CwCodeIdRegistryMsg {
     codeId: number;
     name: string;
     version: string;
-  }, funds_?: Coin[]) => MsgExecuteContractEncodeObject;
+  }, funds_?: Coin[]) => EncodeObject;
   setOwner: ({
     chainId,
     name,
@@ -42,21 +42,21 @@ export interface CwCodeIdRegistryMsg {
     chainId: string;
     name: string;
     owner?: string;
-  }, funds_?: Coin[]) => MsgExecuteContractEncodeObject;
+  }, funds_?: Coin[]) => EncodeObject;
   unregister: ({
     chainId,
     codeId
   }: {
     chainId: string;
     codeId: number;
-  }, funds_?: Coin[]) => MsgExecuteContractEncodeObject;
+  }, funds_?: Coin[]) => EncodeObject;
   updateConfig: ({
     admin,
     paymentInfo
   }: {
     admin?: string;
     paymentInfo?: PaymentInfo;
-  }, funds_?: Coin[]) => MsgExecuteContractEncodeObject;
+  }, funds_?: Coin[]) => EncodeObject;
 }
 export class CwCodeIdRegistryMsgComposer implements CwCodeIdRegistryMsg {
   sender: string;
@@ -78,7 +78,7 @@ export class CwCodeIdRegistryMsgComposer implements CwCodeIdRegistryMsg {
     amount: Uint128;
     msg: Binary;
     sender: string;
-  }, funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  }, funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({
@@ -107,7 +107,7 @@ export class CwCodeIdRegistryMsgComposer implements CwCodeIdRegistryMsg {
     codeId: number;
     name: string;
     version: string;
-  }, funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  }, funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({
@@ -134,7 +134,7 @@ export class CwCodeIdRegistryMsgComposer implements CwCodeIdRegistryMsg {
     chainId: string;
     name: string;
     owner?: string;
-  }, funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  }, funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({
@@ -157,7 +157,7 @@ export class CwCodeIdRegistryMsgComposer implements CwCodeIdRegistryMsg {
   }: {
     chainId: string;
     codeId: number;
-  }, funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  }, funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({
@@ -179,7 +179,7 @@ export class CwCodeIdRegistryMsgComposer implements CwCodeIdRegistryMsg {
   }: {
     admin?: string;
     paymentInfo?: PaymentInfo;
-  }, funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  }, funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({

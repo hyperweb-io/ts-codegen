@@ -29,5 +29,8 @@
   "keywords": [],
   "bugs": {
     "url": "https://github.com/hyperweb-io/ts-codegen/issues"
+  },
+  "dependencies": {
+    "minimatch": "^10.0.3"
   }
 }

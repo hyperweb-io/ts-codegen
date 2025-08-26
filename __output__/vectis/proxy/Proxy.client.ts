@@ -4,8 +4,8 @@
 * and run the @cosmwasm/ts-codegen generate command to regenerate this file.
 */
 
-import { CosmWasmClient, SigningCosmWasmClient, ExecuteResult } from "@cosmjs/cosmwasm-stargate";
-import { StdFee } from "@cosmjs/amino";
+import { ICosmWasmClient, ISigningCosmWasmClient } from "./baseClient";
+import { StdFee } from "@interchainjs/types";
 import { CanExecuteRelayResponse, CosmosMsgForEmpty, BankMsg, Uint128, StakingMsg, DistributionMsg, WasmMsg, Binary, Coin, Empty, ExecuteMsgForEmpty, Addr, RelayTransaction, Guardians, MultiSig, InfoResponse, ContractVersion, InstantiateMsg, CreateWalletMsg, QueryMsg, Uint64 } from "./Proxy.types";
 export interface ProxyReadOnlyInterface {
   contractAddress: string;
@@ -17,9 +17,9 @@ export interface ProxyReadOnlyInterface {
   }) => Promise<CanExecuteRelayResponse>;
 }
 export class ProxyQueryClient implements ProxyReadOnlyInterface {
-  client: CosmWasmClient;
+  client: ICosmWasmClient;
   contractAddress: string;
-  constructor(client: CosmWasmClient, contractAddress: string) {
+  constructor(client: ICosmWasmClient, contractAddress: string) {
     this.client = client;
     this.contractAddress = contractAddress;
     this.info = this.info.bind(this);
@@ -49,46 +49,46 @@ export interface ProxyInterface extends ProxyReadOnlyInterface {
     msgs
   }: {
     msgs: CosmosMsgForEmpty[];
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
-  revertFreezeStatus: (fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
+  revertFreezeStatus: (fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
   relay: ({
     transaction
   }: {
     transaction: RelayTransaction;
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
   rotateUserKey: ({
     newUserAddress
   }: {
     newUserAddress: string;
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
   addRelayer: ({
     newRelayerAddress
   }: {
     newRelayerAddress: Addr;
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
   removeRelayer: ({
     relayerAddress
   }: {
     relayerAddress: Addr;
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
   updateGuardians: ({
     guardians,
     newMultisigCodeId
   }: {
     guardians: Guardians;
     newMultisigCodeId?: number;
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
   updateLabel: ({
     newLabel
   }: {
     newLabel: string;
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
 }
 export class ProxyClient extends ProxyQueryClient implements ProxyInterface {
-  client: SigningCosmWasmClient;
+  client: ISigningCosmWasmClient;
   sender: string;
   contractAddress: string;
-  constructor(client: SigningCosmWasmClient, sender: string, contractAddress: string) {
+  constructor(client: ISigningCosmWasmClient, sender: string, contractAddress: string) {
     super(client, contractAddress);
     this.client = client;
     this.sender = sender;
@@ -106,14 +106,14 @@ export class ProxyClient extends ProxyQueryClient implements ProxyInterface {
     msgs
   }: {
     msgs: CosmosMsgForEmpty[];
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       execute: {
         msgs
       }
     }, fee_, memo_, funds_);
   };
-  revertFreezeStatus = async (fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  revertFreezeStatus = async (fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       revert_freeze_status: {}
     }, fee_, memo_, funds_);
@@ -122,7 +122,7 @@ export class ProxyClient extends ProxyQueryClient implements ProxyInterface {
     transaction
   }: {
     transaction: RelayTransaction;
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       relay: {
         transaction
@@ -133,7 +133,7 @@ export class ProxyClient extends ProxyQueryClient implements ProxyInterface {
     newUserAddress
   }: {
     newUserAddress: string;
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       rotate_user_key: {
         new_user_address: newUserAddress
@@ -144,7 +144,7 @@ export class ProxyClient extends ProxyQueryClient implements ProxyInterface {
     newRelayerAddress
   }: {
     newRelayerAddress: Addr;
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       add_relayer: {
         new_relayer_address: newRelayerAddress
@@ -155,7 +155,7 @@ export class ProxyClient extends ProxyQueryClient implements ProxyInterface {
     relayerAddress
   }: {
     relayerAddress: Addr;
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       remove_relayer: {
         relayer_address: relayerAddress
@@ -168,7 +168,7 @@ export class ProxyClient extends ProxyQueryClient implements ProxyInterface {
   }: {
     guardians: Guardians;
     newMultisigCodeId?: number;
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       update_guardians: {
         guardians,
@@ -180,7 +180,7 @@ export class ProxyClient extends ProxyQueryClient implements ProxyInterface {
     newLabel
   }: {
     newLabel: string;
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       update_label: {
         new_label: newLabel

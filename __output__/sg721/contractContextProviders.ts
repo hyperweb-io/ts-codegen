@@ -4,7 +4,7 @@
 * and run the @cosmwasm/ts-codegen generate command to regenerate this file.
 */
 
-import { CosmWasmClient, SigningCosmWasmClient } from "@cosmjs/cosmwasm-stargate";
+import { ICosmWasmClient, ISigningCosmWasmClient, getCosmWasmClient, getSigningCosmWasmClient } from "./baseClient";
 import { IQueryClientProvider, ISigningClientProvider, IMessageComposerProvider } from "./contractContextBase";
 import { Sg721QueryClient } from "./Sg721.client";
 import { Sg721Client } from "./Sg721.client";
@@ -13,7 +13,7 @@ import { Sg721 } from "./Sg721.provider";
 export interface IContractsContext {
   sg721: IQueryClientProvider<Sg721QueryClient> & ISigningClientProvider<Sg721Client> & IMessageComposerProvider<Sg721MsgComposer>;
 }
-export const getProviders = (address?: string, cosmWasmClient?: CosmWasmClient, signingCosmWasmClient?: SigningCosmWasmClient) => ({
+export const getProviders = (address?: string, cosmWasmClient?: ICosmWasmClient, signingCosmWasmClient?: ISigningCosmWasmClient) => ({
   sg721: new Sg721({
     address,
     cosmWasmClient,

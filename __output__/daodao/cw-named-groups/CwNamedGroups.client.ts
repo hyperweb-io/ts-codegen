@@ -4,8 +4,8 @@
 * and run the @cosmwasm/ts-codegen generate command to regenerate this file.
 */
 
-import { CosmWasmClient, SigningCosmWasmClient, ExecuteResult } from "@cosmjs/cosmwasm-stargate";
-import { Coin, StdFee } from "@cosmjs/amino";
+import { ICosmWasmClient, ISigningCosmWasmClient } from "./baseClient";
+import { Coin, StdFee } from "@interchainjs/types";
 import { DumpResponse, Group, ExecuteMsg, InstantiateMsg, Addr, ListAddressesResponse, ListGroupsResponse, QueryMsg } from "./CwNamedGroups.types";
 export interface CwNamedGroupsReadOnlyInterface {
   contractAddress: string;
@@ -37,9 +37,9 @@ export interface CwNamedGroupsReadOnlyInterface {
   }) => Promise<IsAddressInGroupResponse>;
 }
 export class CwNamedGroupsQueryClient implements CwNamedGroupsReadOnlyInterface {
-  client: CosmWasmClient;
+  client: ICosmWasmClient;
   contractAddress: string;
-  constructor(client: CosmWasmClient, contractAddress: string) {
+  constructor(client: ICosmWasmClient, contractAddress: string) {
     this.client = client;
     this.contractAddress = contractAddress;
     this.dump = this.dump.bind(this);
@@ -112,23 +112,23 @@ export interface CwNamedGroupsInterface extends CwNamedGroupsReadOnlyInterface {
     addressesToAdd?: string[];
     addressesToRemove?: string[];
     group: string;
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
   removeGroup: ({
     group
   }: {
     group: string;
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
   updateOwner: ({
     owner
   }: {
     owner: string;
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
 }
 export class CwNamedGroupsClient extends CwNamedGroupsQueryClient implements CwNamedGroupsInterface {
-  client: SigningCosmWasmClient;
+  client: ISigningCosmWasmClient;
   sender: string;
   contractAddress: string;
-  constructor(client: SigningCosmWasmClient, sender: string, contractAddress: string) {
+  constructor(client: ISigningCosmWasmClient, sender: string, contractAddress: string) {
     super(client, contractAddress);
     this.client = client;
     this.sender = sender;
@@ -145,7 +145,7 @@ export class CwNamedGroupsClient extends CwNamedGroupsQueryClient implements CwN
     addressesToAdd?: string[];
     addressesToRemove?: string[];
     group: string;
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       update: {
         addresses_to_add: addressesToAdd,
@@ -158,7 +158,7 @@ export class CwNamedGroupsClient extends CwNamedGroupsQueryClient implements CwN
     group
   }: {
     group: string;
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       remove_group: {
         group
@@ -169,7 +169,7 @@ export class CwNamedGroupsClient extends CwNamedGroupsQueryClient implements CwN
     owner
   }: {
     owner: string;
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       update_owner: {
         owner

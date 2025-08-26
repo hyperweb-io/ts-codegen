@@ -107,7 +107,7 @@ export const createQueryClass = (
   implementsClassName: string,
   queryMsg: QueryMsg
 ) => {
-  context.addUtil('CosmWasmClient');
+  context.addUtil('ICosmWasmClient');
 
   const propertyNames = getMessageProperties(queryMsg)
     .map((method) => Object.keys(method.properties)?.[0])
@@ -126,7 +126,7 @@ export const createQueryClass = (
         // client
         classProperty(
           'client',
-          t.tsTypeAnnotation(t.tsTypeReference(t.identifier('CosmWasmClient')))
+          t.tsTypeAnnotation(t.tsTypeReference(t.identifier('ICosmWasmClient')))
         ),
 
         // contractAddress
@@ -143,7 +143,7 @@ export const createQueryClass = (
             typedIdentifier(
               'client',
               t.tsTypeAnnotation(
-                t.tsTypeReference(t.identifier('CosmWasmClient'))
+                t.tsTypeReference(t.identifier('ICosmWasmClient'))
               )
             ),
             typedIdentifier(
@@ -218,7 +218,6 @@ export const createWasmExecMethod = (
   context: RenderContext,
   jsonschema: JSONSchema
 ) => {
-  context.addUtil('ExecuteResult');
   context.addUtil('StdFee');
   context.addUtil('Coin');
 
@@ -280,7 +279,7 @@ export const createWasmExecMethod = (
         t.tsTypeReference(
           t.identifier('Promise'),
           t.tsTypeParameterInstantiation([
-            t.tSTypeReference(t.identifier('ExecuteResult')),
+            t.tSTypeReference(t.identifier('any')),
           ])
         )
       ),
@@ -296,7 +295,7 @@ export const createExecuteClass = (
   extendsClassName: string | null,
   execMsg: ExecuteMsg
 ) => {
-  context.addUtil('SigningCosmWasmClient');
+  context.addUtil('ISigningCosmWasmClient');
 
   const propertyNames = getMessageProperties(execMsg)
     .map((method) => Object.keys(method.properties)?.[0])
@@ -371,7 +370,7 @@ export const createExecuteClass = (
         classProperty(
           'client',
           t.tsTypeAnnotation(
-            t.tsTypeReference(t.identifier('SigningCosmWasmClient'))
+            t.tsTypeReference(t.identifier('ISigningCosmWasmClient'))
           ),
           false,
           false,
@@ -400,7 +399,7 @@ export const createExecuteClass = (
             typedIdentifier(
               'client',
               t.tsTypeAnnotation(
-                t.tsTypeReference(t.identifier('SigningCosmWasmClient'))
+                t.tsTypeReference(t.identifier('ISigningCosmWasmClient'))
               )
             ),
             typedIdentifier('sender', t.tsTypeAnnotation(t.tsStringKeyword())),
@@ -431,7 +430,7 @@ export const createExecuteInterface = (
     return createPropertyFunctionWithObjectParamsForExec(
       context,
       methodName,
-      'ExecuteResult',
+      'any',
       jsonschema.properties[underscoreName]
     );
   });

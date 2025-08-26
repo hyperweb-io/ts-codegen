@@ -19,6 +19,7 @@ import * as _11 from "./CwCodeIdRegistry.react-query";
 import * as _12 from "./CwSingle.types";
 import * as _13 from "./CwSingle.client";
 import * as _14 from "./CwSingle.react-query";
+import * as _15 from "./baseClient";
 export namespace contracts {
   export const Factory = {
     ..._0,
@@ -44,5 +45,8 @@ export namespace contracts {
     ..._12,
     ..._13,
     ..._14
+  };
+  export const baseClient = {
+    ..._15
   };
 }

@@ -39,6 +39,7 @@
     "@cosmwasm/ts-codegen-types": "^1.4.0",
     "ast-stringify": "0.2.1",
     "case": "1.6.3",
-    "deepmerge": "4.2.2"
+    "deepmerge": "4.2.2",
+    "minimatch": "^10.0.3"
   }
 }

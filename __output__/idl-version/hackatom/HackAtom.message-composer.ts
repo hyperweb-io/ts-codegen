@@ -4,25 +4,25 @@
 * and run the @cosmwasm/ts-codegen generate command to regenerate this file.
 */
 
-import { MsgExecuteContractEncodeObject } from "@cosmjs/cosmwasm-stargate";
-import { MsgExecuteContract } from "cosmjs-types/cosmwasm/wasm/v1/tx";
-import { toUtf8 } from "@cosmjs/encoding";
+import { EncodeObject } from "@interchainjs/cosmos-types";
+import { MsgExecuteContract } from "interchainjs/cosmwasm/wasm/v1/tx";
+import { toUtf8 } from "@interchainjs/encoding";
 import { InstantiateMsg, ExecuteMsg, QueryMsg, MigrateMsg, SudoMsg, Uint128, Coin, IntResponse, AllBalanceResponse, Binary, RecurseResponse, VerifierResponse } from "./HackAtom.types";
 export interface HackAtomMsg {
   contractAddress: string;
   sender: string;
-  release: (funds_?: Coin[]) => MsgExecuteContractEncodeObject;
-  cpuLoop: (funds_?: Coin[]) => MsgExecuteContractEncodeObject;
-  storageLoop: (funds_?: Coin[]) => MsgExecuteContractEncodeObject;
-  memoryLoop: (funds_?: Coin[]) => MsgExecuteContractEncodeObject;
-  messageLoop: (funds_?: Coin[]) => MsgExecuteContractEncodeObject;
+  release: (funds_?: Coin[]) => EncodeObject;
+  cpuLoop: (funds_?: Coin[]) => EncodeObject;
+  storageLoop: (funds_?: Coin[]) => EncodeObject;
+  memoryLoop: (funds_?: Coin[]) => EncodeObject;
+  messageLoop: (funds_?: Coin[]) => EncodeObject;
   allocateLargeMemory: ({
     pages
   }: {
     pages: number;
-  }, funds_?: Coin[]) => MsgExecuteContractEncodeObject;
-  panic: (funds_?: Coin[]) => MsgExecuteContractEncodeObject;
-  userErrorsInApiCalls: (funds_?: Coin[]) => MsgExecuteContractEncodeObject;
+  }, funds_?: Coin[]) => EncodeObject;
+  panic: (funds_?: Coin[]) => EncodeObject;
+  userErrorsInApiCalls: (funds_?: Coin[]) => EncodeObject;
 }
 export class HackAtomMsgComposer implements HackAtomMsg {
   sender: string;
@@ -39,7 +39,7 @@ export class HackAtomMsgComposer implements HackAtomMsg {
     this.panic = this.panic.bind(this);
     this.userErrorsInApiCalls = this.userErrorsInApiCalls.bind(this);
   }
-  release = (funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  release = (funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({
@@ -52,7 +52,7 @@ export class HackAtomMsgComposer implements HackAtomMsg {
       })
     };
   };
-  cpuLoop = (funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  cpuLoop = (funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({
@@ -65,7 +65,7 @@ export class HackAtomMsgComposer implements HackAtomMsg {
       })
     };
   };
-  storageLoop = (funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  storageLoop = (funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({
@@ -78,7 +78,7 @@ export class HackAtomMsgComposer implements HackAtomMsg {
       })
     };
   };
-  memoryLoop = (funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  memoryLoop = (funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({
@@ -91,7 +91,7 @@ export class HackAtomMsgComposer implements HackAtomMsg {
       })
     };
   };
-  messageLoop = (funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  messageLoop = (funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({
@@ -108,7 +108,7 @@ export class HackAtomMsgComposer implements HackAtomMsg {
     pages
   }: {
     pages: number;
-  }, funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  }, funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({
@@ -123,7 +123,7 @@ export class HackAtomMsgComposer implements HackAtomMsg {
       })
     };
   };
-  panic = (funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  panic = (funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({
@@ -136,7 +136,7 @@ export class HackAtomMsgComposer implements HackAtomMsg {
       })
     };
   };
-  userErrorsInApiCalls = (funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  userErrorsInApiCalls = (funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({

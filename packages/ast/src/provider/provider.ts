@@ -224,13 +224,13 @@ export const createGettingProviders = (providerInfos: {
             identifier(
               'cosmWasmClient?',
               t.tsTypeAnnotation(
-                t.tsTypeReference(t.identifier('CosmWasmClient'))
+                t.tsTypeReference(t.identifier('ICosmWasmClient'))
               )
             ),
             identifier(
               'signingCosmWasmClient?',
               t.tsTypeAnnotation(
-                t.tsTypeReference(t.identifier('SigningCosmWasmClient'))
+                t.tsTypeReference(t.identifier('ISigningCosmWasmClient'))
               )
             ),
           ],

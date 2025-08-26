@@ -4,38 +4,38 @@
 * and run the @cosmwasm/ts-codegen generate command to regenerate this file.
 */
 
-import { MsgExecuteContractEncodeObject } from "@cosmjs/cosmwasm-stargate";
-import { MsgExecuteContract } from "cosmjs-types/cosmwasm/wasm/v1/tx";
-import { toUtf8 } from "@cosmjs/encoding";
+import { EncodeObject } from "@interchainjs/cosmos-types";
+import { MsgExecuteContract } from "interchainjs/cosmwasm/wasm/v1/tx";
+import { toUtf8 } from "@interchainjs/encoding";
 import { Addr, Timestamp, Uint64, Uint128, Config, Coin, ConfigResponse, ExecuteMsg, Decimal, InstantiateMsg, InstantiateMsg1, CollectionInfoForRoyaltyInfoResponse, RoyaltyInfoResponse, QueryMsg } from "./Minter.types";
 export interface MinterMsg {
   contractAddress: string;
   sender: string;
-  mint: (funds_?: Coin[]) => MsgExecuteContractEncodeObject;
+  mint: (funds_?: Coin[]) => EncodeObject;
   setWhitelist: ({
     whitelist
   }: {
     whitelist: string;
-  }, funds_?: Coin[]) => MsgExecuteContractEncodeObject;
-  updateStartTime: (funds_?: Coin[]) => MsgExecuteContractEncodeObject;
+  }, funds_?: Coin[]) => EncodeObject;
+  updateStartTime: (funds_?: Coin[]) => EncodeObject;
   updatePerAddressLimit: ({
     perAddressLimit
   }: {
     perAddressLimit: number;
-  }, funds_?: Coin[]) => MsgExecuteContractEncodeObject;
+  }, funds_?: Coin[]) => EncodeObject;
   mintTo: ({
     recipient
   }: {
     recipient: string;
-  }, funds_?: Coin[]) => MsgExecuteContractEncodeObject;
+  }, funds_?: Coin[]) => EncodeObject;
   mintFor: ({
     recipient,
     tokenId
   }: {
     recipient: string;
     tokenId: number;
-  }, funds_?: Coin[]) => MsgExecuteContractEncodeObject;
-  withdraw: (funds_?: Coin[]) => MsgExecuteContractEncodeObject;
+  }, funds_?: Coin[]) => EncodeObject;
+  withdraw: (funds_?: Coin[]) => EncodeObject;
 }
 export class MinterMsgComposer implements MinterMsg {
   sender: string;
@@ -51,7 +51,7 @@ export class MinterMsgComposer implements MinterMsg {
     this.mintFor = this.mintFor.bind(this);
     this.withdraw = this.withdraw.bind(this);
   }
-  mint = (funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  mint = (funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({
@@ -68,7 +68,7 @@ export class MinterMsgComposer implements MinterMsg {
     whitelist
   }: {
     whitelist: string;
-  }, funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  }, funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({
@@ -83,7 +83,7 @@ export class MinterMsgComposer implements MinterMsg {
       })
     };
   };
-  updateStartTime = (funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  updateStartTime = (funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({
@@ -100,7 +100,7 @@ export class MinterMsgComposer implements MinterMsg {
     perAddressLimit
   }: {
     perAddressLimit: number;
-  }, funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  }, funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({
@@ -119,7 +119,7 @@ export class MinterMsgComposer implements MinterMsg {
     recipient
   }: {
     recipient: string;
-  }, funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  }, funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({
@@ -140,7 +140,7 @@ export class MinterMsgComposer implements MinterMsg {
   }: {
     recipient: string;
     tokenId: number;
-  }, funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  }, funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({
@@ -156,7 +156,7 @@ export class MinterMsgComposer implements MinterMsg {
       })
     };
   };
-  withdraw = (funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  withdraw = (funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({

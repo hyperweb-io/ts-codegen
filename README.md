@@ -126,6 +126,44 @@ Typescript types and interfaces are generated in separate files so they can be i
 | `types.aliasExecuteMsg`  | generate a type alias based on the contract name                      |
 | `types.aliasEntryPoints` | generate type aliases for the entry points based on the contract name |
 
+### BaseClient
+The `baseClient.ts` will be generated as dependency for most files. It includes the base client for interchainjs.
+
+#### Gas Configuration
+
+The generated client provides flexible gas fee configuration options to handle different blockchain networks and fee settings.
+
+##### Default Gas Settings
+
+By default, the client uses a gas limit of `200000` for all transactions. You can customize this behavior through the `setDefaultGasAmount`.
+
+##### ChainConfig Options
+
+The `ChainConfig` interface supports two approaches for gas configuration:
+
+1. Chain Registry Integration (Recommended)
+
+When you provide chain information, the client automatically fetches gas prices from the chain registry:
+
+```typescript
+import { useChain } from '@interchain-kit/react';
+
+const { chain } = useChain('osmosistestnet');
+const chainConfig: ChainConfig = { chain: chain };
+```
+
+2. Manual Gas Price Configuration
+You can explicitly set gas prices for more control:
+
+```typescript
+const chainConfig: ChainConfig = {
+  gasPrice: {
+    denom: 'uosmo',
+    amount: '0.025'
+  }
+};
+```
+
 ### Client
 
 The `client` plugin will generate TS client classes for your contracts. This option generates a `QueryClient` for queries as well as a `Client` for queries and mutations.
@@ -173,7 +211,7 @@ Generate [recoil](https://recoiljs.org/) bindings for your contracts with the `r
 
 ### Message Composer
 
-Generate pure message objects with the proper `utf8` encoding and `typeUrl` configured that you can broadcast yourself via `cosmjs` with the `message-composer` command.
+Generate pure message objects with the proper `utf8` encoding and `typeUrl` configured that you can broadcast yourself via `interchainjs` with the `message-composer` command.
 
 [see example output code](https://github.com/hyperweb-io/ts-codegen/blob/main/__output__/sg721/Sg721.message-composer.ts)
 

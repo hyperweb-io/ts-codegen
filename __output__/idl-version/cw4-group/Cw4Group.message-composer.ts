@@ -4,10 +4,10 @@
 * and run the @cosmwasm/ts-codegen generate command to regenerate this file.
 */
 
-import { Coin } from "@cosmjs/amino";
-import { MsgExecuteContractEncodeObject } from "@cosmjs/cosmwasm-stargate";
-import { MsgExecuteContract } from "cosmjs-types/cosmwasm/wasm/v1/tx";
-import { toUtf8 } from "@cosmjs/encoding";
+import { Coin } from "@interchainjs/types";
+import { EncodeObject } from "@interchainjs/cosmos-types";
+import { MsgExecuteContract } from "interchainjs/cosmwasm/wasm/v1/tx";
+import { toUtf8 } from "@interchainjs/encoding";
 import { InstantiateMsg, Member, ExecuteMsg, QueryMsg, AdminResponse, HooksResponse, MemberListResponse, MemberResponse, TotalWeightResponse } from "./Cw4Group.types";
 export interface Cw4GroupMsg {
   contractAddress: string;
@@ -16,24 +16,24 @@ export interface Cw4GroupMsg {
     admin
   }: {
     admin?: string;
-  }, funds_?: Coin[]) => MsgExecuteContractEncodeObject;
+  }, funds_?: Coin[]) => EncodeObject;
   updateMembers: ({
     add,
     remove
   }: {
     add: Member[];
     remove: string[];
-  }, funds_?: Coin[]) => MsgExecuteContractEncodeObject;
+  }, funds_?: Coin[]) => EncodeObject;
   addHook: ({
     addr
   }: {
     addr: string;
-  }, funds_?: Coin[]) => MsgExecuteContractEncodeObject;
+  }, funds_?: Coin[]) => EncodeObject;
   removeHook: ({
     addr
   }: {
     addr: string;
-  }, funds_?: Coin[]) => MsgExecuteContractEncodeObject;
+  }, funds_?: Coin[]) => EncodeObject;
 }
 export class Cw4GroupMsgComposer implements Cw4GroupMsg {
   sender: string;
@@ -50,7 +50,7 @@ export class Cw4GroupMsgComposer implements Cw4GroupMsg {
     admin
   }: {
     admin?: string;
-  }, funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  }, funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({
@@ -71,7 +71,7 @@ export class Cw4GroupMsgComposer implements Cw4GroupMsg {
   }: {
     add: Member[];
     remove: string[];
-  }, funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  }, funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({
@@ -91,7 +91,7 @@ export class Cw4GroupMsgComposer implements Cw4GroupMsg {
     addr
   }: {
     addr: string;
-  }, funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  }, funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({
@@ -110,7 +110,7 @@ export class Cw4GroupMsgComposer implements Cw4GroupMsg {
     addr
   }: {
     addr: string;
-  }, funds_?: Coin[]): MsgExecuteContractEncodeObject => {
+  }, funds_?: Coin[]): EncodeObject => {
     return {
       typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
       value: MsgExecuteContract.fromPartial({

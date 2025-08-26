@@ -4,8 +4,8 @@
 * and run the @cosmwasm/ts-codegen generate command to regenerate this file.
 */
 
-import { CosmWasmClient, SigningCosmWasmClient, ExecuteResult } from "@cosmjs/cosmwasm-stargate";
-import { StdFee } from "@cosmjs/amino";
+import { ICosmWasmClient, ISigningCosmWasmClient } from "./baseClient";
+import { StdFee } from "@interchainjs/types";
 import { AdminAddrResponse, CodeIdResponse, CodeIdType, Uint128, Binary, CreateWalletMsg, Guardians, MultiSig, Coin, Cw20Coin, ExecuteMsg, Addr, ProxyMigrationTxMsg, WalletAddr, CanonicalAddr, RelayTransaction, FeeResponse, GovecAddrResponse, InstantiateMsg, QueryMsg, WalletQueryPrefix, Duration, StakingOptions, WalletInfo, ContractVersion, WalletsOfResponse, WalletsResponse } from "./Factory.types";
 export interface FactoryReadOnlyInterface {
   contractAddress: string;
@@ -35,9 +35,9 @@ export interface FactoryReadOnlyInterface {
   adminAddr: () => Promise<AdminAddrResponse>;
 }
 export class FactoryQueryClient implements FactoryReadOnlyInterface {
-  client: CosmWasmClient;
+  client: ICosmWasmClient;
   contractAddress: string;
-  constructor(client: CosmWasmClient, contractAddress: string) {
+  constructor(client: ICosmWasmClient, contractAddress: string) {
     this.client = client;
     this.contractAddress = contractAddress;
     this.wallets = this.wallets.bind(this);
@@ -112,49 +112,49 @@ export interface FactoryInterface {
     createWalletMsg
   }: {
     createWalletMsg: CreateWalletMsg;
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
   updateProxyUser: ({
     newUser,
     oldUser
   }: {
     newUser: Addr;
     oldUser: Addr;
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
   migrateWallet: ({
     migrationMsg,
     walletAddress
   }: {
     migrationMsg: ProxyMigrationTxMsg;
     walletAddress: WalletAddr;
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
   updateCodeId: ({
     newCodeId,
     ty
   }: {
     newCodeId: number;
     ty: CodeIdType;
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
   updateWalletFee: ({
     newFee
   }: {
     newFee: Coin;
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
   updateGovecAddr: ({
     addr
   }: {
     addr: string;
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
   updateAdmin: ({
     addr
   }: {
     addr: string;
-  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<ExecuteResult>;
+  }, fee_?: number | StdFee | "auto", memo_?: string, funds_?: Coin[]) => Promise<any>;
 }
 export class FactoryClient implements FactoryInterface {
-  client: SigningCosmWasmClient;
+  client: ISigningCosmWasmClient;
   sender: string;
   contractAddress: string;
-  constructor(client: SigningCosmWasmClient, sender: string, contractAddress: string) {
+  constructor(client: ISigningCosmWasmClient, sender: string, contractAddress: string) {
     this.client = client;
     this.sender = sender;
     this.contractAddress = contractAddress;
@@ -170,7 +170,7 @@ export class FactoryClient implements FactoryInterface {
     createWalletMsg
   }: {
     createWalletMsg: CreateWalletMsg;
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       create_wallet: {
         create_wallet_msg: createWalletMsg
@@ -183,7 +183,7 @@ export class FactoryClient implements FactoryInterface {
   }: {
     newUser: Addr;
     oldUser: Addr;
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       update_proxy_user: {
         new_user: newUser,
@@ -197,7 +197,7 @@ export class FactoryClient implements FactoryInterface {
   }: {
     migrationMsg: ProxyMigrationTxMsg;
     walletAddress: WalletAddr;
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       migrate_wallet: {
         migration_msg: migrationMsg,
@@ -211,7 +211,7 @@ export class FactoryClient implements FactoryInterface {
   }: {
     newCodeId: number;
     ty: CodeIdType;
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       update_code_id: {
         new_code_id: newCodeId,
@@ -223,7 +223,7 @@ export class FactoryClient implements FactoryInterface {
     newFee
   }: {
     newFee: Coin;
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       update_wallet_fee: {
         new_fee: newFee
@@ -234,7 +234,7 @@ export class FactoryClient implements FactoryInterface {
     addr
   }: {
     addr: string;
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       update_govec_addr: {
         addr
@@ -245,7 +245,7 @@ export class FactoryClient implements FactoryInterface {
     addr
   }: {
     addr: string;
-  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<ExecuteResult> => {
+  }, fee_: number | StdFee | "auto" = "auto", memo_?: string, funds_?: Coin[]): Promise<any> => {
     return await this.client.execute(this.sender, this.contractAddress, {
       update_admin: {
         addr
