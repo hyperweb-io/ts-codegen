@@ -97,7 +97,7 @@ export interface ICosmWasmClient {
   queryContractSmart(contractAddr: string, query: any): Promise<any>;
 }
 
-export interface ISigningCosmWasmClient {
+export interface ISigningCosmWasmClient extends ICosmWasmClient {
   execute(
     sender: string, 
     contractAddress: string, 
@@ -137,8 +137,19 @@ export function getCosmWasmClient(rpcEndpoint: string): ICosmWasmClient {
   };
 }
 
-export function getSigningCosmWasmClient(signingClient: DirectSigner): ISigningCosmWasmClient {
+export function getSigningCosmWasmClient(signingClient: DirectSigner, rpcEndpoint?: string): ISigningCosmWasmClient {
   return {
+    queryContractSmart: async (contractAddr: string, query: any) => {
+      if (!rpcEndpoint) {
+        throw new Error('rpcEndpoint is required for queryContractSmart in signing client');
+      }
+      const request: QuerySmartContractStateRequest = {
+        address: contractAddr,
+        queryData: toUint8Array(query)
+      };
+      const response: QuerySmartContractStateResponse = await getSmartContractState(rpcEndpoint, request);
+      return fromUint8Array(response.data);
+    },
     execute: async (
       sender: string, 
       contractAddress: string, 
