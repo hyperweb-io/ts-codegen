@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.2](https://github.com/hyperweb-io/ts-codegen/compare/@cosmwasm/ts-codegen-types@1.4.1...@cosmwasm/ts-codegen-types@1.4.2) (2025-10-16)
+
+**Note:** Version bump only for package @cosmwasm/ts-codegen-types
+
+
+
+
+
 ## [1.4.1](https://github.com/hyperweb-io/ts-codegen/compare/@cosmwasm/ts-codegen-types@1.4.0...@cosmwasm/ts-codegen-types@1.4.1) (2025-08-28)
 
 **Note:** Version bump only for package @cosmwasm/ts-codegen-types

@@ -1,6 +1,6 @@
 {
   "name": "@cosmwasm/ts-codegen",
-  "version": "1.13.1",
+  "version": "1.13.2",
   "description": "@cosmwasm/ts-codegen converts your CosmWasm smart contracts into dev-friendly TypeScript classes so you can focus on shipping code.",
   "author": "Dan Lynch <pyramation@gmail.com>",
   "homepage": "https://github.com/hyperweb-io/ts-codegen",
@@ -43,8 +43,8 @@
     "@chain-registry/types": "^0.17.1",
     "@chain-registry/utils": "^1.51.71",
     "@chain-registry/v2": "^1.71.229",
-    "@cosmwasm/ts-codegen-ast": "^1.9.1",
-    "@cosmwasm/ts-codegen-types": "^1.4.1",
+    "@cosmwasm/ts-codegen-ast": "^1.9.2",
+    "@cosmwasm/ts-codegen-types": "^1.4.2",
     "@interchainjs/amino": "1.17.1",
     "@interchainjs/cosmos": "1.17.1",
     "@interchainjs/types": "1.17.1",
