@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/hyperweb-io/ts-codegen/compare/@cosmwasm/ts-codegen-ast@1.9.3...@cosmwasm/ts-codegen-ast@1.10.0) (2025-12-11)
+
+**Note:** Version bump only for package @cosmwasm/ts-codegen-ast
+
+
+
+
+
 ## [1.9.3](https://github.com/hyperweb-io/ts-codegen/compare/@cosmwasm/ts-codegen-ast@1.9.2...@cosmwasm/ts-codegen-ast@1.9.3) (2025-10-16)
 
 **Note:** Version bump only for package @cosmwasm/ts-codegen-ast
