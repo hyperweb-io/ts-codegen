@@ -10,11 +10,11 @@ Generate TypeScript SDKs for your CosmWasm smart contracts
   <a href="https://github.com/hyperweb-io/ts-codegen/actions/workflows/run-tests.yaml">
     <img height="20" src="https://github.com/hyperweb-io/ts-codegen/actions/workflows/run-tests.yaml/badge.svg" />
   </a>
-  <a href="https://github.com/hyperweb-io/lib-count">
-  <img height="20" src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fhyperweb-io%2Flib-count%2Fmain%2Foutput%2Fbadges%2Fproducts%2Fcosmwasm%2Ftotal.json"/>  
+  <a href="https://github.com/constructive-io/lib-count">
+  <img height="20" src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fconstructive-io%2Flib-count%2Fmain%2Foutput%2Fbadges%2Fproducts%2Fcosmwasm%2Ftotal.json"/>  
   </a>
-  <a href="https://github.com/hyperweb-io/lib-count">
-  <img height="20" src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fhyperweb-io%2Flib-count%2Fmain%2Foutput%2Fbadges%2Fproducts%2Fcosmwasm%2Fmonthly.json"/>  
+  <a href="https://github.com/constructive-io/lib-count">
+  <img height="20" src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fconstructive-io%2Flib-count%2Fmain%2Foutput%2Fbadges%2Fproducts%2Fcosmwasm%2Fmonthly.json"/>  
   </a>
   <br />
   <a href="https://github.com/hyperweb-io/ts-codegen/blob/main/LICENSE-MIT"><img height="20" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
@@ -657,7 +657,7 @@ A unified toolkit for building applications and smart contracts in the Interchai
 
 ## Credits
 
-🛠 Built by [Interweb](https://interweb.co) — if you like our tools, please checkout and contribute [https://interweb.co](https://interweb.co)
+🛠 Built by the [Constructive](https://constructive.io) team — makers of [Hyperweb](https://hyperweb.io)
 
 
 ## Disclaimer
