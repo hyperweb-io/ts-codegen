@@ -1,4 +1,5 @@
 import { MinimistArgs } from '@cosmwasm/ts-codegen-types';
+import { spawnSync } from 'child_process';
 import dargs from 'dargs';
 import { lstatSync, readFileSync, writeFileSync } from 'fs';
 import { globSync as glob } from 'glob';
@@ -25,7 +26,15 @@ export default async (argv: MinimistArgs) => {
     argv
   );
 
-  shell.exec(`git clone ${repo} ${name}`);
+  const cloneResult = spawnSync('git', ['clone', repo, name], {
+    stdio: 'inherit',
+  });
+  if (cloneResult.error) {
+    throw cloneResult.error;
+  }
+  if (cloneResult.status !== 0) {
+    return shell.exit(cloneResult.status ?? 1);
+  }
   shell.cd(name);
 
   const questions = JSON.parse(readFileSync(`.questions.json`, 'utf-8'));
