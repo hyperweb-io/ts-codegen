@@ -4,6 +4,7 @@ import { camel, pascal } from 'case';
 
 import { RenderContext } from '../context';
 import { propertySignature } from './babel';
+import { varName } from './names';
 
 export function getResponseType(
   context: RenderContext,
@@ -414,7 +415,8 @@ export const getParamsTypeAnnotation = (
 export const createTypedObjectParams = (
   context: RenderContext,
   jsonschema: JSONSchema,
-  camelize: boolean = true
+  camelize: boolean = true,
+  inType: boolean = false
 ): t.Identifier | t.Pattern | t.RestElement => {
   const keys = Object.keys(jsonschema.properties ?? {});
   if (!keys.length) {
@@ -432,7 +434,7 @@ export const createTypedObjectParams = (
         );
         return id;
       } else if (obj) {
-        return createTypedObjectParams(context, obj, camelize);
+        return createTypedObjectParams(context, obj, camelize, inType);
       }
     }
 
@@ -440,12 +442,25 @@ export const createTypedObjectParams = (
     return;
   }
 
-  const params = keys.map((prop) => {
+  const bindings = keys.map((prop) => {
+    const key = camelize ? camel(prop) : prop;
+    return { key, value: varName(key) };
+  });
+
+  // binding renames are not valid in type positions, so use a plain
+  // parameter name when any key is not usable as a binding identifier
+  if (inType && bindings.some(({ key, value }) => key !== value)) {
+    const id = t.identifier('params');
+    id.typeAnnotation = getParamsTypeAnnotation(context, jsonschema, camelize);
+    return id;
+  }
+
+  const params = bindings.map(({ key, value }) => {
     return t.objectProperty(
-      camelize ? t.identifier(camel(prop)) : t.identifier(prop),
-      camelize ? t.identifier(camel(prop)) : t.identifier(prop),
+      t.identifier(key),
+      t.identifier(value),
       false,
-      true
+      key === value
     );
   });
 

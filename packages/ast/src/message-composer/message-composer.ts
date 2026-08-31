@@ -1,13 +1,13 @@
 import * as t from '@babel/types';
 import { Expression } from '@babel/types';
 import { ExecuteMsg, JSONSchema } from '@cosmwasm/ts-codegen-types';
-import { camel } from 'case';
 
 import { getWasmMethodArgs } from '../client/client';
 import { RenderContext } from '../context';
 import {
   arrowFunctionExpression,
   bindMethod,
+  camelMethodName,
   classDeclaration,
   classProperty,
   getMessageProperties,
@@ -26,7 +26,7 @@ const createWasmExecMethodMessageComposer = (
   context.addUtil('toUtf8');
 
   const underscoreName = Object.keys(jsonschema.properties)[0];
-  const methodName = camel(underscoreName);
+  const methodName = camelMethodName(underscoreName);
   const param = createTypedObjectParams(
     context,
     jsonschema.properties[underscoreName]
@@ -133,7 +133,7 @@ export const createMessageComposerClass = (
     .map((method) => Object.keys(method.properties)?.[0])
     .filter(Boolean);
 
-  const bindings = propertyNames.map(camel).map(bindMethod);
+  const bindings = propertyNames.map(camelMethodName).map(bindMethod);
 
   const methods = getMessageProperties(execMsg).map((schema) => {
     return createWasmExecMethodMessageComposer(context, schema);
@@ -205,7 +205,7 @@ export const createMessageComposerInterface = (
 ) => {
   const methods = getMessageProperties(execMsg).map((jsonschema) => {
     const underscoreName = Object.keys(jsonschema.properties)[0];
-    const methodName = camel(underscoreName);
+    const methodName = camelMethodName(underscoreName);
     return createPropertyFunctionWithObjectParamsForMessageComposer(
       context,
       methodName,
@@ -246,7 +246,7 @@ const createPropertyFunctionWithObjectParamsForMessageComposer = (
   responseType: string,
   jsonschema: JSONSchema
 ) => {
-  const obj = createTypedObjectParams(context, jsonschema);
+  const obj = createTypedObjectParams(context, jsonschema, true, true);
   const fixedParams = [OPTIONAL_FUNDS_PARAM];
   const func = {
     type: 'TSFunctionType',

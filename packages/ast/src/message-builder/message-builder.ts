@@ -1,13 +1,13 @@
 import * as t from '@babel/types';
 import { Expression } from '@babel/types';
 import { ExecuteMsg, QueryMsg } from '@cosmwasm/ts-codegen-types';
-import { camel } from 'case';
 
 import { getWasmMethodArgs } from '../client/client';
 import { RenderContext } from '../context';
 import {
   abstractClassDeclaration,
   arrowFunctionExpression,
+  camelMethodName,
   getMessageProperties,
 } from '../utils';
 import { createTypedObjectParams } from '../utils/types';
@@ -62,7 +62,7 @@ const createStaticExecMethodMessageBuilder = (
   msgTitle: string
 ) => {
   const underscoreName = Object.keys(jsonschema.properties)[0];
-  const methodName = camel(underscoreName);
+  const methodName = camelMethodName(underscoreName);
   const param = createTypedObjectParams(
     context,
     jsonschema.properties[underscoreName]

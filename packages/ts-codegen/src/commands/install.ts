@@ -1,12 +1,12 @@
 import { MinimistArgs } from '@cosmwasm/ts-codegen-types';
-import { readFileSync, writeFileSync } from 'fs';
+import { execFileSync } from 'child_process';
+import { cpSync, readFileSync, renameSync, writeFileSync } from 'fs';
 import { globSync as glob } from 'glob';
 import { sync as mkdirp } from 'mkdirp';
 import { tmpdir } from 'os';
 import { parse } from 'parse-package-name';
 import { basename, dirname, extname, join, resolve } from 'path';
 import { sync as rimraf } from 'rimraf';
-import { exec } from 'shelljs';
 
 import { prompt } from '../utils/prompt';
 
@@ -16,12 +16,20 @@ const rnd = () =>
   Math.random().toString(36).substring(2, 15);
 
 const getPackages = (names: string[]) => {
-  return names
-    .map((pkg) => {
-      const { name, version } = parse(pkg);
-      return `${name}@${version}`;
-    })
-    .join(' ');
+  return names.map((pkg) => {
+    const { name, version } = parse(pkg);
+    return `${name}@${version}`;
+  });
+};
+
+const move = (src: string, dst: string) => {
+  try {
+    renameSync(src, dst);
+  } catch {
+    // fall back to copy + remove across devices
+    cpSync(src, dst, { recursive: true });
+    rimraf(src);
+  }
 };
 
 export default async (argv: MinimistArgs) => {
@@ -73,8 +81,10 @@ export default async (argv: MinimistArgs) => {
   const tmp = join(TMPDIR, rnd());
   mkdirp(tmp);
   process.chdir(tmp);
-  exec(
-    `npm install ${getPackages(pkg)} --production --prefix ./smart-contracts`
+  execFileSync(
+    'npm',
+    ['install', ...getPackages(pkg), '--production', '--prefix', './smart-contracts'],
+    { stdio: 'inherit' }
   );
 
   // protos
@@ -108,7 +118,7 @@ export default async (argv: MinimistArgs) => {
     rimraf(dst);
     console.log(`installing ${pkg}...`);
     mkdirp(dirname(dst));
-    exec(`mv ${src} ${dst}`);
+    move(src, dst);
   }
 
   // package
