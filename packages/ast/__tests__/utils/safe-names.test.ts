@@ -144,6 +144,8 @@ describe('reserved schema names', () => {
 
   it('execute interface escapes reserved identifiers', () => {
     const ctx = makeContext(executeMsg);
-    expectCode(createExecuteInterface(ctx, 'ReservedInstance', null, executeMsg));
+    expectCode(
+      createExecuteInterface(ctx, 'ReservedInstance', null, executeMsg)
+    );
   });
 });

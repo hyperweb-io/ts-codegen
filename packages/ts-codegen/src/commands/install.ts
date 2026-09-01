@@ -83,7 +83,13 @@ export default async (argv: MinimistArgs) => {
   process.chdir(tmp);
   execFileSync(
     'npm',
-    ['install', ...getPackages(pkg), '--production', '--prefix', './smart-contracts'],
+    [
+      'install',
+      ...getPackages(pkg),
+      '--production',
+      '--prefix',
+      './smart-contracts',
+    ],
     { stdio: 'inherit' }
   );
 
