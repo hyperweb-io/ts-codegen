@@ -1,6 +1,6 @@
 {
   "name": "@cosmwasm/ts-codegen",
-  "version": "1.14.0",
+  "version": "1.15.0",
   "description": "@cosmwasm/ts-codegen converts your CosmWasm smart contracts into dev-friendly TypeScript classes so you can focus on shipping code.",
   "author": "Constructive <developers@constructive.io>",
   "homepage": "https://github.com/hyperweb-io/ts-codegen",

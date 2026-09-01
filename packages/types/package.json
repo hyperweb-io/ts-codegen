@@ -1,6 +1,6 @@
 {
   "name": "@cosmwasm/ts-codegen-types",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "CosmWasm TSCodegen Types",
   "author": "Constructive <developers@constructive.io>",
   "homepage": "https://github.com/hyperweb-io/ts-codegen/tree/master/packages/types#readme",
