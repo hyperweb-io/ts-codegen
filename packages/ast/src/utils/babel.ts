@@ -4,6 +4,7 @@ import { Field } from '@cosmwasm/ts-codegen-types';
 import { JSONSchema } from '@cosmwasm/ts-codegen-types';
 import { snake } from 'case';
 
+import { camelMethodName } from './names';
 import { refLookup } from './ref';
 
 // t.TSPropertySignature - kind?
@@ -61,6 +62,22 @@ export const getMessageProperties = (msg: JSONSchema): JSONSchema[] => {
         results = [...results, ...refProps];
       }
     }
+  }
+
+  const seen: Record<string, string> = {};
+  for (const result of results) {
+    const key = Object.keys(result.properties ?? {})[0];
+    if (!key) continue;
+    const methodName = camelMethodName(key);
+    const prev = seen[methodName];
+    if (prev !== undefined && prev !== key) {
+      throw new Error(
+        `Operation name collision in "${msg.title ?? 'message'}": ` +
+          `"${prev}" and "${key}" both normalize to "${methodName}". ` +
+          `Rename one of the operations so the generated members are unique.`
+      );
+    }
+    seen[methodName] = key;
   }
 
   return results;

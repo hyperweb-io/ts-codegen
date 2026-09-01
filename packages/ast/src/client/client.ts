@@ -6,6 +6,8 @@ import { RenderContext } from '../context';
 import {
   arrowFunctionExpression,
   bindMethod,
+  camelMethodName,
+  camelVarName,
   classDeclaration,
   classProperty,
   FIXED_EXECUTE_PARAMS,
@@ -47,7 +49,7 @@ export const createWasmQueryMethod = (
   jsonschema: any
 ) => {
   const underscoreName = Object.keys(jsonschema.properties)[0];
-  const methodName = camel(underscoreName);
+  const methodName = camelMethodName(underscoreName);
   const responseType = getResponseType(context, underscoreName);
 
   const param = createTypedObjectParams(
@@ -113,7 +115,7 @@ export const createQueryClass = (
     .map((method) => Object.keys(method.properties)?.[0])
     .filter(Boolean);
 
-  const bindings = propertyNames.map(camel).map(bindMethod);
+  const bindings = propertyNames.map(camelMethodName).map(bindMethod);
 
   const methods = getMessageProperties(queryMsg).map((schema) => {
     return createWasmQueryMethod(context, schema);
@@ -205,9 +207,9 @@ export const getWasmMethodArgs = (
   const args = keys.map((prop) => {
     return t.objectProperty(
       t.identifier(prop),
-      t.identifier(camel(prop)),
+      t.identifier(camelVarName(prop)),
       false,
-      prop === camel(prop)
+      prop === camelVarName(prop)
     );
   });
 
@@ -222,7 +224,7 @@ export const createWasmExecMethod = (
   context.addUtil('Coin');
 
   const underscoreName = Object.keys(jsonschema.properties)[0];
-  const methodName = camel(underscoreName);
+  const methodName = camelMethodName(underscoreName);
   const param = createTypedObjectParams(
     context,
     jsonschema.properties[underscoreName]
@@ -301,7 +303,7 @@ export const createExecuteClass = (
     .map((method) => Object.keys(method.properties)?.[0])
     .filter(Boolean);
 
-  const bindings = propertyNames.map(camel).map(bindMethod);
+  const bindings = propertyNames.map(camelMethodName).map(bindMethod);
 
   const methods = getMessageProperties(execMsg).map((schema) => {
     return createWasmExecMethod(context, schema);
@@ -426,7 +428,7 @@ export const createExecuteInterface = (
 ) => {
   const methods = getMessageProperties(execMsg).map((jsonschema) => {
     const underscoreName = Object.keys(jsonschema.properties)[0];
-    const methodName = camel(underscoreName);
+    const methodName = camelMethodName(underscoreName);
     return createPropertyFunctionWithObjectParamsForExec(
       context,
       methodName,
@@ -469,7 +471,7 @@ export const createPropertyFunctionWithObjectParams = (
   responseType: string,
   jsonschema: JSONSchema
 ) => {
-  const obj = createTypedObjectParams(context, jsonschema);
+  const obj = createTypedObjectParams(context, jsonschema, true, true);
 
   const func = {
     type: 'TSFunctionType',
@@ -494,7 +496,7 @@ export const createPropertyFunctionWithObjectParamsForExec = (
 ) => {
   context.addUtil('Coin');
 
-  const obj = createTypedObjectParams(context, jsonschema);
+  const obj = createTypedObjectParams(context, jsonschema, true, true);
 
   const func = {
     type: 'TSFunctionType',
@@ -518,7 +520,7 @@ export const createQueryInterface = (
 ) => {
   const methods = getMessageProperties(queryMsg).map((jsonschema) => {
     const underscoreName = Object.keys(jsonschema.properties)[0];
-    const methodName = camel(underscoreName);
+    const methodName = camelMethodName(underscoreName);
     const responseType = getResponseType(context, underscoreName);
     return createPropertyFunctionWithObjectParams(
       context,

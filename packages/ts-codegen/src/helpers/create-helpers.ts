@@ -4,10 +4,10 @@ import { basename, dirname, extname, join } from 'path';
 
 import { BuilderFile, TSBuilderInput } from '../builder';
 import {
+  baseClient,
   contractContextBase,
   contractContextBaseShortHandCtor,
   contractsContextTSX,
-  baseClient,
 } from '../helpers';
 import { writeContentToFile } from '../utils/files';
 import { header } from '../utils/header';

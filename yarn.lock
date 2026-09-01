@@ -6157,10 +6157,10 @@ neo-async@^2.6.2:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
-nested-obj@0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/nested-obj/-/nested-obj-0.0.1.tgz#efe1da127c3d00826fa10ec25673e0f9ec1224fd"
-  integrity sha512-kB1WKTng+IePQhZVs1UXtFaHBx4QEM5a0XKGAzYfCKvdx5DhNjCytNDWMUGpNNpHLotln+tiwcA52kWCIgGq1Q==
+nested-obj@0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/nested-obj/-/nested-obj-0.2.2.tgz#70a16509fc9ce7d7374ff076642ef48ac02897e2"
+  integrity sha512-M1etu+T6Ai9Bo06L3K3nWD0ytZWltggBGsrxJlOGvMNGlCA4fokUVlbPKoWzsiiRX+PXq6Cb1xFEn4chiyC7MQ==
 
 next-tick@^1.1.0:
   version "1.1.0"

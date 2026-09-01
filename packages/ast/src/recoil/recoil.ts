@@ -5,6 +5,7 @@ import { camel, pascal } from 'case';
 import { RenderContext } from '../context';
 import {
   callExpression,
+  camelMethodName,
   getMessageProperties,
   getResponseType,
 } from '../utils';
@@ -120,7 +121,7 @@ export const createRecoilSelectors = (
 ): t.ExportNamedDeclaration[] => {
   return getMessageProperties(queryMsg).map((schema: JSONSchema) => {
     const underscoreName = Object.keys(schema.properties)[0];
-    const methodName = camel(underscoreName);
+    const methodName = camelMethodName(underscoreName);
     const responseType = getResponseType(context, underscoreName);
 
     return createRecoilSelector(

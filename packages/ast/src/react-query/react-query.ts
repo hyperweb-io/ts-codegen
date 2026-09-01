@@ -8,6 +8,7 @@ import { RenderContext } from '../context';
 import { ReactQueryOptions } from '../types';
 import {
   callExpression,
+  camelMethodName,
   createTypedObjectParams,
   getMessageProperties,
   identifier,
@@ -85,7 +86,7 @@ export const createReactQueryHooks = ({
       // list_voters
       const underscoreName = Object.keys(schema.properties)[0];
       // listVoters
-      const methodName = camel(underscoreName);
+      const methodName = camelMethodName(underscoreName);
       // Cw3FlexMultisigListVotersQuery
       const hookParamsTypeName = `${pascal(contractName)}${pascal(
         methodName
@@ -475,7 +476,7 @@ export const createReactQueryMutationHooks = ({
     // update_members
     const execMethodUnderscoreName = Object.keys(schema.properties)[0];
     // updateMembers
-    const execMethodName = camel(execMethodUnderscoreName);
+    const execMethodName = camelMethodName(execMethodUnderscoreName);
     // Cw20UpdateMembersMutation
     const mutationHookParamsTypeName = `${pascal(contractName)}${pascal(
       execMethodName
@@ -701,7 +702,7 @@ function createReactQueryKeys({
           ...underscoreNames.map((underscoreMethodName) =>
             t.objectProperty(
               // key id is the camel method name
-              t.identifier(camel(underscoreMethodName)),
+              t.identifier(camelMethodName(underscoreMethodName)),
               t.arrowFunctionExpression(
                 [
                   identifier('contractAddress', contractAddressTypeAnnotation),
@@ -856,7 +857,7 @@ function createReactQueryFactory({
 
               return t.objectProperty(
                 // key id is the camel method name
-                t.identifier(camel(methodName)),
+                t.identifier(camelMethodName(methodName)),
                 methodQueryOptionsFn
               );
             }
@@ -1054,7 +1055,7 @@ const generateUseQueryQueryKey = ({
     return t.callExpression(
       t.memberExpression(
         t.identifier(queryKeysName),
-        t.identifier(camel(methodName))
+        t.identifier(camelMethodName(methodName))
       ),
       callArgs
     );
