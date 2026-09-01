@@ -15,8 +15,8 @@
   "scripts": {
     "copy": "copyfiles -f LICENSE-Apache LICENSE-MIT README.md package.json dist",
     "clean": "rimraf dist/**",
-    "prepare": "npm run build",
-    "build": "npm run clean; tsc; tsc -p tsconfig.esm.json; npm run copy",
+    "prepublishOnly": "npm run build",
+    "build": "npm run clean && tsc && tsc -p tsconfig.esm.json && npm run copy",
     "lint": "eslint . --fix",
     "format": "prettier --write --log-level warn \"./**/*.ts\"",
     "test": "jest --passWithNoTests",

@@ -1,0 +1,8 @@
+packages:
+  - 'packages/*'
+
+# Only these dependencies may run install scripts.
+allowBuilds:
+  esbuild: true
+  nx: true
+  es5-ext: false

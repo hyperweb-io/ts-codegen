@@ -112,9 +112,7 @@ export const getImportStatements = (
   list: ImportObj[],
   filepath?: string
 ): (
-  | t.ImportNamespaceSpecifier
-  | t.ImportDeclaration
-  | t.ImportDefaultSpecifier
+  t.ImportNamespaceSpecifier | t.ImportDeclaration | t.ImportDefaultSpecifier
 )[] => {
   // swap helpers with helpers file...
   const modifiedImports = list.map((imp) => {

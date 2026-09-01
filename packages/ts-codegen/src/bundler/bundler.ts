@@ -66,9 +66,7 @@ export const createFileBundle = (
   filename: string,
   bundleFile: string,
   importPaths: (
-    | t.ImportDeclaration
-    | t.ImportDefaultSpecifier
-    | t.ImportNamespaceSpecifier
+    t.ImportDeclaration | t.ImportDefaultSpecifier | t.ImportNamespaceSpecifier
   )[],
   bundleVariables: BundleData
 ) => {

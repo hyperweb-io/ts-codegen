@@ -18,9 +18,7 @@ export interface IContext {
     registeredUtils?: UtilMapping,
     filepath?: string
   ): (
-    | t.ImportNamespaceSpecifier
-    | t.ImportDeclaration
-    | t.ImportDefaultSpecifier
+    t.ImportNamespaceSpecifier | t.ImportDeclaration | t.ImportDefaultSpecifier
   )[];
 }
 
@@ -131,9 +129,9 @@ export class BuilderContext {
  * only mergeDefaultOpt needs to implementing for combine options and default options.
  * @param TOpt option type
  */
-export abstract class RenderContextBase<TOpt = RenderOptions>
-  implements IRenderContext<TOpt>
-{
+export abstract class RenderContextBase<
+  TOpt = RenderOptions,
+> implements IRenderContext<TOpt> {
   builderContext: BuilderContext;
   contract: ContractInfo;
   utils: Record<string, boolean> = {};
@@ -185,9 +183,7 @@ export abstract class RenderContextBase<TOpt = RenderOptions>
     registeredUtils?: UtilMapping,
     filepath?: string
   ): (
-    | t.ImportNamespaceSpecifier
-    | t.ImportDeclaration
-    | t.ImportDefaultSpecifier
+    t.ImportNamespaceSpecifier | t.ImportDeclaration | t.ImportDefaultSpecifier
   )[] {
     return getImportStatements(
       convertUtilsToImportList(this, Object.keys(this.utils), registeredUtils),

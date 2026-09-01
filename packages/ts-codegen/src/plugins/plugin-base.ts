@@ -51,9 +51,9 @@ export interface IBuilderPlugin {
 /**
  * BuilderPluginBase enable ts-codegen users implement their own plugins by only implement a few functions.
  */
-export abstract class BuilderPluginBase<TOpt extends { enabled?: boolean }>
-  implements IBuilderPlugin
-{
+export abstract class BuilderPluginBase<
+  TOpt extends { enabled?: boolean },
+> implements IBuilderPlugin {
   builder?: TSBuilder;
   options: TOpt;
   utils: UtilMapping;

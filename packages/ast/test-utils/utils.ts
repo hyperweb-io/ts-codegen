@@ -1,5 +1,4 @@
 import generate from '@babel/generator';
-import { RenderOptions } from '@cosmwasm/ts-codegen-ast/types';
 import {
   ExecuteMsg,
   IDLObject,
@@ -11,6 +10,7 @@ import { globSync as glob } from 'glob';
 import { join } from 'path';
 
 import { RenderContext } from '../src/context';
+import { RenderOptions } from '../src/types';
 
 export const expectCode = (ast: any): void => {
   expect(generate(ast).code).toMatchSnapshot();
