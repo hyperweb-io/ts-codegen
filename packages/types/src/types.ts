@@ -1,9 +1,5 @@
 export declare type fieldType =
-  | 'Long'
-  | 'Coin'
-  | 'Duration'
-  | 'Height'
-  | string;
+  'Long' | 'Coin' | 'Duration' | 'Height' | string;
 export interface Field {
   name: string;
   type: fieldType;

@@ -1,9 +1,9 @@
 {
-  "lerna": "6",
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
   "conventionalCommits": true,
-  "npmClient": "yarn",
+  "npmClient": "pnpm",
   "npmClientArgs": [
-    "--no-lockfile"
+    "--frozen-lockfile"
   ],
   "packages": [
     "packages/*"

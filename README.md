@@ -616,14 +616,13 @@ export_schema_with_title(
 ### Initial setup
 
 ```
-yarn
-yarn bootstrap
+pnpm install
 ```
 
 ### Building
 
 ```
-yarn build
+pnpm build
 ```
 
 ### Tests
@@ -632,7 +631,7 @@ Then `cd` into a package and run the tests
 
 ```
 cd ./packages/ast
-yarn test:watch
+pnpm test:watch
 ```
 
 ### Working with ASTs

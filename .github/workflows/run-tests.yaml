@@ -15,19 +15,23 @@ jobs:
       - name: Checkout Repository 🛎️
         uses: actions/checkout@v4
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
+          cache: 'pnpm'
 
       - name: Install Dependencies
-        run: yarn install
+        run: pnpm install --frozen-lockfile
 
       - name: Build Project
-        run: yarn build
+        run: pnpm build
 
       - name: Test @cosmwasm/ts-codegen
-        run: cd packages/ts-codegen && yarn test
-      
+        run: pnpm --filter @cosmwasm/ts-codegen test
+
       - name: Test @cosmwasm/ts-codegen-ast
-        run: cd ./packages/ast && yarn test
+        run: pnpm --filter @cosmwasm/ts-codegen-ast test
